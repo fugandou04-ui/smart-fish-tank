@@ -1,3 +1,6 @@
+# OpenCode cache
+.opencode/
+
 # System
 .DS_Store
 Thumbs.db
