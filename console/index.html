@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFT-001 智能鱼缸 · 技术文档</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #fbfbfd;
+            --text: #1d1d1f;
+            --text-secondary: #86868b;
+            --gray: #f5f5f7;
+            --border: #d2d2d7;
+            --link: #0071e3;
+            --link-hover: #0077ed;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Navigation Bar */
+        nav.global {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        nav.global .nav-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+        }
+        
+        nav.global .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        nav.global .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        nav.global .nav-links a {
+            font-size: 12px;
+            color: var(--text);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        nav.global .nav-links a:hover { opacity: 1; }
+        
+        /* Hero Section */
+        .hero {
+            padding: 130px 0 60px;
+            text-align: center;
+            background: var(--gray);
+        }
+        
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--link);
+            margin-bottom: 8px;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        
+        .hero .subtitle {
+            font-size: 28px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 21px;
+        }
+        
+        .hero-links a {
+            color: var(--link);
+            text-decoration: none;
+        }
+        
+        .hero-links a:hover { text-decoration: underline; }
+        
+        .meta-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-item .value {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+        
+        .meta-item .label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        /* Categories Grid */
+        .categories {
+            padding: 80px 0;
+            background: var(--bg);
+        }
+        
+        .section-header {
+            max-width: 1024px;
+            margin: 0 auto 50px;
+            padding: 0 22px;
+            text-align: center;
+        }
+        
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .section-header p {
+            font-size: 21px;
+            color: var(--text-secondary);
+        }
+        
+        .category-grid {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+        
+        .category-card {
+            background: var(--gray);
+            border-radius: 18px;
+            padding: 36px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .category-card .icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            background: var(--bg);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-card .icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--link);
+        }
+        
+        .category-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .category-card .count {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* Documents Section */
+        .documents {
+            padding: 0 0 80px;
+        }
+        
+        .doc-section {
+            max-width: 1024px;
+            margin: 0 auto 60px;
+            padding: 0 22px;
+        }
+        
+        .doc-section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .doc-section-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .doc-section-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-secondary);
+        }
+        
+        .doc-section-header h3 {
+            font-size: 32px;
+            font-weight: 600;
+        }
+        
+        .doc-section-header .count {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .doc-card {
+            background: var(--gray);
+            border-radius: 18px;
+            padding: 28px;
+            display: flex;
+            gap: 20px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        
+        .doc-card:hover {
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .doc-card-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .doc-card-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--link);
+        }
+        
+        .doc-card-content { flex: 1; }
+        
+        .doc-card-content h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .doc-card-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .doc-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        
+        .doc-card-tag {
+            padding: 4px 10px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        
+        .doc-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .doc-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .doc-btn-blue {
+            background: var(--link);
+            color: white;
+        }
+        
+        .doc-btn-blue:hover { background: var(--link-hover); }
+        
+        .doc-btn-gray {
+            background: rgba(0,0,0,0.05);
+            color: var(--link);
+        }
+        
+        .doc-btn-gray:hover { background: rgba(0,0,0,0.1); }
+        
+        /* Footer */
+        footer {
+            padding: 40px 22px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        footer p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        footer a {
+            color: var(--link);
+            text-decoration: none;
+        }
+        
+        footer a:hover { text-decoration: underline; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav.global .nav-links { display: none; }
+            
+            .hero h1 { font-size: 36px; }
+            .hero .subtitle { font-size: 21px; }
+            
+            .meta-grid { flex-wrap: wrap; gap: 24px; }
+            
+            .category-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .doc-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero, .categories, .documents, .doc-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Global Navigation -->
+    <nav class="global">
+        <div class="nav-content">
+            <a href="#" class="logo">SFT-001</a>
+            <div class="nav-links">
+                <a href="#management">管理文档</a>
+                <a href="#hardware">硬件文档</a>
+                <a href="#software">软件文档</a>
+                <a href="#structure">结构文档</a>
+                <a href="#process">工艺文档</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档中心</p>
+            <h1>智能鱼缸<br>SFT-001</h1>
+            <p class="subtitle">桌面智能鱼缸完整开发资料库</p>
+            <div class="hero-links">
+                <a href="#categories">浏览文档 ↓</a>
+                <a href="../docs/hardware/电路设计说明书/电路设计说明书.html" target="_blank">在线阅读 →</a>
+            </div>
+            
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="value">13</div>
+                    <div class="label">份技术文档</div>
+                </div>
+                <div class="meta-item">
+                    <div class="value">¥92</div>
+                    <div class="label">原型预算</div>
+                </div>
+                <div class="meta-item">
+                    <div class="value">5</div>
+                    <div class="label">大功能模块</div>
+                </div>
+                <div class="meta-item">
+                    <div class="value">ESP32</div>
+                    <div class="label">主控芯片</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <div class="section-header">
+            <h2>文档分类</h2>
+            <p>涵盖项目全生命周期的技术资料</p>
+        </div>
+        
+        <div class="category-grid">
+            <a href="#management" class="category-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </div>
+                <h3>管理文档</h3>
+                <p class="count">2 份</p>
+            </a>
+            <a href="#hardware" class="category-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                </div>
+                <h3>硬件文档</h3>
+                <p class="count">3 份</p>
+            </a>
+            <a href="#software" class="category-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <h3>软件文档</h3>
+                <p class="count">1 份</p>
+            </a>
+            <a href="#structure" class="category-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </div>
+                <h3>结构文档</h3>
+                <p class="count">4 份</p>
+            </a>
+            <a href="#process" class="category-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <h3>工艺文档</h3>
+                <p class="count">3 份</p>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Documents -->
+    <main class="documents">
+        
+        <!-- 管理文档 -->
+        <section class="doc-section" id="management">
+            <div class="doc-section-header">
+                <div class="doc-section-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </div>
+                <h3>管理文档</h3>
+                <span class="count">2 份</span>
+            </div>
+            
+            <div class="doc-grid">
+                <a href="../docs/management/项目计划书/项目计划书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>项目计划书</h4>
+                        <p>项目里程碑、任务分解、风险清单、成本预算</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">项目管理</span><span class="doc-card-tag">成本预算</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/management/产品规格书/产品规格书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>产品规格书</h4>
+                        <p>产品技术规格、功能参数、包装清单</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">产品规格</span><span class="doc-card-tag">技术规格</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 硬件文档 -->
+        <section class="doc-section" id="hardware">
+            <div class="doc-section-header">
+                <div class="doc-section-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                </div>
+                <h3>硬件文档</h3>
+                <span class="count">3 份</span>
+            </div>
+            
+            <div class="doc-grid">
+                <a href="../docs/hardware/电路设计说明书/电路设计说明书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>电路设计说明书</h4>
+                        <p>原理图说明、引脚分配、BOM清单（V1.1）</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">ESP32-C3</span><span class="doc-card-tag">GPIO分配</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/hardware/PCB设计说明书/PCB设计说明书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><rect x="6" y="6" width="4" height="4"/><rect x="14" y="6" width="4" height="4"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>PCB设计说明书</h4>
+                        <p>PCB设计说明、布局详细说明</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">PCB布局</span><span class="doc-card-tag">布线规则</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/hardware/元器件采购清单/元器件采购清单.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>元器件采购清单</h4>
+                        <p>核心件92.2元、平台采购建议</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">BOM</span><span class="doc-card-tag">¥92.2</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 软件文档 -->
+        <section class="doc-section" id="software">
+            <div class="doc-section-header">
+                <div class="doc-section-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <h3>软件文档</h3>
+                <span class="count">1 份</span>
+            </div>
+            
+            <div class="doc-grid">
+                <a href="../docs/software/固件设计说明书/固件设计说明书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>固件设计说明书</h4>
+                        <p>系统架构、程序流程、库依赖、Web接口</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">ESP32</span><span class="doc-card-tag">Web控制</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 结构文档 -->
+        <section class="doc-section" id="structure">
+            <div class="doc-section-header">
+                <div class="doc-section-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </div>
+                <h3>结构文档</h3>
+                <span class="count">4 份</span>
+            </div>
+            
+            <div class="doc-grid">
+                <a href="../docs/structure/结构设计说明书/结构设计说明书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>结构设计说明书</h4>
+                        <p>11个零件清单、配合尺寸、装配顺序</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">3D建模</span><span class="doc-card-tag">11零件</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/structure/结构详细设计/结构详细设计.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>结构详细设计</h4>
+                        <p>3D结构详细设计、材料选择、公差规范</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">材料</span><span class="doc-card-tag">公差</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/structure/亚克力切割方案/亚克力切割方案.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>亚克力切割方案</h4>
+                        <p>切割图纸、粘接工艺、服务商推荐</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">亚克力</span><span class="doc-card-tag">DXF图纸</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/structure/过滤系统设计/过滤系统设计.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>过滤系统设计</h4>
+                        <p>过滤架构、流量计算、清洗维护</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">水循环</span><span class="doc-card-tag">滤材</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 工艺文档 -->
+        <section class="doc-section" id="process">
+            <div class="doc-section-header">
+                <div class="doc-section-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <h3>工艺文档</h3>
+                <span class="count">3 份</span>
+            </div>
+            
+            <div class="doc-grid">
+                <a href="../docs/process/测试用例文档/测试用例文档.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11a4 4 0 100-8 4 4 0 000 8z"/><path d="M17 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>测试用例文档</h4>
+                        <p>硬件/软件/压力测试用例、判定标准</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">测试</span><span class="doc-card-tag">质量</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/process/装配指导书/装配指导书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>装配指导书</h4>
+                        <p>组装步骤、注意事项、常见问题</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">装配</span><span class="doc-card-tag">组装</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="../docs/process/使用说明书/使用说明书.html" class="doc-card" target="_blank">
+                    <div class="doc-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    </div>
+                    <div class="doc-card-content">
+                        <h4>使用说明书</h4>
+                        <p>用户操作手册、快速开始、日常维护</p>
+                        <div class="doc-card-tags"><span class="doc-card-tag">用户手册</span><span class="doc-card-tag">操作指南</span></div>
+                        <div class="doc-card-actions">
+                            <span class="doc-btn doc-btn-blue">HTML</span>
+                            <span class="doc-btn doc-btn-gray">Word</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>SFT-001 智能鱼缸技术文档 · 最后更新：2026-05-22</p>
+    </footer>
+    
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

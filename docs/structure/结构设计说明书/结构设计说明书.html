@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面智能鱼缸 — 结构设计说明书</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>桌面智能鱼缸 — 结构设计说明书</h1>
+            <p class="subtitle">SUB桌面智能鱼缸 — 结构设计说明书</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>## 八、记录</strong></span>
+                <span class="meta-item">更新：<strong>**：** 2026</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本：</strong> v1.0</p>
+            <p><strong>作者：</strong> 机械工程师 Agent</p>
+            <p><strong>日期：</strong> 2026-05-21</p>
+            <p><strong>状态：</strong> 初稿</p>
+            <h2>一、产品概述与设计目标</h2>
+            <h3>1.1 产品定位</h3>
+            <p>桌面智能鱼缸是一款面向普通养鱼爱好者的智能水族产品，集成了水循环过滤、LED 照明、自动喂食、温度监测和 OLED 信息显示五大功能。缸体采用 15×15×15 cm 亚克力结构，总高度控制在 18 cm 以内，适合桌面摆放。</p>
+            <h3>1.2 设计约束汇总</h3>
+            <table>
+            <tr><th>参数</th><th>数值</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>缸体外尺寸</td><td>150 × 150 × 150 mm</td></tr>
+            <tr><td>总高度</td><td>≤ 180 mm</td></tr>
+            <tr><td>底座面积</td><td>160 × 160 mm（比缸体每边大 5 mm）</td></tr>
+            <tr><td>底座高度</td><td>≤ 50 mm</td></tr>
+            <tr><td>亚克力壁厚</td><td>2 mm</td></tr>
+            <tr><td>水容量</td><td>约 2.5 L</td></tr>
+            <tr><td>底座内部腔体</td><td>130 × 130 × 40 mm</td></tr>
+            <tr><td>过滤盒空间</td><td>80 × 40 × 30 mm</td></tr>
+            <tr><td>水管内径</td><td>4 mm</td></tr>
+            <tr><td>舵机轴孔</td><td>5 mm</td></tr>
+            <tr><td>PCB 定位孔</td><td>3 mm（直径）</td></tr>
+            </table>
+            <h3>1.3 设计原则</h3>
+            <li>所有结构件优先适配 FDM 3D 打印工艺，公差统一加放 <strong>+0.2 mm</strong></li>
+            <li>后续注塑可沿用同款 3D 模型，仅需调整材料参数</li>
+            <li>优先选用 <strong>ABS（3D 打印）/ PP（注塑）</strong>，兼顾韧性与耐水</li>
+            <li>可拆卸设计覆盖所有需要维护的部件，换水无需工具</li>
+            <li>防水等级：底座外壳 IP54（泼溅防护），灯条 IP67</li>
+            <h2>二、零件清单</h2>
+            <h3>2.1 底座外壳（Base Housing）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-01</td></tr>
+            <tr><td>文件名</td><td>`base_housing.stl`</td></tr>
+            <tr><td>材料</td><td>ABS</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>160 × 160 × 48（壁厚 3 mm）</td></tr>
+            <tr><td>公差</td><td>所有装配面 +0.2 mm</td></tr>
+            </table>
+            <p><strong>功能：</strong> 容纳全部电子件、过滤系统和泵，提供防水外壳和安装基准面。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为闭合盒形，底部封闭，顶部开放（通过上盖封闭）</li>
+            <li>前壁预留 OLED 屏开孔：63 × 22 mm（长 × 宽），位置距底面 25 mm</li>
+            <li>侧壁预留两根水管过孔：φ6 mm（内径 4 mm 管，外径含壁）</li>
+            <li>底部四角设计 M3 沉头螺钉孔（φ5 mm 沉孔，φ3.2 mm 通孔），距边 8 mm</li>
+            <li>内腔四个角设计 φ4 mm 定位柱（高度 8 mm），用于 PCB 导向定位</li>
+            <li>内腔中央设计过滤盒导向槽（宽 82 mm，深 5 mm）</li>
+            <li>内壁设计水泵固定凸台（φ20 mm 圆台，高 4 mm）</li>
+            <li>外观要求：四角倒圆 R3 mm，利于手持</li>
+            <h3>2.2 底座上盖（Base Top Cover）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-02</td></tr>
+            <tr><td>文件名</td><td>`base_top_cover.stl`</td></tr>
+            <tr><td>材料</td><td>ABS</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>160 × 160 × 5</td></tr>
+            <tr><td>公差</td><td>外形 +0.2 mm</td></tr>
+            </table>
+            <p><strong>功能：</strong> 密封底座腔体，定位并固定所有 PCB，是缸体安装的基准面。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>四角 M3 × 8 mm 螺钉通孔（φ3.2 mm），与底座外壳沉头孔配合</li>
+            <li>中央开设 140 × 140 mm 的开口（让位缸体底部），法兰边宽 10 mm</li>
+            <li>法兰内沿设计倒角 1 × 45°，引导缸体插入</li>
+            <li>PCB 定位孔 4 个：φ3 mm，位置与外壳内定位柱对齐</li>
+            <li>前端右侧开设舵机线出口槽：宽 8 mm，深 3 mm</li>
+            <h3>2.3 缸体底板（Tank Bottom Plate）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-03</td></tr>
+            <tr><td>文件名</td><td>`tank_bottom.stl`</td></tr>
+            <tr><td>材料</td><td>PMMA（亚克力），2 mm 板激光切割</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>150 × 150 × 2</td></tr>
+            <tr><td>公差</td><td>尺寸 ±0.15 mm</td></tr>
+            </table>
+            <p><strong>功能：</strong> 缸体底部密封，与四块侧板粘接形成水密缸体，底部与底座上盖法兰配合。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>四角设计 R2 mm 圆角（激光切割标准能力）</li>
+            <li>底部边缘设计宽 4 mm、厚 2 mm 的密封法兰（四周连续），与底座上盖法兰槽配合</li>
+            <li>中央区域设置水泵吸水口通孔：φ8 mm（位于底板中央偏后位置）</li>
+            <li>四周设计 4 个 φ3 mm 加强筋孔（局部减重，非透孔，深度 1 mm）</li>
+            <h3>2.4 缸体侧板 × 4（Tank Side Panels）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-04-A/B/C/D</td></tr>
+            <tr><td>文件名</td><td>`tank_side_A/B/C/D.stl`</td></tr>
+            <tr><td>材料</td><td>PMMA（亚克力），2 mm 板激光切割</td></tr>
+            <tr><td>数量</td><td>4</td></tr>
+            <tr><td>尺寸（mm）</td><td>150 × 150 × 2（高 × 宽 × 厚）</td></tr>
+            </table>
+            <p><strong>功能：</strong> 组成缸体四面墙壁，与底板和顶盖粘接密封。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>四块板尺寸一致，互换使用</li>
+            <li>上边缘和下边缘设计粘接坡口（45° × 1 mm），增大粘接面积</li>
+            <li>前面板（朝向 OLED）居中预留 φ8 mm 过线孔（DS18B20 温度线）</li>
+            <li>侧面（朝向底座侧壁水管方向）预留 φ6 mm 过孔（LED 排线出口）</li>
+            <li>长边方向设计 2 mm 宽、1 mm 深的定位台阶（粘接时对齐用）</li>
+            <h3>2.5 缸盖（Tank Lid）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-05</td></tr>
+            <tr><td>文件名</td><td>`tank_lid.stl`</td></tr>
+            <tr><td>材料</td><td>ABS</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>150 × 150 × 8</td></tr>
+            </table>
+            <p><strong>功能：</strong> 封闭缸体顶部，中央开设喂食开口，承载喂食器和 LED 灯条。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>中央开设φ60 mm 的喂食圆孔（落食通道）</li>
+            <li>孔周围设计宽 5 mm、厚 2 mm 的法兰边，用于粘接密封圈</li>
+            <li>法兰边内侧设计 O 形圈沟槽（φ65 mm，断面φ3 mm 圆形），防水防逃</li>
+            <li>前端左侧设计 LED 灯条嵌入槽：宽 10 mm，深 4 mm，长度 150 mm</li>
+            <li>两侧设计卡扣（宽 8 mm，高 5 mm），与缸体侧板顶端卡合</li>
+            <li>后端设计通风栅格孔（5 × φ4 mm 圆孔，间距 8 mm）</li>
+            <h3>2.6 过滤盒（Filter Box）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-06</td></tr>
+            <tr><td>文件名</td><td>`filter_box.stl`</td></tr>
+            <tr><td>材料</td><td>ABS（支持 PP）</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>80 × 40 × 28</td></tr>
+            </table>
+            <p><strong>功能：</strong> 装载过滤海绵，实现物理过滤，可从底座正面抽出清理。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>盒体为长方体，内部净空间：78 × 38 × 26 mm（容纳标准 70×35×25 mm 海绵块 × 2）</li>
+            <li>底面设计 2 mm 高底脚，避免贴底堵住进水孔</li>
+            <li>底面和侧面设计进水缝隙（宽 1.5 mm，共 6 条），引导水流进入</li>
+            <li>前端设计拉取手柄（宽 15 mm，深 6 mm，厚 5 mm）</li>
+            <li>侧面设计定位肋（宽 2 mm，高 3 mm），与底座内导向槽配合</li>
+            <li>顶面设计挂钩结构（与底座上盖挂钩孔配合），防止抽出时脱落</li>
+            <li>材料表面做粗糙化处理（打印时设置 10% 填充），增大滤水表面积</li>
+            <h3>2.7 水泵固定座（Pump Mount）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-07</td></tr>
+            <tr><td>文件名</td><td>`pump_mount.stl`</td></tr>
+            <tr><td>材料</td><td>ABS + TPU 减震套</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>φ24 × 18（主体）+ TPU 减震套 φ22 × 8</td></tr>
+            </table>
+            <p><strong>功能：</strong> 固定潜水泵，隔振降噪，防止渗漏，提供进出水接口。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为圆筒形，外径 φ24 mm，内腔 φ20 mm（适配常见 12 V 微型潜水泵）</li>
+            <li>底部设计 4 个 M2.5 螺钉孔，固定泵体</li>
+            <li>侧面设计两个快插接头座（内径 φ4 mm），用于进出水管</li>
+            <li>快插接头为独立零件 PT-07A（见 2.11 水管快接头）</li>
+            <li>外套 TPU 减震套（肖氏硬度 60 A），厚 3 mm，邵尔 A 硬度 60，隔振 ≥ 15 dB</li>
+            <li>顶部设计卡槽，与底座上盖凸台配合定位</li>
+            <h3>2.8 喂食器壳（Feeder Housing）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-08</td></tr>
+            <tr><td>文件名</td><td>`feeder_housing.stl`</td></tr>
+            <tr><td>材料</td><td>ABS</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>φ70 × 30（主体）</td></tr>
+            </table>
+            <p><strong>功能：</strong> 安装于缸盖喂食孔上方，容纳舵机和鱼食储料仓。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为圆筒形，外径 φ70 mm，内径 φ62 mm，高度 28 mm</li>
+            <li>底部设计法兰边（宽 5 mm，厚 2 mm），与缸盖喂食孔法兰面粘接</li>
+            <li>侧面预留舵机线走线槽（宽 5 mm，深 3 mm）</li>
+            <li>顶部设计卡槽，容纳舵机（SG90，9 g 标准尺寸）</li>
+            <li>舵机固定孔：4 × φ2 mm，间距 22 mm × 22 mm（适配 SG90）</li>
+            <li>中央开设 φ5 mm 轴孔（舵机输出轴穿过）</li>
+            <li>材料壁厚 4 mm，可承受潮湿环境和定期开盖取食</li>
+            <h3>2.9 喂食转盘（Feeding Disc）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-09</td></tr>
+            <tr><td>文件名</td><td>`feeding_disc.stl`</td></tr>
+            <tr><td>材料</td><td>ABS</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>φ58 × 3</td></tr>
+            </table>
+            <p><strong>功能：</strong> 与舵机轴配合，旋转时将储料仓中的鱼食分次拨入缸内。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为圆盘形，直径 φ58 mm，厚 3 mm</li>
+            <li>中央 φ5 mm 轴孔，与舵机输出轴过盈配合（压入安装）</li>
+            <li>盘面设计 2 个扇形拨片（宽 15 mm，高 8 mm，间隔 180°），将鱼食从仓内拨出</li>
+            <li>拨片与盘面夹角 30°，旋转方向为单向拨食</li>
+            <li>底部设计 1 mm 深的储食槽（与喂食器壳内腔配合，防止漏食）</li>
+            <h3>2.10 LED 固定座（LED Mount）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-10</td></tr>
+            <tr><td>文件名</td><td>`led_mount.stl`</td></tr>
+            <tr><td>材料</td><td>ABS + 透明硅胶密封</td></tr>
+            <tr><td>数量</td><td>1</td></tr>
+            <tr><td>尺寸（mm）</td><td>150 × 10 × 6</td></tr>
+            </table>
+            <p><strong>功能：</strong> 固定 WS2812B 灯条，导光，防水密封。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为长条形，宽度 10 mm，高度 6 mm，长度 150 mm</li>
+            <li>中央开 V 形凹槽（深 4 mm，宽 8 mm），灯条嵌入其中</li>
+            <li>两侧设计宽 1 mm 的卡扣唇，夹持灯条 FPC 软板（宽 8 mm）</li>
+            <li>底部设计宽 2 mm 的硅胶密封唇，与缸盖 LED 槽配合压紧</li>
+            <li>端部设计防水塞（φ4 mm 橡胶塞）</li>
+            <li>建议灯条：WS2812B 30 LEDs/m，IP67 封装，粘贴于 V 形槽底部</li>
+            <li>导光设计：V 形槽内壁作抛光处理（砂纸 2000 目），减少光损失</li>
+            <h3>2.11 水管快接头（Quick Connector）</h3>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>零件编号</td><td>PT-11</td></tr>
+            <tr><td>文件名</td><td>`quick_connector.stl`</td></tr>
+            <tr><td>材料</td><td>PP（注塑）/ ABS（3D 打印）</td></tr>
+            <tr><td>数量</td><td>4（2 进 2 出）</td></tr>
+            <tr><td>尺寸（mm）</td><td>φ8 × 20（外径 × 长度）</td></tr>
+            </table>
+            <p><strong>功能：</strong> 快速拆装水管，换水时无需工具，一拔即卸。</p>
+            <p><strong>设计要点：</strong></p>
+            <li>主体为圆柱形，外径 φ8 mm，内孔 φ4 mm（匹配 4 mm 内径硅胶管）</li>
+            <li>一端设计锥形锁紧结构（锥角 30°），插入软管后自密封</li>
+            <li>另一端设计外螺纹（M6 × 0.5，螺纹长 6 mm），与水泵固定座PT-07配合</li>
+            <li>中间设计手柄环（外径 φ12 mm），便于拔插施力</li>
+            <li>推荐配合：软管内径 4 mm，外径 6 mm，长度 150 mm（透明硅胶管）</li>
+            <h2>三、整体装配示意图</h2>
+            <pre><code>                        ┌─────────────────────────┐
+                        │     缸盖 Tank Lid       │  PT-05
+                        │  ┌─────────────────┐    │
+                        │  │   喂食口 φ60    │    │  喂食器壳 PT-08
+                        │  └────────┬────────┘    │  舵机+转盘 PT-09
+                        │      ○   │   ○         │  LED灯条 PT-10
+    ┌──────────────┐    ├──────────┴──────────────┤
+    │              │    │                        │
+    │  侧板 C(左)  │    │     缸体侧板 × 4       │  PT-04
+    │  侧板 A(前)  │    │     (粘接密封)         │
+    │  侧板 B(右)  │    │                        │
+    │  侧板 D(后)  │    ├────────────────────────┤  底板 PT-03
+    │              │    │  ★ 水泵吸水口 ★       │
+    └──────────────┘    └────────────────────────┘
+           ┌────────────────┴────────────────┐
+           │         底座上盖 PT-02           │
+           │   ┌─────────────────────────┐   │
+           │   │  [OLED屏幕]   [舵机线]  │   │
+           │   └─────────────────────────┘   │
+     ┌─────┴─────────────────────────────┴─────┐
+     │              底座外壳 PT-01              │
+     │  ┌───────┐              ┌───────────┐   │
+     │  │过滤盒 │  ┌──────┐   │  水泵固定座 │   │
+     │  │  ★   │  │ PCB  │   │    ◉      │   │
+     │  │(抽屉)│  │  □  │   │            │   │
+     │  └───────┘  └──────┘   └────────────┘   │
+     │  ← 进水(过滤)  → 出水(快插接头)         │
+     └──────────────────────────────────────────┘
+       [快插接头] [快插接头] [快插接头] [快插接头]
+           │         │         │         │
+       ┌───┴─────────┴─────────┴─────────┴───┐
+       │        桌面 / 底座支撑脚               │
+       └───────────────────────────────────────┘
+
+图例：
+★ = 可拆卸/维护件  ◉ = 水泵  □ = PCB  ○ = 舵机</code></pre>
+            <h2>四、关键配合尺寸</h2>
+            <h3>4.1 缸体与底座配合</h3>
+            <table>
+            <tr><th>配合面</th><th>尺寸（mm）</th><th>公差</th><th>备注</th></tr>
+            <tr><td>--------</td><td>-----------</td><td>------</td><td>------</td></tr>
+            <tr><td>缸体底板外沿 → 底座上盖法兰槽</td><td>150 → 149.8</td><td>−0.2</td><td>卡槽宽 4 mm，深 2 mm</td></tr>
+            <tr><td>缸体侧板 → 底板粘接缝</td><td>150 ± 0.15</td><td>—</td><td>激光切割精度</td></tr>
+            <tr><td>缸盖卡扣 → 侧板顶端</td><td>8 × 2（宽 × 高）</td><td>+0.2</td><td>卡入深度 ≥ 3 mm</td></tr>
+            <tr><td>缸体安装后总高</td><td>150 mm</td><td>—</td><td>缸体高</td></tr>
+            </table>
+            <h3>4.2 底座内部装配</h3>
+            <table>
+            <tr><th>配合面</th><th>尺寸（mm）</th><th>公差</th><th>备注</th></tr>
+            <tr><td>--------</td><td>-----------</td><td>------</td><td>------</td></tr>
+            <tr><td>PCB → 底座上盖定位孔</td><td>4 × φ3（孔距 100 × 100）</td><td>+0.15</td><td>定位销导向</td></tr>
+            <tr><td>过滤盒 → 底座导向槽</td><td>80 × 2（宽槽）</td><td>+0.3</td><td>抽屉式滑入</td></tr>
+            <tr><td>水泵固定座 → 底座凸台</td><td>φ22 → φ22.2</td><td>+0.2</td><td>TPU减震套过盈</td></tr>
+            <tr><td>快插接头 → 水泵座</td><td>M6 × 0.5 螺纹</td><td>+0.1</td><td>手动拧紧</td></tr>
+            </table>
+            <h3>4.3 缸盖与喂食系统</h3>
+            <table>
+            <tr><th>配合面</th><th>尺寸（mm）</th><th>公差</th><th>备注</th></tr>
+            <tr><td>--------</td><td>-----------</td><td>------</td><td>------</td></tr>
+            <tr><td>喂食口 → O形圈沟槽</td><td>φ65 → φ65.2</td><td>+0.2</td><td>φ3 mm 硅胶圈</td></tr>
+            <tr><td>舵机轴孔 → 舵机轴</td><td>φ5 → φ5.2</td><td>+0.2</td><td>过盈压入</td></tr>
+            <tr><td>喂食转盘 → 舵机轴</td><td>φ5 → φ5.15</td><td>+0.15</td><td>粘接固定</td></tr>
+            <tr><td>LED固定座 → 缸盖槽</td><td>10 × 4（宽 × 深）</td><td>+0.2</td><td>卡入固定</td></tr>
+            </table>
+            <h3>4.4 水路系统</h3>
+            <table>
+            <tr><th>配合面</th><th>尺寸（mm）</th><th>公差</th><th>备注</th></tr>
+            <tr><td>--------</td><td>-----------</td><td>------</td><td>------</td></tr>
+            <tr><td>快插接头 → 硅胶管</td><td>内φ4 → 外φ6</td><td>—</td><td>锥形自密封</td></tr>
+            <tr><td>快插接头 → 水泵座</td><td>M6 外螺纹</td><td>+0.1</td><td>手动装配</td></tr>
+            <tr><td>水管弯折半径</td><td>≥ 15 mm</td><td>—</td><td>防折弯堵塞</td></tr>
+            </table>
+            <h2>五、装配顺序</h2>
+            <p>> 建议从上到下、从内到外、最后密封的顺序进行总装。</p>
+            <h3>Step 1 — 底座内部预装（干燥环境）</h3>
+            <li><strong>安装水泵固定座</strong>：将 TPU 减震套套在水泵上，对准底座凸台压入，确认卡槽扣合</li>
+            <li><strong>安装过滤盒</strong>：从底座前面板方向滑入导向槽，推到底后上扣，确认锁定</li>
+            <li><strong>安装 PCB</strong>：对准 4 个 φ3 mm 定位孔，放上定位柱后用 M3 螺钉固定</li>
+            <li><strong>连接线束</strong>：舵机线、水泵线、OLED 排线、温度探头线分别接入 PCB 对应接口</li>
+            <li><strong>安装水管快接头</strong>：在手柄环位置拧紧到水泵座上，确认密封（可用生料带加强）</li>
+            <h3>Step 2 — 安装底座上盖</h3>
+            <li><strong>放置底座上盖</strong>：对准四角的 M3 螺钉孔，放上盖体</li>
+            <li><strong>固定螺钉</strong>：用 M3 × 8 mm 沉头螺钉 4 颗拧紧（扭矩 0.3 N·m，避免过紧）</li>
+            <li><strong>检查密封</strong>：确认上盖周边无可见缝隙</li>
+            <h3>Step 3 — 粘接缸体</h3>
+            <p>> 注意：亚克力粘接需使用专用 <strong>ABS 胶水</strong> 或 <strong>氯仿（CHCl₃）</strong>，固化时间 24 h。</p>
+            <li><strong>粘接底板与侧板</strong>：将 4 块侧板分别与底板粘接，用定位台阶保证垂直度</li>
+            <li><strong>粘接侧板间接缝</strong>：四块侧板相互粘接形成方筒，确保 90° 角（用角尺校验）</li>
+            <li><strong>粘接顶盖密封条</strong>：在底板顶面涂胶前，先安装密封法兰（宽 4 mm）</li>
+            <p>> ⚠️ <strong>注意</strong>：粘接完成后至少等待 <strong>24 小时</strong> 再注水测试，确保胶水完全固化。</p>
+            <h3>Step 4 — 安装缸盖与喂食系统</h3>
+            <li><strong>粘接 O 形圈</strong>：在缸盖喂食口法兰槽内放入 φ3 mm 硅胶圈</li>
+            <li><strong>安装 LED 固定座</strong>：将灯条嵌入 V 形槽，压入缸盖 LED 槽，两端插入防水塞</li>
+            <li><strong>安装喂食器壳</strong>：对准法兰面粘接到缸盖上（可用 ABS 胶水）</li>
+            <li><strong>安装舵机</strong>：用 4 颗 M2 螺钉将舵机固定在喂食器壳顶部</li>
+            <li><strong>安装喂食转盘</strong>：将转盘压入舵机轴，用少量 AB 胶固定</li>
+            <h3>Step 5 — 总装</h3>
+            <li><strong>安装缸体</strong>：将粘好的缸体从上方落入底座上盖的法兰槽，确认四边完全就位</li>
+            <li><strong>安装缸盖</strong>：将缸盖卡扣扣入侧板顶端，确认密封圈压紧</li>
+            <li><strong>连接快插管路</strong>：连接进水管（吸水口→过滤盒）和出水管（水泵→回归缸体）</li>
+            <li><strong>功能测试</strong>：注水通电，测试水泵、灯、喂食舵机、OLED 显示、温度监测</li>
+            <li><strong>气密测试</strong>：静置 24 h，检查各连接处无渗漏</li>
+            <h3>维护拆卸顺序（换水/清理时）</h3>
+            <li>拔掉两根快插水管 → 水排空</li>
+            <li>打开缸盖 → 取出鱼</li>
+            <li>从底座前面拉出过滤盒 → 清洗/更换海绵</li>
+            <li>如需清理水泵，拧开快插接头，取出水泵固定座清理</li>
+            <h2>六、材料清单</h2>
+            <h3>6.1 结构件材料</h3>
+            <table>
+            <tr><th>零件编号</th><th>零件名称</th><th>3D 打印材料</th><th>注塑材料</th><th>数量</th><th>备注</th></tr>
+            <tr><td>---------</td><td>---------</td><td>-----------</td><td>---------</td><td>------</td><td>------</td></tr>
+            <tr><td>PT-01</td><td>底座外壳</td><td>ABS</td><td>PP</td><td>1</td><td>壁厚 3 mm</td></tr>
+            <tr><td>PT-02</td><td>底座上盖</td><td>ABS</td><td>PP</td><td>1</td><td>板厚 5 mm</td></tr>
+            <tr><td>PT-03</td><td>缸体底板</td><td>PMMA 板</td><td>PMMA 板</td><td>1</td><td>激光切割</td></tr>
+            <tr><td>PT-04</td><td>缸体侧板 ×4</td><td>PMMA 板</td><td>PMMA 板</td><td>4</td><td>激光切割</td></tr>
+            <tr><td>PT-05</td><td>缸盖</td><td>ABS</td><td>PP</td><td>1</td><td>板厚 8 mm</td></tr>
+            <tr><td>PT-06</td><td>过滤盒</td><td>ABS</td><td>PP</td><td>1</td><td>可抽抽屉</td></tr>
+            <tr><td>PT-07</td><td>水泵固定座</td><td>ABS+TPU</td><td>PP+TPU</td><td>1</td><td>主体+减震套</td></tr>
+            <tr><td>PT-08</td><td>喂食器壳</td><td>ABS</td><td>PP</td><td>1</td><td>壁厚 4 mm</td></tr>
+            <tr><td>PT-09</td><td>喂食转盘</td><td>ABS</td><td>PP</td><td>1</td><td>厚 3 mm</td></tr>
+            <tr><td>PT-10</td><td>LED 固定座</td><td>ABS</td><td>PP</td><td>1</td><td>需抛光内壁</td></tr>
+            <tr><td>PT-11</td><td>水管快接头 ×4</td><td>ABS</td><td>PP</td><td>4</td><td>标准件</td></tr>
+            </table>
+            <h3>6.2 紧固件清单</h3>
+            <table>
+            <tr><th>品名</th><th>规格</th><th>数量</th><th>材料</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>沉头螺钉</td><td>M3 × 8 mm</td><td>4</td><td>不锈钢 304</td><td>底座上盖固定</td></tr>
+            <tr><td>螺钉</td><td>M2 × 6 mm</td><td>4</td><td>不锈钢 304</td><td>舵机固定</td></tr>
+            <tr><td>螺钉</td><td>M2.5 × 8 mm</td><td>4</td><td>不锈钢 304</td><td>水泵固定</td></tr>
+            <tr><td>定位柱</td><td>φ4 mm × 8 mm</td><td>4</td><td>ABS（打印件）</td><td>PCB 定位</td></tr>
+            <tr><td>O 形圈</td><td>φ65 mm，φ3 mm 断面</td><td>1</td><td>硅胶 60°</td><td>缸盖密封</td></tr>
+            </table>
+            <h3>6.3 五金件和标准件</h3>
+            <table>
+            <tr><th>品名</th><th>规格</th><th>数量</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>亚克力板</td><td>200 × 200 × 2 mm</td><td>5 张</td><td>缸体侧板+底板</td></tr>
+            <tr><td>硅胶管</td><td>内φ4 × 外φ6 mm，长 200 mm</td><td>2 根</td><td>进水/出水</td></tr>
+            <tr><td>硅胶管</td><td>内φ4 × 外φ6 mm，长 150 mm</td><td>2 根</td><td>水泵到缸体</td></tr>
+            <tr><td>WS2812B 灯条</td><td>30 LEDs/m，IP67，150 mm</td><td>1 条</td><td>LED 照明</td></tr>
+            <tr><td>魔术贴</td><td>20 × 20 mm</td><td>2 片</td><td>线束整理</td></tr>
+            </table>
+            <h3>6.4 密封和粘接材料</h3>
+            <table>
+            <tr><th>品名</th><th>规格</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>ABS 胶水 / 氯仿</td><td>液体，5 mL</td><td>亚克力板粘接</td></tr>
+            <tr><td>704 硅胶</td><td>透明，半流淌</td><td>水泵座密封、快插接头密封</td></tr>
+            <tr><td>生料带</td><td>宽 12 mm</td><td>螺纹密封（M6 快插）</td></tr>
+            <tr><td>AB 胶</td><td>5 分钟快干</td><td>喂食转盘与舵机轴固定</td></tr>
+            </table>
+            <h2>七、公差与质量控制</h2>
+            <h3>7.1 3D 打印公差规范</h3>
+            <table>
+            <tr><th>特征类型</th><th>公差加放</th><th>说明</th></tr>
+            <tr><td>---------</td><td>---------</td><td>------</td></tr>
+            <tr><td>卡扣/槽配合</td><td>+0.2 mm</td><td>FDM 打印典型公差</td></tr>
+            <tr><td>螺纹孔</td><td>+0.15 mm</td><td>螺纹区域不加工</td></tr>
+            <tr><td>轴孔（舵机轴 φ5）</td><td>+0.2 mm</td><td>过盈配合区</td></tr>
+            <tr><td>法兰贴合面</td><td>±0.1 mm</td><td>平面度控制</td></tr>
+            <tr><td>水路内壁</td><td>+0.3 mm</td><td>防堵塞，过流面积保证</td></tr>
+            <tr><td>外观面</td><td>—</td><td>打印后砂纸打磨处理</td></tr>
+            </table>
+            <h3>7.2 激光切割精度</h3>
+            <li>亚克力板尺寸公差：±0.15 mm（激光切割标准）</li>
+            <li>接缝间隙要求：≤ 0.2 mm（粘接前预处理）</li>
+            <li>垂直度检验：90° ± 0.5°</li>
+            <h3>7.3 防水测试要求</h3>
+            <table>
+            <tr><th>测试项目</th><th>验收标准</th></tr>
+            <tr><td>---------</td><td>---------</td></tr>
+            <tr><td>底座浸泡</td><td>24 h 无渗水（水位低于上盖 2 cm）</td></tr>
+            <tr><td>水管快接头</td><td>手动拔插 20 次无渗漏</td></tr>
+            <tr><td>缸盖密封</td><td>注满水 24 h 水位下降 ≤ 3 mm</td></tr>
+            <tr><td>LED 防水</td><td>灯条区域喷水 1 min 无短路</td></tr>
+            </table>
+            <h2>八、版本记录</h2>
+            <table>
+            <tr><th>版本</th><th>日期</th><th>修改内容</th><th>作者</th></tr>
+            <tr><td>------</td><td>------</td><td>---------</td><td>------</td></tr>
+            <tr><td>v0.1</td><td>2026-05-21</td><td>初稿创建，完成零件清单、装配图、配合尺寸、装配顺序、材料清单</td><td>机械工程师</td></tr>
+            </table>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

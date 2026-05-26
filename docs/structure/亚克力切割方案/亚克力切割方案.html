@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚克力缸切割方案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>亚克力缸切割方案</h1>
+            <p class="subtitle">SUB亚克力缸切割方案</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>V1.0</strong></span>
+                <span class="meta-item">更新：<strong>**编制**：202</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>项目</strong>：智能鱼缸</p>
+            <p><strong>缸体尺寸</strong>：15×15×15cm</p>
+            <p><strong>亚克力厚度</strong>：2mm</p>
+            <p><strong>材料</strong>：PMMA（透明）</p>
+            <p><strong>编制日期</strong>：2026-05-21</p>
+            <p><strong>编制人</strong>：机械工程师</p>
+            <h2>1. 切割件清单</h2>
+            <table>
+            <tr><th>序号</th><th>名称</th><th>尺寸 (cm)</th><th>数量</th><th>厚度</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td><td>-----------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>底板</td><td>15.0 × 15.0</td><td>1</td><td>2mm</td><td>底部承重，需抛光</td></tr>
+            <tr><td>2</td><td>侧板 A</td><td>15.0 × 15.0</td><td>2</td><td>2mm</td><td>长侧板，45°倒角粘接</td></tr>
+            <tr><td>3</td><td>侧板 B</td><td>15.0 × 15.0</td><td>2</td><td>2mm</td><td>短侧板，45°倒角粘接</td></tr>
+            <tr><td>4</td><td>盖板（预留）</td><td>15.0 × 15.0</td><td>1</td><td>2mm</td><td>可选，用于防尘</td></tr>
+            </table>
+            <p>> <strong>注</strong>：侧板需进行 45° 斜角切割（沿厚度方向），用于盒体粘接成型。</p>
+            <h2>2. 切割图纸（DXF 格式）</h2>
+            <p>切割图文件：<code>切割图纸_15x15x15.dxf</code></p>
+            <h3>2.1 排版方案</h3>
+            <p>采用<strong>单件排版</strong>方式，每块板材独立切割，以保证 45° 斜角精度。</p>
+            <pre><code>┌─────────────────────────────────────────┐
+│                                         │
+│    ┌─────────┐   ┌─────────┐           │
+│    │  底板   │   │ 侧板 A  │           │
+│    │ 15×15  │   │ 15×15  │           │
+│    └─────────┘   └─────────┘           │
+│                                         │
+│    ┌─────────┐   ┌─────────┐           │
+│    │ 侧板 A  │   │ 侧板 B  │           │
+│    │ 15×15  │   │ 15×15  │           │
+│    └─────────┘   └─────────┘           │
+│                                         │
+│    ┌─────────┐                         │
+│    │ 侧板 B  │   (可加盖板)            │
+│    │ 15×15  │                         │
+│    └─────────┘                         │
+│                                         │
+└─────────────────────────────────────────┘
+
+原材料尺寸建议：30cm × 30cm × 2mm（可切割6块+余量）</code></pre>
+            <h3>2.2 DXF 文件规格</h3>
+            <table>
+            <tr><th>参数</th><th>值</th></tr>
+            <tr><td>------</td><td>-----</td></tr>
+            <tr><td>坐标系</td><td>原点左下角</td></tr>
+            <tr><td>单位</td><td>mm（毫米）</td></tr>
+            <tr><td>线宽</td><td>0.25mm（切割路径）</td></tr>
+            <tr><td>倒角标记</td><td>45°/2mm 斜角边</td></tr>
+            </table>
+            <p>> <strong>DXF 文件已保存至</strong>：<code>E:\Mavis项目\智能鱼缸\docs\切割图纸_15x15x15.dxf</code></p>
+            <h2>3. 材料清单</h2>
+            <h3>3.1 原材料</h3>
+            <table>
+            <tr><th>物料</th><th>规格</th><th>数量</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>PMMA 透明亚克力板</td><td>300mm × 300mm × 2mm</td><td>1</td><td>需使用光学级/挤出级</td></tr>
+            <tr><td>品牌推荐</td><td>德国赢创 (EVONIK)、三菱 (Mitsubishi)、或国产鲁西</td><td>—</td><td>优先选择高透光率 (>92%)</td></tr>
+            </table>
+            <h3>3.2 粘接材料</h3>
+            <table>
+            <tr><th>物料</th><th>规格</th><th>数量</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>氯仿（三氯甲烷）</td><td>分析纯 AR</td><td>10-20mL</td><td>亚克力专用溶剂胶</td></tr>
+            <tr><td>或 ABS/PMMA 专用胶</td><td>—</td><td>1瓶</td><td>如 3M DP-805、Scigrip 16</td></tr>
+            </table>
+            <h3>3.3 抛光/处理材料</h3>
+            <table>
+            <tr><th>物料</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>抛光布/羊毛轮</td><td>边缘抛光</td></tr>
+            <tr><td>亚克力专用抛光膏</td><td>去除切割痕迹</td></tr>
+            <tr><td>无纺布</td><td>清洁表面</td></tr>
+            </table>
+            <h2>4. 切割服务商推荐</h2>
+            <h3>4.1 在线平台</h3>
+            <table>
+            <tr><th>平台</th><th>网址</th><th>特点</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>淘宝/天猫</td><td>搜索"亚克力激光切割"</td><td>商家多，可选材</td></tr>
+            <tr><td>1688 批发网</td><td>1688.com</td><td>价格优，适合批量</td></tr>
+            </table>
+            <p>> <strong>关键词</strong>：亚克力激光切割、PMMA 定制、45度斜角</p>
+            <h3>4.2 推荐搜索词</h3>
+            <pre><code>亚克力激光切割 45度斜角 上海/北京/深圳
+PMMA 透明板 激光切割 定制
+亚克力鱼缸 定制加工</code></pre>
+            <h3>4.3 服务要求说明（提供给商家）</h3>
+            <pre><code>切割要求：
+1. 材料：PMMA 透明亚克力板，厚度 2mm
+2. 切割尺寸：150mm × 150mm，共 5 件
+3. 边缘处理：45度斜角切割（用于粘接）
+4. 切割方式：激光切割（精度 ±0.1mm）
+5. 抛光要求：切割边缘去毛刺、轻度抛光
+6. 清洁要求：无尘包装
+
+材质要求：
+- 透光率 ≥ 92%
+- 无气泡、无杂质
+- 厚度均匀（公差 ±0.1mm）</code></pre>
+            <h2>5. 粘接工艺说明</h2>
+            <h3>5.1 粘接原理</h3>
+            <p>亚克力粘接有两种方式：</p>
+            <li><strong>溶剂粘接</strong>：氯仿渗入材料表面，溶胀后固化粘合（强度高、美观）</li>
+            <li><strong>胶水粘接</strong>：使用专用亚克力胶（操作容错率高）</li>
+            <h3>5.2 推荐工艺流程</h3>
+            <pre><code>┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   步骤1       │     │   步骤2       │     │   步骤3       │
+│   清洁表面     │ ──► │   对齐固定     │ ──► │   涂胶粘接     │
+└──────────────┘     └──────────────┘     └──────────────┘
+       │                                         │
+       ▼                                         ▼
+┌──────────────┐                         ┌──────────────┐
+│ 无水乙醇擦拭   │                         │ 固化处理      │
+│ 去除油污灰尘   │                         │ 常温静置24h   │
+└──────────────┘                         └──────────────┘</code></pre>
+            <h3>5.3 详细操作步骤</h3>
+            <h4>步骤1：清洁</h4>
+            <li>用无水乙醇擦拭所有待粘接边缘</li>
+            <li>佩戴手套，避免手指接触粘接面</li>
+            <li>确保表面干燥、无油污</li>
+            <h4>步骤2：对齐固定</h4>
+            <li>使用夹具或胶带预先固定板材</li>
+            <li>确保 45° 斜角对齐紧密，缝隙 < 0.1mm</li>
+            <li>可使用直角治具辅助定位</li>
+            <h4>步骤3：涂胶</h4>
+            <li>使用注射器或细毛刷蘸取氯仿</li>
+            <li>沿粘接缝均匀涂抹，量不宜过多</li>
+            <li>毛细作用会将胶水吸入缝隙</li>
+            <h4>步骤4：固化</h4>
+            <li>轻微施压（夹具固定）</li>
+            <li>常温静置 24 小时</li>
+            <li>避免移动或震动</li>
+            <h3>5.4 注意事项</h3>
+            <table>
+            <tr><th>事项</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>安全防护</td><td>氯仿有毒，操作时佩戴口罩、手套，保持通风</td></tr>
+            <tr><td>胶量控制</td><td>少量多次，避免溢胶导致雾化痕迹</td></tr>
+            <tr><td>固化时间</td><td>初期固化 5-10min，完全固化 24h</td></tr>
+            <tr><td>去除气泡</td><td>涂胶后轻敲震动，帮助气泡排出</td></tr>
+            </table>
+            <h3>5.5 质量检验</h3>
+            <li>[ ] 粘接缝透明，无明显白雾</li>
+            <li>[ ] 缝隙 < 0.1mm（目视不可见）</li>
+            <li>[ ] 结构强度：轻压不变形</li>
+            <li>[ ] 防水测试：无渗漏</li>
+            <h2>6. 附件</h2>
+            <li>[ ] 切割图纸 DXF 文件：<code>切割图纸_15x15x15.dxf</code></li>
+            <li>[ ] 材料采购清单（见 3.1、3.2 节）</li>
+            <h2>7. 修订记录</h2>
+            <table>
+            <tr><th>版本</th><th>日期</th><th>修订内容</th><th>修订人</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>V1.0</td><td>2026-05-21</td><td>初版方案</td><td>机械工程师</td></tr>
+            </table>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

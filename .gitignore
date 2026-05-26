@@ -1,0 +1,25 @@
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build output
+*.hex
+*.bin
+*.elf
+build/
+.pioenvs/
+.piolibdeps/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# OS cache
+$RECYCLE.BIN/

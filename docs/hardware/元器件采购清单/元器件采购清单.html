@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸 — 元器件采购清单</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸 — 元器件采购清单</h1>
+            <p class="subtitle">SUB智能鱼缸 — 元器件采购清单</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>V1.0</strong></span>
+                <span class="meta-item">更新：<strong>> 整理：2026-</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p>> 整理日期：2026-05-21</p>
+            <p>> 适用阶段：原型阶段（Prototype）</p>
+            <p>> 预算区间：约 100 元</p>
+            <h2>一、优先级分类说明</h2>
+            <table>
+            <tr><th>优先级</th><th>含义</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td></tr>
+            <tr><td>⭐ 核心件</td><td>无此件无法完成基本功能</td><td>优先采购，确保到货</td></tr>
+            <tr><td>🔧 可选件</td><td>功能增强或安全保护</td><td>建议采购，降低风险</td></tr>
+            <tr><td>🔨 工具/材料</td><td>辅助装配与结构部分</td><td>可同步采购</td></tr>
+            </table>
+            <h2>二、⭐ 核心件 — 采购清单</h2>
+            <table>
+            <tr><th>序号</th><th>物料</th><th>规格</th><th>数量</th><th>单价</th><th>小计</th><th>推荐平台</th><th>链接建议</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>1</td><td>ESP32-C3 核心板</td><td>Mini版，带WiFi</td><td>1</td><td>8元</td><td>8元</td><td>淘宝</td><td>搜 "ESP32-C3 Mini"</td></tr>
+            <tr><td>2</td><td>OLED屏幕</td><td>0.66寸 I2C SSD1306</td><td>1</td><td>6元</td><td>6元</td><td>淘宝</td><td>搜 "0.66寸 OLED I2C SSD1306"</td></tr>
+            <tr><td>3</td><td>温度传感器</td><td>DS18B20 防水探头</td><td>1</td><td>4元</td><td>4元</td><td>淘宝</td><td>搜 "DS18B20 防水探头"</td></tr>
+            <tr><td>4</td><td>水泵</td><td>9025型 5V静音</td><td>1</td><td>10元</td><td>10元</td><td>淘宝</td><td>搜 "9025型 5V静音水泵"</td></tr>
+            <tr><td>5</td><td>舵机</td><td>SG90 9g微型</td><td>1</td><td>5元</td><td>5元</td><td>淘宝</td><td>搜 "SG90 9g 舵机"</td></tr>
+            <tr><td>6</td><td>LED灯条</td><td>WS2812B防水 10cm</td><td>1</td><td>5元</td><td>5元</td><td>淘宝</td><td>搜 "WS2812B防水 10cm"</td></tr>
+            <tr><td>7</td><td>继电器模块</td><td>单路 5V光耦隔离</td><td>2</td><td>5元</td><td>10元</td><td>淘宝</td><td>搜 "5V光耦隔离继电器模块"</td></tr>
+            <tr><td>8</td><td>降压模块</td><td>AMS1117-3.3 LDO</td><td>1</td><td>2元</td><td>2元</td><td>立创商城</td><td>搜 "AMS1117-3.3"</td></tr>
+            <tr><td>9</td><td>USB接口</td><td>Type-C</td><td>1</td><td>2元</td><td>2元</td><td>淘宝</td><td>搜 "Type-C 16Pin 贴片"</td></tr>
+            <tr><td>10</td><td>接线端子</td><td>2Pin 5.08mm</td><td>5</td><td>1元</td><td>5元</td><td>淘宝</td><td>搜 "2Pin 5.08mm 接线端子"</td></tr>
+            <tr><td>11</td><td>排针</td><td>1×40pin</td><td>1</td><td>0.5元</td><td>0.5元</td><td>淘宝</td><td>搜 "1×40pin 排针 2.54"</td></tr>
+            </table>
+            <p><strong>核心件小计：57.5 元</strong></p>
+            <h2>三、🔧 可选件（保护与外围）— 采购清单</h2>
+            <table>
+            <tr><th>序号</th><th>物料</th><th>规格</th><th>数量</th><th>单价</th><th>小计</th><th>推荐平台</th><th>链接建议</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>1</td><td>TVS二极管</td><td>5V</td><td>1</td><td>0.5元</td><td>0.5元</td><td>立创商城</td><td>搜 "SMBJ5.0CA"</td></tr>
+            <tr><td>2</td><td>自恢复保险丝</td><td>500mA</td><td>1</td><td>0.5元</td><td>0.5元</td><td>立创商城</td><td>搜 "500mA 自恢复保险丝"</td></tr>
+            <tr><td>3</td><td>续流二极管</td><td>1N4007</td><td>2</td><td>0.2元</td><td>0.4元</td><td>立创商城</td><td>搜 "1N4007"</td></tr>
+            <tr><td>4</td><td>电容（电解）</td><td>1000μF/16V</td><td>2</td><td>1元</td><td>2元</td><td>淘宝</td><td>搜 "1000μF 16V 电解电容"</td></tr>
+            <tr><td>5</td><td>电容（陶瓷）</td><td>100nF</td><td>4</td><td>0.5元</td><td>2元</td><td>立创商城</td><td>搜 "100nF 0603 陶瓷电容"</td></tr>
+            <tr><td>6</td><td>电阻</td><td>10KΩ 0805</td><td>3</td><td>0.1元</td><td>0.3元</td><td>立创商城</td><td>搜 "10KΩ 0805 贴片电阻"</td></tr>
+            </table>
+            <p><strong>可选件小计：5.7 元</strong></p>
+            <p>> <strong>说明：</strong> TVS、自恢复保险丝、续流二极管为 ESD/过流保护的核心器件，原型阶段强烈建议焊接进电源入口处，防止水泵/舵机反电动势损坏主控。</p>
+            <h2>四、🔨 结构件 — 采购清单</h2>
+            <table>
+            <tr><th>序号</th><th>物料</th><th>规格</th><th>数量</th><th>单价</th><th>小计</th><th>推荐平台</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>1</td><td>亚克力板</td><td>15×15cm 2mm</td><td>5块</td><td>1元</td><td>5元</td><td>淘宝</td></tr>
+            <tr><td>2</td><td>3D打印件</td><td>PLA材料</td><td>1套</td><td>15元</td><td>15元</td><td>淘宝/闲鱼</td></tr>
+            <tr><td>3</td><td>螺丝套装</td><td>M2×6 + M3×8 混合</td><td>1套</td><td>3元</td><td>3元</td><td>淘宝</td></tr>
+            </table>
+            <p><strong>结构件小计：23 元</strong></p>
+            <h2>五、🔧 耗材 — 采购清单</h2>
+            <table>
+            <tr><th>序号</th><th>物料</th><th>规格</th><th>数量</th><th>单价</th><th>小计</th><th>推荐平台</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>1</td><td>过滤材料</td><td>生化棉+滤材</td><td>1套</td><td>3元</td><td>3元</td><td>淘宝（搜"鱼缸过滤材料套装"）</td></tr>
+            <tr><td>2</td><td>硅胶管</td><td>4mm内径</td><td>0.5米</td><td>2元</td><td>2元</td><td>淘宝（搜"4mm硅胶管"）</td></tr>
+            <tr><td>3</td><td>硅胶圈</td><td>4mm</td><td>5个</td><td>1元</td><td>1元</td><td>淘宝</td></tr>
+            </table>
+            <p><strong>耗材小计：6 元</strong></p>
+            <h2>六、采购渠道建议</h2>
+            <h3>🛒 淘宝 — 最全最快</h3>
+            <p>适合：成品模块类（ESP32、OLED、传感器、舵机、水泵、LED灯条、继电器、亚克力板、3D打印件、耗材）</p>
+            <p><strong>技巧：</strong></p>
+            <li>优先选「天猫店」或「销量高」的店铺，减少踩坑</li>
+            <li>ESP32-C3 建议选带「原装芯片」标签的，避免买到仿制芯片</li>
+            <li>水泵/舵机选带「真实买家秀」确认静音效果的</li>
+            <h3>🏭 立创商城 — 电子元器件原装正品</h3>
+            <p>适合：降压芯片、电阻、电容、保险丝、TVS二极管、续流二极管</p>
+            <p><strong>技巧：</strong></p>
+            <li>注册新用户首单有折扣</li>
+            <li>立创 EDA 可直接关联 BOM 导入，方便快捷</li>
+            <li>部分物料 1件起购，适合小批量补货</li>
+            <h3>📦 京东 — 速度快，质量有保障</h3>
+            <p>适合：对品质有要求、赶工期时补货</p>
+            <p><strong>适合京东买的：</strong></p>
+            <li>Type-C 接口（选 3C 认证款）</li>
+            <li>接线端子（选带 UL/RoHS 认证）</li>
+            <li>排针（选镀金款，接触更好）</li>
+            <h2>七、原型阶段总成本预算</h2>
+            <table>
+            <tr><th>类别</th><th>金额</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>⭐ 核心件</td><td>57.5 元</td></tr>
+            <tr><td>🔧 可选件</td><td>5.7 元</td></tr>
+            <tr><td>🔨 结构件</td><td>23 元</td></tr>
+            <tr><td>🔧 耗材</td><td>6 元</td></tr>
+            <tr><td>**合计**</td><td>**92.2 元**</td></tr>
+            </table>
+            <h3>预算余量建议</h3>
+            <p>原型阶段建议准备 <strong>120 元</strong>（含运费 + 少量备损）</p>
+            <p>> 备损说明：水泵、舵机、继电器是易损件，建议核心件各多买 1 个备用，共约 20 元的冗余采购。</p>
+            <h2>八、采购优先级顺序</h2>
+            <pre><code>第一波（立即下单）                第二波（3-5天后）       第三波（可选）
+─────────────────────────        ──────────────────────   ──────────────
+ESP32-C3 核心板                   亚克力板 5块              TVS二极管
+OLED屏幕                         3D打印件 1套              自恢复保险丝
+DS18B20 防水探头                 螺丝套装                  续流二极管
+水泵 9025型                      过滤材料                  陶瓷电容
+舵机 SG90                        硅胶管 + 硅胶圈           贴片电阻
+WS2812B LED灯条                                          
+继电器模块 ×2                                            
+降压模块 AMS1117-3.3
+接线端子 + 排针 + USB接口
+电解电容</code></pre>
+            <h2>九、注意事项</h2>
+            <li><strong>ESP32-C3 确认引脚间距</strong>：Mini版常见有 2.54mm（面包板友好）和邮票孔两种，选错了会导致无法直插焊接</li>
+            <li><strong>水泵供电隔离</strong>：水泵和主控建议分开供电（主控 5V USB，水泵外接 5V 电源），防止电机干扰 WiFi 信号</li>
+            <li><strong>OLED 屏幕 I2C 地址</strong>：SSD1306 默认地址 <code>0x3C</code>，部分模块是 <code>0x78</code>，提前确认避免调试走弯路</li>
+            <li><strong>WS2812B 防水灯条</strong>：5V 供电，每颗灯珠最大 60mA，10cm（大约 3 颗）合计最大电流约 180mA，确保 USB 供电够用</li>
+            <li><strong>DS18B20 总线需要上拉电阻</strong>：数据线与 VCC 之间需接 4.7KΩ 上拉电阻，ESP32-C3 内部无上拉需外置</li>
+            <table>
+            <tr><th>*整理人：嵌入式硬件工程师</th><th>2026-05-21*</th></tr>
+            </table>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸过滤系统设计</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸过滤系统设计</h1>
+            <p class="subtitle">SUB智能鱼缸过滤系统设计</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>: v1.0*</strong></span>
+                <span class="meta-item">更新：<strong>> ****: 20</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p>> <strong>项目</strong>: 智能鱼缸</p>
+            <p>> <strong>缸体尺寸</strong>: 15 × 15 × 15 cm（水量约 2.5 L）</p>
+            <p>> <strong>水泵</strong>: 9025型 5V 静音潜水泵（建议流量 200–300 L/H）</p>
+            <p>> <strong>目标生物</strong>: 小型鱼类 / 虾 / 螺</p>
+            <p>> <strong>版本</strong>: v1.0</p>
+            <p>> <strong>日期</strong>: 2026-05-21</p>
+            <h2>一、过滤系统架构图</h2>
+            <pre><code>                          ┌──────────────────────────────────────┐
+                          │            过滤盒外观（8×4×3 cm）         │
+                          │  ┌────┐                               │
+                    ┌─────┤  │进水│  ← 吸水软管入口                 │
+                    │     │  │入口│                               │
+                    │     │  └────┘                               │
+    ╔═══════════╗   │     │  ┌────┬─────────────────┐            │
+    ║           ║   │     │  │毛刷│  陶瓷环层          │  换水阀   │
+    ║   缸体    ║───┘     │  │层  │  (生化过滤)       │  ←──┐   │
+    ║  15×15×15 ║         │  │    │                 │     │   │
+    ║           ║         │  ├────┴─────────────────┤  ┘   │   │
+    ╚═══════════╝         │  │  透水隔板（0.5mm孔）   │      │   │
+                    ▲     │  └──────────────────────┘      │   │
+                    │     │         ↑ 出水嘴（φ6mm）          │   │
+              水回落缸内  │         └───────────────────────┘   │   │
+                    │     └──────────────────────────────┘     │   │
+              ┌─────┴───────────────────────────────┐           │   │
+              │  9025潜水泵（5V / 0.18A / 流量200-300L/H） │           │   │
+              │  位置：缸内底角                                    │   │
+              └─────────────────────────────────────────┘           │
+                          ▲                                        │
+                          │  吸水口（进水过滤棉）                              │
+                    ┌─────┴────────────┐                            │
+                    │   吸水软管 φ4/6mm   │──────────────────────────┘
+                    └─────────────────┘</code></pre>
+            <h3>水路流程</h3>
+            <pre><code>缸内水体
+  ↓ [吸水口带初级过滤棉]
+潜水泵（9025型 5V）
+  ↓ [加压送水]
+进水管道 → 过滤盒进水口
+  ↓
+第1层：毛刷/生化棉（物理过滤 + 初级生化）
+  ↓
+透水隔板（0.5mm微孔）
+  ↓
+第2层：陶瓷环（生化过滤，培菌）
+  ↓
+出水嘴 → 瀑布式回流 → 缸内</code></pre>
+            <h2>二、过滤盒结构设计</h2>
+            <h3>2.1 过滤盒外形</h3>
+            <table>
+            <tr><th>参数</th><th>数值</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>外形尺寸</td><td>80 × 40 × 30 mm</td></tr>
+            <tr><td>内腔尺寸</td><td>76 × 36 × 28 mm</td></tr>
+            <tr><td>材料（推荐）</td><td>PETG / PLA（3D打印）或 ABS</td></tr>
+            <tr><td>壁厚</td><td>2 mm</td></tr>
+            <tr><td>卡扣数</td><td>4 个（盒体两侧对称布置）</td></tr>
+            </table>
+            <h3>2.2 内部腔室划分</h3>
+            <pre><code>俯视图（8×4 cm）:
+
+┌────────────────────┐
+│  进水区  │  毛刷层   │  陶瓷环层  │ 出水区 │
+│ (2cm宽)  │  (2cm宽)  │  (3cm宽)   │ (1cm宽)│
+└────────────────────┘</code></pre>
+            <table>
+            <tr><th>腔室</th><th>宽度</th><th>填充介质</th><th>作用</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>进水区</td><td>20 mm</td><td>——</td><td>缓冲、分配水流</td></tr>
+            <tr><td>毛刷层</td><td>20 mm</td><td>生化棉（5 ppi）× 2层</td><td>拦截大颗粒杂质、附着硝化菌</td></tr>
+            <tr><td>陶瓷环层</td><td>30 mm</td><td>陶瓷环 φ5mm × 约15粒</td><td>大量培菌（硝化细菌）</td></tr>
+            <tr><td>出水区</td><td>10 mm</td><td>——</td><td>集水、均匀出水</td></tr>
+            </table>
+            <h3>2.3 可拆卸设计</h3>
+            <li><strong>盒盖</strong>: 磁吸或卡扣式，徒手拆装</li>
+            <li><strong>介质层</strong>: 生化棉和陶瓷环均以抽屉式托盘承托，抽出即洗</li>
+            <li><strong>密封</strong>: 盒体接缝处粘贴硅胶密封条（耐温 -40℃~200℃）</li>
+            <h2>三、流量计算</h2>
+            <h3>3.1 基本参数</h3>
+            <table>
+            <tr><th>参数</th><th>数值</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>缸体水量</td><td>2.5 L</td></tr>
+            <tr><td>目标循环次数</td><td>8–12 次/小时</td></tr>
+            <tr><td>所需理论流量</td><td>20–30 L/H</td></tr>
+            <tr><td>实际水泵标称流量</td><td>200 L/H（5V工况约 100–150 L/H）</td></tr>
+            <tr><td>沿程损失（软管+弯头）</td><td>约 15–25%</td></tr>
+            <tr><td>过滤介质阻力</td><td>约 10–20%</td></tr>
+            <tr><td>**有效出水流量**</td><td>**约 60–90 L/H（≈25–36次/小时）**</td></tr>
+            </table>
+            <p>> <strong>说明</strong>: 9025型水泵标称流量通常在 12V 满压工况测得。5V 低压供电时，流量约为标称的 50–75%，即 <strong>100–150 L/H</strong>。考虑管路沿程损失（软管 φ4/6mm × 15cm + 2个弯头，约 20%）及过滤介质阻力（约 15%），有效出水流量约 <strong>60–90 L/H</strong>，对应水循环 <strong>25–36 次/小时</strong>，略偏高，建议通过阀门或 PWM 调速控制在 8–12 次/小时。</p>
+            <h3>3.2 流量调节方案</h3>
+            <table>
+            <tr><th>方案</th><th>实现方式</th><th>优缺点</th></tr>
+            <tr><td>------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>PWM 调速</td><td>5V PWM 信号控制水泵转速</td><td>精确可调，需控制器支持</td></tr>
+            <tr><td>球阀调节</td><td>出水管路串联微型球阀</td><td>简单可靠，无法精确量化</td></tr>
+            <tr><td>分流回路</td><td>一路过滤盒 + 一路回流旁路</td><td>保护水泵，减少无效循环</td></tr>
+            </table>
+            <p><strong>推荐</strong>: PWM 调速（与智能控制系统集成），配合液位传感器闭环控制。</p>
+            <h3>3.3 液位差计算</h3>
+            <pre><code>泵出口 → 过滤盒底部（垂直高度约 5 cm）
+过滤盒顶部 → 出水口（垂直高度约 3 cm）
+总扬程 ≈ 8 cm
+9025型 5V 扬程：约 50–80 cmH₂O ✓（满足要求）</code></pre>
+            <h2>四、材料清单（BOM）</h2>
+            <table>
+            <tr><th>序号</th><th>名称</th><th>规格</th><th>数量</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>9025潜水泵</td><td>5V / 0.18A / 200L/H（标称）</td><td>1</td><td>静音款</td></tr>
+            <tr><td>2</td><td>过滤盒盒体</td><td>PETG/ABS，80×40×30mm</td><td>1</td><td>3D打印或机加工</td></tr>
+            <tr><td>3</td><td>过滤盒盒盖</td><td>PETG/ABS，含密封槽</td><td>1</td><td>磁吸或卡扣</td></tr>
+            <tr><td>4</td><td>生化棉</td><td>5 ppi，75×35×10mm</td><td>2</td><td>物理过滤+培菌</td></tr>
+            <tr><td>5</td><td>陶瓷环</td><td>φ5mm，多孔结构</td><td>约 15–20 粒</td><td>生化过滤</td></tr>
+            <tr><td>6</td><td>透水隔板</td><td>PETG，0.5mm孔径</td><td>1</td><td>分离毛刷层与陶瓷环层</td></tr>
+            <tr><td>7</td><td>硅胶密封条</td><td>2×3mm，耐腐蚀</td><td>约 20 cm</td><td>盒体密封</td></tr>
+            <tr><td>8</td><td>吸水软管</td><td>φ4/6mm，食品级硅胶</td><td>约 15 cm</td><td>泵→过滤盒</td></tr>
+            <tr><td>9</td><td>出水软管</td><td>φ6mm，食品级硅胶</td><td>约 10 cm</td><td>过滤盒→缸内</td></tr>
+            <tr><td>10</td><td>卡扣（快拆）</td><td>尼龙，4×10mm</td><td>4</td><td>固定过滤盒</td></tr>
+            <tr><td>11</td><td>换水阀</td><td>微型球阀 φ4mm</td><td>1</td><td>预留换水接口</td></tr>
+            <tr><td>12</td><td>吸水过滤棉</td><td>生化棉碎片 / 过滤棉</td><td>少量</td><td>包裹泵进水口</td></tr>
+            <tr><td>13</td><td>水管接头</td><td>φ4/6mm 快插接头</td><td>2</td><td>方便拆装</td></tr>
+            </table>
+            <h2>五、清洗维护说明</h2>
+            <h3>5.1 维护周期</h3>
+            <table>
+            <tr><th>项目</th><th>清洗周期</th><th>更换周期</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>------</td></tr>
+            <tr><td>吸水口过滤棉</td><td>每 1–2 周</td><td>每 1–2 月</td><td>堵塞后立即清洗</td></tr>
+            <tr><td>生化棉层</td><td>每 2–4 周（冲洗）</td><td>每 3–6 月</td><td>用原缸水轻揉清洗</td></tr>
+            <tr><td>陶瓷环</td><td>每 3–6 月（冲洗）</td><td>每 1–2 年</td><td>切勿用自来水，会杀菌</td></tr>
+            <tr><td>换水</td><td>每周 20–30%</td><td>——</td><td>用换水阀引流</td></tr>
+            <tr><td>软管清洁</td><td>每 2–3 月</td><td>有老化迹象时更换</td><td>用缸水冲洗</td></tr>
+            </table>
+            <h3>5.2 清洗步骤</h3>
+            <h4>A. 日常清洗（生化棉）</h4>
+            <li>关闭水泵电源</li>
+            <li>拆下过滤盒盒盖（按压卡扣或取下磁吸盖）</li>
+            <li>抽出生化棉托盘，用缸内原水轻轻揉洗，<strong>禁止使用自来水</strong></li>
+            <li>清洗后放回原位，盖上盒盖</li>
+            <li>重新开启水泵</li>
+            <h4>B. 深度清洗（陶瓷环）</h4>
+            <li>关闭水泵，排空过滤盒内水体</li>
+            <li>取出陶瓷环托盘</li>
+            <li>将陶瓷环放入一个容器中，用<strong>原缸水或除氯自来水快速漂洗</strong></li>
+            <li><strong>禁止搓洗</strong>，轻晃即可，以免破坏多孔结构</li>
+            <li>若硝化系统崩解（换水后水质浑浊），补充一瓶硝化细菌菌液</li>
+            <li>晾干 5–10 分钟后复位</li>
+            <h4>C. 换水操作</h4>
+            <li>打开换水阀（串联在出水回路或单独布置）</li>
+            <li>引流至接水容器</li>
+            <li>每次换水 20–30%（约 500–750 mL）</li>
+            <li>换水后补充等量等温（同温）新水</li>
+            <li>关闭换水阀</li>
+            <h3>5.3 维护注意事项</h3>
+            <li><strong>禁止使用肥皂、洗洁精</strong>等任何化学清洗剂</li>
+            <li>每次清洗的介质不超过总量的 <strong>1/2</strong>，保留一半旧介质以维持菌群</li>
+            <li>清洗后若水体浑浊，为正常现象（菌群重建期），约 24–48 小时自愈</li>
+            <li>过滤盒建议固定在缸壁内侧，可用磁吸固定器或 3M 胶贴</li>
+            <li>冬季低温（<18℃）时，菌群活性下降，可适当减少喂食量</li>
+            <h2>六、补充说明</h2>
+            <h3>6.1 与智能控制系统的接口</h3>
+            <table>
+            <tr><th>接口</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>水泵电源</td><td>5V PWM 控制，支持转速 0–100% 调节</td></tr>
+            <tr><td>液位传感器</td><td>监测缸内液位，低液位时自动关泵保护</td></tr>
+            <tr><td>水质传感器（可选）</td><td>pH / 氨氮 / 温度传感器，联动调节循环频率</td></tr>
+            </table>
+            <h3>6.2 安全保护</h3>
+            <li><strong>干转保护</strong>: 液位低于吸水口时，液位传感器触发关泵</li>
+            <li><strong>堵转保护</strong>: 过滤棉堵塞导致流量异常时，控制器检测并报警</li>
+            <li><strong>过流保护</strong>: 水泵堵转电流 > 0.25A 时自动断电</li>
+            <table>
+            <tr><th>*设计: 机械工程师</th><th>审核: —</th><th>版本: v1.0*</th></tr>
+            </table>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

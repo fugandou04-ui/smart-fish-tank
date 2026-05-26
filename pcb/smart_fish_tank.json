@@ -1,0 +1,316 @@
+{
+  "docType": "project",
+  "title": "智能鱼缸",
+  "projectId": "smart-fish-tank-v1",
+  "version": "1.0.0",
+  "description": "桌面智能鱼缸控制系统",
+  "schematic": {
+    "components": [
+      {
+        "id": "U1",
+        "type": "part",
+        "lib": "ESP32-C3",
+        "package": "ESP32-C3-MINI",
+        "value": "ESP32-C3-MINI",
+        "x": 200,
+        "y": 100,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "3V3", "type": "power"},
+          {"num": "2", "name": "GND", "type": "power"},
+          {"num": "3", "name": "GPIO0", "type": "bidirectional"},
+          {"num": "4", "name": "GPIO1", "type": "bidirectional"},
+          {"num": "10", "name": "GPIO7", "type": "bidirectional"},
+          {"num": "6", "name": "GPIO3", "type": "bidirectional"},
+          {"num": "7", "name": "GPIO4", "type": "bidirectional"},
+          {"num": "8", "name": "GPIO5", "type": "bidirectional"},
+          {"num": "9", "name": "GPIO6", "type": "bidirectional"},
+          {"num": "10", "name": "GPIO7", "type": "bidirectional"},
+          {"num": "11", "name": "GPIO8", "type": "bidirectional"},
+          {"num": "12", "name": "GPIO9", "type": "bidirectional"},
+          {"num": "13", "name": "GND", "type": "power"},
+          {"num": "14", "name": "5V", "type": "power"},
+          {"num": "15", "name": "EN", "type": "input"},
+          {"num": "16", "name": "BOOT", "type": "input"}
+        ]
+      },
+      {
+        "id": "U2",
+        "type": "part",
+        "lib": "AMS1117",
+        "package": "SOT-223",
+        "value": "AMS1117-3.3",
+        "x": 100,
+        "y": 200,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "GND", "type": "power"},
+          {"num": "2", "name": "VOUT", "type": "power_out"},
+          {"num": "3", "name": "VIN", "type": "power_in"},
+          {"num": "4", "name": "GND", "type": "power"}
+        ]
+      },
+      {
+        "id": "U3",
+        "type": "part",
+        "lib": "OLED",
+        "package": "0.66_I2C",
+        "value": "SSD1306 0.66\"",
+        "x": 350,
+        "y": 80,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "VCC", "type": "power_in"},
+          {"num": "2", "name": "GND", "type": "power"},
+          {"num": "3", "name": "SCL", "type": "input"},
+          {"num": "4", "name": "SDA", "type": "bidirectional"}
+        ]
+      },
+      {
+        "id": "U4",
+        "type": "part",
+        "lib": "DS18B20",
+        "package": "TO-92",
+        "value": "DS18B20",
+        "x": 400,
+        "y": 200,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "GND", "type": "power"},
+          {"num": "2", "name": "DQ", "type": "bidirectional"},
+          {"num": "3", "name": "VDD", "type": "power_in"}
+        ]
+      },
+      {
+        "id": "K1",
+        "type": "part",
+        "lib": "Relay",
+        "package": "SRD-5VDC-SL-C",
+        "value": "Relay 5V",
+        "x": 300,
+        "y": 250,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "Coil1", "type": "passive"},
+          {"num": "2", "name": "Coil2", "type": "passive"},
+          {"num": "3", "name": "COM", "type": "passive"},
+          {"num": "4", "name": "NO", "type": "passive"},
+          {"num": "5", "name": "NC", "type": "passive"}
+        ]
+      },
+      {
+        "id": "K2",
+        "type": "part",
+        "lib": "Relay",
+        "package": "SRD-5VDC-SL-C",
+        "value": "Relay 5V",
+        "x": 300,
+        "y": 320,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "Coil1", "type": "passive"},
+          {"num": "2", "name": "Coil2", "type": "passive"},
+          {"num": "3", "name": "COM", "type": "passive"},
+          {"num": "4", "name": "NO", "type": "passive"},
+          {"num": "5", "name": "NC", "type": "passive"}
+        ]
+      },
+      {
+        "id": "U5",
+        "type": "part",
+        "lib": "Servo",
+        "package": "3PIN",
+        "value": "SG90 9g",
+        "x": 450,
+        "y": 300,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "VCC", "type": "power"},
+          {"num": "2", "name": "GND", "type": "power"},
+          {"num": "3", "name": "SIG", "type": "input"}
+        ]
+      },
+      {
+        "id": "D1",
+        "type": "part",
+        "lib": "Diode",
+        "package": "DO-41",
+        "value": "1N4007",
+        "x": 200,
+        "y": 280,
+        "rot": "R90",
+        "pins": [
+          {"num": "1", "name": "A", "type": "passive"},
+          {"num": "2", "name": "K", "type": "passive"}
+        ]
+      },
+      {
+        "id": "D2",
+        "type": "part",
+        "lib": "Diode",
+        "package": "DO-41",
+        "value": "1N4007",
+        "x": 200,
+        "y": 350,
+        "rot": "R90",
+        "pins": [
+          {"num": "1", "name": "A", "type": "passive"},
+          {"num": "2", "name": "K", "type": "passive"}
+        ]
+      },
+      {
+        "id": "C1",
+        "type": "part",
+        "lib": "Capacitor",
+        "package": "C_0805",
+        "value": "100nF",
+        "x": 150,
+        "y": 250,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "1", "type": "passive"},
+          {"num": "2", "name": "2", "type": "passive"}
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "part",
+        "lib": "Capacitor",
+        "package": "C_1206",
+        "value": "1000uF",
+        "x": 150,
+        "y": 400,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "1", "type": "passive"},
+          {"num": "2", "name": "2", "type": "passive"}
+        ]
+      },
+      {
+        "id": "R1",
+        "type": "part",
+        "lib": "Resistor",
+        "package": "R_0805",
+        "value": "4.7K",
+        "x": 430,
+        "y": 250,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "1", "type": "passive"},
+          {"num": "2", "name": "2", "type": "passive"}
+        ]
+      },
+      {
+        "id": "LED1",
+        "type": "part",
+        "lib": "WS2812B",
+        "package": "WS2812B",
+        "value": "WS2812B x12",
+        "x": 500,
+        "y": 150,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "VCC", "type": "power"},
+          {"num": "2", "name": "DO", "type": "bidirectional"},
+          {"num": "3", "name": "GND", "type": "power"},
+          {"num": "4", "name": "DI", "type": "input"}
+        ]
+      },
+      {
+        "id": "P1",
+        "type": "part",
+        "lib": "Connector",
+        "package": "USB-C",
+        "value": "USB-C",
+        "x": 50,
+        "y": 150,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "VCC", "type": "power"},
+          {"num": "2", "name": "D-", "type": "bidirectional"},
+          {"num": "3", "name": "D+", "type": "bidirectional"},
+          {"num": "4", "name": "GND", "type": "power"},
+          {"num": "5", "name": "GND", "type": "power"},
+          {"num": "6", "name": "CC1", "type": "passive"},
+          {"num": "7", "name": "CC2", "type": "passive"},
+          {"num": "8", "name": "VCC", "type": "power"}
+        ]
+      },
+      {
+        "id": "P2",
+        "type": "part",
+        "lib": "Connector",
+        "package": "2PIN",
+        "value": "Pump",
+        "x": 380,
+        "y": 380,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "1", "type": "passive"},
+          {"num": "2", "name": "2", "type": "passive"}
+        ]
+      },
+      {
+        "id": "P3",
+        "type": "part",
+        "lib": "Connector",
+        "package": "4PIN",
+        "value": "SWD",
+        "x": 80,
+        "y": 80,
+        "rot": "R0",
+        "pins": [
+          {"num": "1", "name": "3V3", "type": "power"},
+          {"num": "2", "name": "GND", "type": "power"},
+          {"num": "3", "name": "IO", "type": "bidirectional"},
+          {"num": "4", "name": "CLK", "type": "input"}
+        ]
+      }
+    ],
+    "wires": [
+      {"from": "P1.1", "to": "U2.3", "net": "5V"},
+      {"from": "P1.4", "to": "U2.1", "net": "GND"},
+      {"from": "P1.4", "to": "C2.2", "net": "GND"},
+      {"from": "U2.2", "to": "U1.1", "net": "3V3"},
+      {"from": "U2.2", "to": "C1.2", "net": "3V3"},
+      {"from": "C1.1", "to": "U2.1", "net": "GND"},
+      {"from": "U1.3", "to": "U3.4", "net": "OLED_SDA"},
+      {"from": "U1.4", "to": "U3.3", "net": "OLED_SCL"},
+      {"from": "U3.1", "to": "U2.2", "net": "3V3"},
+      {"from": "U3.2", "to": "U2.1", "net": "GND"},
+      {"from": "U1.10", "to": "U4.2", "net": "DS18B20_DQ"},
+      {"from": "R1.1", "to": "U4.2", "net": "DS18B20_DQ"},
+      {"from": "R1.2", "to": "U1.10", "net": "DS18B20_DQ"},
+      {"from": "U4.1", "to": "U2.1", "net": "GND"},
+      {"from": "U4.3", "to": "U2.2", "net": "3V3"},
+      {"from": "U1.6", "to": "K1.1", "net": "PUMP_CTRL"},
+      {"from": "D1.1", "to": "K1.2", "net": "GND"},
+      {"from": "D1.2", "to": "P2.1", "net": "PUMP"},
+      {"from": "K1.4", "to": "P2.2", "net": "NC"},
+      {"from": "P2.1", "to": "+5V_PUMP", "net": "5V"},
+      {"from": "U1.7", "to": "K2.1", "net": "HEATER_CTRL"},
+      {"from": "D2.1", "to": "K2.2", "net": "GND"},
+      {"from": "D2.2", "to": "HEATER", "net": "HEATER"},
+      {"from": "K2.4", "to": "HEATER", "net": "HEATER"},
+      {"from": "U1.8", "to": "U5.3", "net": "SERVO_PWM"},
+      {"from": "U5.1", "to": "U2.2", "net": "3V3"},
+      {"from": "U5.2", "to": "U2.1", "net": "GND"},
+      {"from": "U1.5", "to": "LED1.4", "net": "LED_DI"},
+      {"from": "LED1.1", "to": "U2.2", "net": "3V3"},
+      {"from": "LED1.3", "to": "U2.1", "net": "GND"},
+      {"from": "C2.1", "to": "+5V_PUMP", "net": "5V"}
+    ],
+    "nets": [
+      {"name": "5V", "pins": ["P1.1", "U2.3", "+5V_PUMP"]},
+      {"name": "GND", "pins": ["P1.4", "U2.1", "U3.2", "U4.1", "C1.1", "C2.2", "K1.2", "D1.1", "K2.2", "D2.1", "U5.2", "LED1.3"]},
+      {"name": "3V3", "pins": ["U2.2", "U1.1", "U3.1", "U4.3", "C1.2", "R1.1", "U5.1", "LED1.1"]},
+      {"name": "OLED_SDA", "pins": ["U1.3", "U3.4"]},
+      {"name": "OLED_SCL", "pins": ["U1.4", "U3.3"]},
+      {"name": "DS18B20_DQ", "pins": ["U1.10", "U4.2", "R1.2"]},
+      {"name": "PUMP_CTRL", "pins": ["U1.6", "K1.1"]},
+      {"name": "HEATER_CTRL", "pins": ["U1.7", "K2.1"]},
+      {"name": "SERVO_PWM", "pins": ["U1.8", "U5.3"]},
+      {"name": "LED_DI", "pins": ["U1.5", "LED1.4"]}
+    ]
+  }
+}

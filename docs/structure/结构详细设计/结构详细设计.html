@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸3D结构详细设计文档</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸3D结构详细设计文档</h1>
+            <p class="subtitle">SUB智能鱼缸3D结构详细设计文档</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>**：** V1.0</strong></span>
+                <span class="meta-item">更新：<strong>**：** 2026</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本：</strong> V1.0</p>
+            <p><strong>日期：</strong> 2026-05-21</p>
+            <p><strong>作者：</strong> 机械工程师</p>
+            <p><strong>状态：</strong> 初稿</p>
+            <h2>一、产品规格总览</h2>
+            <table>
+            <tr><th>参数</th><th>数值</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>缸体尺寸</td><td>15×15×15cm</td><td>亚克力2mm厚</td></tr>
+            <tr><td>底座尺寸</td><td>16×16×5cm</td><td>3D打印件</td></tr>
+            <tr><td>总高度</td><td>178mm</td><td>含缸体+底座</td></tr>
+            <tr><td>缸体材质</td><td>亚克力(PMMA)</td><td>透明</td></tr>
+            <tr><td>底座材质</td><td>PLA/ABS</td><td>防水处理</td></tr>
+            </table>
+            <h2>二、零件清单与设计要点</h2>
+            <h3>2.1 底座外壳</h3>
+            <p><strong>功能：</strong> 防水外壳，容纳电子PCB、元器件、接口</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：160×160×50mm</li>
+            <li>内腔尺寸：130×130×40mm（用于PCB安装）</li>
+            <li>壁厚：2.5mm</li>
+            <li>底部厚度：3mm（加强）</li>
+            <p><strong>设计要点：</strong></p>
+            <li>外壳预留USB-C接口孔位（12×8mm），位于侧面</li>
+            <li>预留OLED屏幕开口：35×12mm（位于外壳正面）</li>
+            <li>预留按键孔：3个，直径5mm，间距10mm</li>
+            <li>底部设计4个M3沉头螺钉孔（用于固定上盖）</li>
+            <li>沉头孔深度：2mm，直径6mm</li>
+            <li>外壳内部设计PCB定位柱4个（M3螺纹孔）</li>
+            <li>定位柱高度：5mm，间距120×120mm</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与底座上盖：卡扣+螺钉双固定</li>
+            <li>与缸体底板：卡槽配合（深度5mm）</li>
+            <p><strong>材料选择：</strong> PLA（熔点220°C，强度好，成本低）</p>
+            <h3>2.2 底座上盖</h3>
+            <p><strong>功能：</strong> 定位PCB，密封电子腔</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：156×156×3mm</li>
+            <li>PCB定位孔：4个，直径3.2mm（3D公差）</li>
+            <li>PCB定位柱：4个，高度8mm，外径6mm，内径M3</li>
+            <li>水泵接口：外径10mm，内径8mm</li>
+            <li>舵机安装孔：20×20mm间距</li>
+            <p><strong>设计要点：</strong></p>
+            <li>上盖设计环形密封槽，槽宽3mm，深1.5mm</li>
+            <li>密封槽用硅胶O型圈（内径130mm）密封</li>
+            <li>PCB固定螺钉：M3×8mm沉头螺钉</li>
+            <li>预留舵机线走线槽：宽5mm，深2mm</li>
+            <li>预留传感器线走线孔：直径3mm×2个</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与底座外壳：M3螺钉×4固定，密封圈防水</li>
+            <li>与PCB：定位柱定位，螺钉固定</li>
+            <p><strong>材料选择：</strong> PETG（耐温好，韧性好，适合密封件）</p>
+            <h3>2.3 缸体底板</h3>
+            <p><strong>功能：</strong> 承接缸体重量，与底座卡槽配合</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：154×154×3mm</li>
+            <li>卡槽宽度：5mm（用于插入底座）</li>
+            <li>卡槽深度：10mm</li>
+            <li>中心开孔：用于水泵安装，直径20mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>底板四边设计卡槽，与亚克力缸体侧板粘接</li>
+            <li>底板中心孔用于安装水泵固定座</li>
+            <li>底板与底座外壳接触面设计防水密封圈槽</li>
+            <li>密封圈槽宽度：4mm，深度：2mm</li>
+            <li>底板材质与亚克力颜色一致（透明）</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与亚克力侧板：粘接密封（UV胶或氯仿）</li>
+            <li>与底座外壳：卡槽插入式配合</li>
+            <p><strong>材料选择：</strong> 亚克力板（2mm厚，透明）</p>
+            <h3>2.4 缸体侧板（×4）</h3>
+            <p><strong>功能：</strong> 透明缸壁，观赏鱼缸</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>尺寸规格：</li>
+            <li>前/后侧板：150×150mm（开喂食口）</li>
+            <li>左/右侧板：150×150mm（完整）</li>
+            <li>厚度：2mm</li>
+            <li>喂食口尺寸：40×30mm（仅前侧板）</li>
+            <p><strong>设计要点：</strong></p>
+            <li>前侧板开喂食口（40×30mm），位于顶部边缘下20mm</li>
+            <li>所有侧板边缘需进行倒角处理（0.5mm×45°）</li>
+            <li>粘接面需磨砂处理（增加粘接强度）</li>
+            <li>侧板与底板、顶盖粘接处设计0.5mm加强边</li>
+            <li>侧板四角需45°切割拼角粘接</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与缸体底板：粘接密封</li>
+            <li>与缸盖：粘接密封</li>
+            <li>侧板之间：45°角粘接拼角</li>
+            <p><strong>材料选择：</strong> 亚克力板（2mm厚，透明，透光率92%）</p>
+            <h3>2.5 缸盖</h3>
+            <p><strong>功能：</strong> 封闭缸体顶部，开设喂食口</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：154×154×3mm</li>
+            <li>喂食口尺寸：50×40mm（带翻盖）</li>
+            <li>翻盖铰链轴孔：直径2mm×2个</li>
+            <li>密封边高度：5mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>缸盖边缘设计5mm密封边，插入侧板内</li>
+            <li>喂食口设计铰链式翻盖（单独打印件）</li>
+            <li>翻盖设计磁吸闭合（可选）或卡扣闭合</li>
+            <li>喂食口周围设计防水密封槽（宽3mm）</li>
+            <li>缸盖预留LED灯安装槽（宽8mm，深3mm）</li>
+            <li>缸盖预留温度传感器线过孔（直径3mm）</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与缸体侧板：粘接密封</li>
+            <li>与翻盖：铰链连接</li>
+            <li>与LED固定座：槽位配合</li>
+            <p><strong>材料选择：</strong> 亚克力板（2mm厚，透明）</p>
+            <h3>2.6 过滤盒</h3>
+            <p><strong>功能：</strong> 容纳过滤海绵，可拆卸清洗</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：80×40×30mm</li>
+            <li>内腔尺寸：75×35×25mm</li>
+            <li>进水口：直径8mm</li>
+            <li>出水口：直径8mm</li>
+            <li>固定卡扣：2个</li>
+            <p><strong>设计要点：</strong></p>
+            <li>过滤盒设计为抽屉式，可从侧面抽出</li>
+            <li>内部放置过滤海绵（需适配尺寸）</li>
+            <li>进水口连接水泵，出水口连接缸体</li>
+            <li>设计卡扣结构固定在底座上盖</li>
+            <li>过滤盒底部设计集污槽（深3mm）</li>
+            <li>设计快拆结构，无需工具即可拆卸</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与底座上盖：卡扣固定</li>
+            <li>与水泵：水管快插连接（4mm内径）</li>
+            <li>与缸体：水管连接</li>
+            <p><strong>材料选择：</strong> PLA（需打印支撑）</p>
+            <h3>2.7 水泵固定座</h3>
+            <p><strong>功能：</strong> 固定水泵，减震防漏</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：30×30×20mm</li>
+            <li>水泵定位槽：25×25mm</li>
+            <li>进水口：内径8mm，外径12mm</li>
+            <li>出水口：内径4mm（快接头接口）</li>
+            <li>安装孔：M3×4个</li>
+            <p><strong>设计要点：</strong></p>
+            <li>水泵固定座设计减震结构（硅胶垫或弹簧）</li>
+            <li>进水口设计双重密封（O型圈+卡箍）</li>
+            <li>出水口连接水管快接头（4mm内径）</li>
+            <li>水泵固定座与底座上盖之间加硅胶减震垫</li>
+            <li>减震垫厚度：3mm，硬度：50A</li>
+            <li>设计防漏结构：进水口垂直朝上，避免虹吸</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与底座上盖：螺钉固定（M3×4）</li>
+            <li>与水泵：卡槽定位</li>
+            <li>与水管快接头：插接+卡箍固定</li>
+            <p><strong>材料选择：</strong> PLA + 硅胶减震垫</p>
+            <h3>2.8 喂食器壳</h3>
+            <p><strong>功能：</strong> 顶部开口，存放鱼食，落食通道</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>外形尺寸：50×50×25mm</li>
+            <li>顶部开口：40×40mm</li>
+            <li>底部落食口：直径8mm</li>
+            <li>舵机安装位：20×20mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>喂食器壳设计为漏斗形，顶部大口便于加食</li>
+            <li>顶部设计翻盖（与缸盖类似），防潮防尘</li>
+            <li>底部落食口连接缸体内部</li>
+            <li>内部设计转盘轴孔（直径5mm）</li>
+            <li>舵机安装在壳体外部，通过轴驱动转盘</li>
+            <li>设计鱼食观察窗（透明亚克力）</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与缸盖：螺丝固定</li>
+            <li>与喂食转盘：轴孔配合</li>
+            <li>与舵机：固定座连接</li>
+            <p><strong>材料选择：</strong> PLA（主体）+ 亚克力（观察窗）</p>
+            <h3>2.9 喂食转盘</h3>
+            <p><strong>功能：</strong> 承载鱼食，被舵机轴驱动旋转落食</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>直径：40mm</li>
+            <li>厚度：3mm</li>
+            <li>中心轴孔：直径5mm（与舵机轴配合）</li>
+            <li>分格数：2格或4格</li>
+            <li>格槽深度：5mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>转盘设计分格结构，确保每次喂食量可控</li>
+            <li>建议2格设计，每格容量约1ml</li>
+            <li>中心轴孔与舵机轴采用键槽配合（防打滑）</li>
+            <li>转盘边缘设计限位块，防止旋转超程</li>
+            <li>转盘直径略小于喂食器壳内径（间隙0.5mm）</li>
+            <li>建议转盘设计自清洁斜坡，便于清理残留</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与喂食器壳：轴孔定位，旋转自由</li>
+            <li>与舵机轴：键槽或摩擦配合</li>
+            <li>与鱼食：承载+落食导向</li>
+            <p><strong>材料选择：</strong> PLA（食品级可选）</p>
+            <h3>2.10 LED固定座</h3>
+            <p><strong>功能：</strong> 固定LED灯带，导光，防水</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>安装槽宽度：8mm（适配WS2812B灯带）</li>
+            <li>固定座高度：5mm</li>
+            <li>长度：可根据需要裁剪</li>
+            <li>安装孔：M2×间距20mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>LED固定座设计为U型槽，嵌入灯带</li>
+            <li>固定座设计导光结构（亚克力材质）</li>
+            <li>固定座设计防水密封边（用于嵌入缸盖）</li>
+            <li>灯带嵌入式安装，露出发光面</li>
+            <li>固定座设计走线槽，隐藏LED数据线</li>
+            <li>设计散热结构（鳍片式，增加散热面积）</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与缸盖：嵌入密封槽</li>
+            <li>与LED灯带：槽位固定</li>
+            <li>与电源线：连接端子</li>
+            <p><strong>材料选择：</strong> 白色PLA + 亚克力导光板</p>
+            <h3>2.11 水管快接头</h3>
+            <p><strong>功能：</strong> 快速连接/断开水管，便于换水</p>
+            <p><strong>关键尺寸：</strong></p>
+            <li>内径：4mm（水管内径）</li>
+            <li>外径：8mm（水管外径）</li>
+            <li>接头长度：15mm</li>
+            <li>连接端外径：10mm</li>
+            <p><strong>设计要点：</strong></p>
+            <li>快接头设计自锁结构，连接后不脱落</li>
+            <li>设计O型圈密封（内径4mm）</li>
+            <li>设计防脱卡扣，防止水管脱落</li>
+            <li>接头设计流量控制阀（可选）</li>
+            <li>接头需兼容标准4mm硅胶软管</li>
+            <li>设计直角或直连两种规格</li>
+            <p><strong>配合关系：</strong></p>
+            <li>与水泵固定座：插接固定</li>
+            <li>与过滤盒：插接固定</li>
+            <li>与缸体：插接固定（通过底板开孔）</li>
+            <p><strong>材料选择：</strong> PLA或TPU（软性）</p>
+            <h2>三、配合关系汇总表</h2>
+            <table>
+            <tr><th>零件A</th><th>零件B</th><th>配合类型</th><th>配合尺寸</th><th>公差</th></tr>
+            <tr><td>-------</td><td>-------</td><td>----------</td><td>----------</td><td>------</td></tr>
+            <tr><td>底座外壳</td><td>底座上盖</td><td>螺钉固定+密封</td><td>M3螺钉×4</td><td>+0.2mm</td></tr>
+            <tr><td>底座上盖</td><td>PCB</td><td>定位柱+螺钉</td><td>3.2mm孔</td><td>+0.2mm</td></tr>
+            <tr><td>底座外壳</td><td>缸体底板</td><td>卡槽配合</td><td>宽5mm，深10mm</td><td>+0.2mm</td></tr>
+            <tr><td>缸体底板</td><td>亚克力侧板</td><td>粘接</td><td>边长150mm</td><td>+0.2mm</td></tr>
+            <tr><td>亚克力侧板</td><td>缸盖</td><td>粘接</td><td>154×154mm</td><td>+0.2mm</td></tr>
+            <tr><td>缸盖</td><td>LED固定座</td><td>嵌入密封槽</td><td>宽8mm</td><td>+0.2mm</td></tr>
+            <tr><td>底座上盖</td><td>水泵固定座</td><td>螺钉固定</td><td>M3×4</td><td>+0.2mm</td></tr>
+            <tr><td>水泵固定座</td><td>水管快接头</td><td>插接+卡箍</td><td>内径4mm</td><td>+0.2mm</td></tr>
+            <tr><td>缸盖</td><td>喂食器壳</td><td>螺钉固定</td><td>直径4mm</td><td>+0.2mm</td></tr>
+            <tr><td>喂食器壳</td><td>喂食转盘</td><td>轴孔配合</td><td>5mm孔</td><td>+0.2mm</td></tr>
+            <tr><td>喂食转盘</td><td>舵机轴</td><td>键槽配合</td><td>5mm轴</td><td>+0.1mm</td></tr>
+            </table>
+            <h2>四、材料选择汇总</h2>
+            <table>
+            <tr><th>零件</th><th>推荐材料</th><th>厚度/规格</th><th>特性</th><th>成本</th></tr>
+            <tr><td>------</td><td>----------</td><td>-----------</td><td>------</td><td>------</td></tr>
+            <tr><td>底座外壳</td><td>PLA</td><td>2.5mm壁厚</td><td>强度好，成本低</td><td>低</td></tr>
+            <tr><td>底座上盖</td><td>PETG</td><td>3mm</td><td>韧性好，耐温</td><td>中</td></tr>
+            <tr><td>缸体底板</td><td>亚克力</td><td>2mm</td><td>透明，粘接好</td><td>中</td></tr>
+            <tr><td>缸体侧板</td><td>亚克力</td><td>2mm</td><td>透明，观赏</td><td>中</td></tr>
+            <tr><td>缸盖</td><td>亚克力</td><td>2mm</td><td>透明，密封</td><td>中</td></tr>
+            <tr><td>过滤盒</td><td>PLA</td><td>2mm</td><td>打印成本低</td><td>低</td></tr>
+            <tr><td>水泵固定座</td><td>PLA</td><td>-</td><td>强度好</td><td>低</td></tr>
+            <tr><td>喂食器壳</td><td>PLA</td><td>2mm</td><td>成本低</td><td>低</td></tr>
+            <tr><td>喂食转盘</td><td>PLA</td><td>3mm</td><td>强度足够</td><td>低</td></tr>
+            <tr><td>LED固定座</td><td>PLA+亚克力</td><td>白色+透明</td><td>导光</td><td>中</td></tr>
+            <tr><td>水管快接头</td><td>TPU</td><td>软性</td><td>密封好</td><td>中</td></tr>
+            </table>
+            <h2>五、3D打印工艺要求</h2>
+            <h3>5.1 通用要求</h3>
+            <table>
+            <tr><th>参数</th><th>要求</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>打印层高</td><td>0.2mm</td><td>平衡精度与速度</td></tr>
+            <tr><td>填充率</td><td>100%（关键件）/ 80%（普通件）</td><td>结构强度要求</td></tr>
+            <tr><td>壁厚</td><td>最少3层</td><td>保证密封性</td></tr>
+            <tr><td>最小精度</td><td>±0.2mm</td><td>公差要求</td></tr>
+            <tr><td>打印方向</td><td>重要面朝下</td><td>减少支撑痕迹</td></tr>
+            </table>
+            <h3>5.2 各零件打印要求</h3>
+            <table>
+            <tr><th>零件</th><th>打印材料</th><th>填充率</th><th>支撑要求</th><th>后处理</th></tr>
+            <tr><td>------</td><td>----------</td><td>--------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>底座外壳</td><td>PLA</td><td>100%</td><td>需要（悬空>45°）</td><td>打磨去毛刺</td></tr>
+            <tr><td>底座上盖</td><td>PETG</td><td>100%</td><td>需要</td><td>打磨+抛光</td></tr>
+            <tr><td>过滤盒</td><td>PLA</td><td>80%</td><td>需要</td><td>打磨去毛刺</td></tr>
+            <tr><td>水泵固定座</td><td>PLA</td><td>100%</td><td>需要</td><td>打磨</td></tr>
+            <tr><td>喂食器壳</td><td>PLA</td><td>80%</td><td>需要</td><td>打磨</td></tr>
+            <tr><td>喂食转盘</td><td>PLA</td><td>100%</td><td>不需要</td><td>打磨轴孔</td></tr>
+            <tr><td>LED固定座</td><td>PLA</td><td>80%</td><td>需要</td><td>打磨</td></tr>
+            <tr><td>水管快接头</td><td>TPU</td><td>100%</td><td>不需要</td><td>去除支撑</td></tr>
+            </table>
+            <h3>5.3 表面处理要求</h3>
+            <li><strong>防水件（底座外壳、上盖）</strong>：打印后需涂防水胶或喷三防漆</li>
+            <li><strong>密封件</strong>：配合面需打磨光滑，确保密封效果</li>
+            <li><strong>外观件</strong>：外露面需打磨+抛光处理</li>
+            <li><strong>透明件（亚克力件）</strong>：激光切割后需去除毛刺，抛光处理</li>
+            <h2>六、装配工艺要求</h2>
+            <h3>6.1 装配顺序</h3>
+            <li><strong>电子件预装</strong>：PCB焊接完成后，固定到底座上盖</li>
+            <li><strong>底座组装</strong>：底座上盖+底座外壳密封装配</li>
+            <li><strong>缸体组装</strong>：亚克力板粘接（底板→侧板→顶盖）</li>
+            <li><strong>过滤系统</strong>：水泵固定→水管连接→过滤盒安装</li>
+            <li><strong>喂食系统</strong>：舵机安装→转盘安装→喂食器壳安装</li>
+            <li><strong>灯具系统</strong>：LED固定座安装→灯带嵌入→防水处理</li>
+            <li><strong>总装测试</strong>：密封测试→功能测试→外观检验</li>
+            <h3>6.2 关键装配要点</h3>
+            <table>
+            <tr><th>工序</th><th>要点</th><th>检验标准</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>密封装配</td><td>使用O型圈+硅胶密封</td><td>打压测试不漏水</td></tr>
+            <tr><td>粘接工艺</td><td>亚克力粘接用UV胶或氯仿</td><td>粘接牢固，无气泡</td></tr>
+            <tr><td>螺钉固定</td><td>M3螺钉扭矩0.3N·m</td><td>不可过紧导致变形</td></tr>
+            <tr><td>水管连接</td><td>快接头卡扣锁紧</td><td>拉扯不脱落</td></tr>
+            </table>
+            <h2>七、公差与配合设计</h2>
+            <h3>7.1 通用公差</h3>
+            <li><strong>线性尺寸公差</strong>：±0.2mm</li>
+            <li><strong>孔径公差</strong>：+0.2mm（保证插入）</li>
+            <li><strong>轴径公差</strong>：-0.2mm（保证配合）</li>
+            <li><strong>角度公差</strong>：±1°</li>
+            <li><strong>形位公差</strong>：垂直度<0.5mm</li>
+            <h3>7.2 防水设计公差</h3>
+            <li>O型圈沟槽：深度+0.05mm，宽度+0.1mm</li>
+            <li>密封面平面度：<0.1mm</li>
+            <li>螺钉孔位置度：<0.3mm</li>
+            <h2>八、3D模型文件清单</h2>
+            <table>
+            <tr><th>零件名称</th><th>文件名</th><th>格式</th><th>数量</th></tr>
+            <tr><td>----------</td><td>--------</td><td>------</td><td>------</td></tr>
+            <tr><td>底座外壳</td><td>base_housing.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>底座上盖</td><td>base_cover.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>缸体底板</td><td>tank_bottom.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>缸体侧板×4</td><td>tank_side_*.stl</td><td>STL</td><td>4</td></tr>
+            <tr><td>缸盖</td><td>tank_lid.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>过滤盒</td><td>filter_box.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>水泵固定座</td><td>pump_mount.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>喂食器壳</td><td>feeder_housing.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>喂食转盘</td><td>feeder_tray.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>LED固定座</td><td>led_mount.stl</td><td>STL</td><td>1</td></tr>
+            <tr><td>水管快接头</td><td>quick_connector.stl</td><td>STL</td><td>2</td></tr>
+            <tr><td>翻盖</td><td>lid_hatch.stl</td><td>STL</td><td>1</td></tr>
+            </table>
+            <p><strong>文档结束</strong></p>
+            <p>*设计备注：本设计基于原型验证阶段，后续根据实际打印和装配情况进行优化调整。关键受力部位建议增加壁厚或使用更高强度材料。*</p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸装配指导书</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸装配指导书</h1>
+            <p class="subtitle">SUB智能鱼缸装配指导书</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>****：V1.0</strong></span>
+                <span class="meta-item">更新：<strong>****：2026-</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本</strong>：V1.0</p>
+            <p><strong>日期</strong>：2026-05-21</p>
+            <p><strong>产品型号</strong>：SFT-001</p>
+            <h2>一、装配前准备</h2>
+            <h3>1.1 所需工具</h3>
+            <table>
+            <tr><th>工具</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>十字螺丝刀</td><td>固定螺丝</td></tr>
+            <tr><td>尖嘴钳</td><td>夹持小零件</td></tr>
+            <tr><td>热风枪/电烙铁</td><td>焊接线束</td></tr>
+            <tr><td>万用表</td><td>检查通断</td></tr>
+            <tr><td>酒精棉片</td><td>清洁表面</td></tr>
+            <tr><td>硅胶</td><td>密封防水</td></tr>
+            </table>
+            <h3>1.2 检查物料</h3>
+            <p>按照BOM清单核对所有物料，确保无缺失。</p>
+            <h2>二、底座组装</h2>
+            <h3>2.1 安装PCB主板</h3>
+            <li>将PCB主板放置在底座腔内</li>
+            <li>对准4个定位柱</li>
+            <li>用螺丝固定4个角</li>
+            <p><strong>注意</strong>：轻拿轻放，避免划伤PCB</p>
+            <h3>2.2 安装水泵</h3>
+            <li>将水泵放入水泵固定座</li>
+            <li>调整水泵方向（进水口朝下）</li>
+            <li>用硅胶密封水泵安装孔</li>
+            <li>连接水管（进水管+出水管）</li>
+            <h3>2.3 安装舵机</h3>
+            <li>将舵机放入喂食器壳</li>
+            <li>对准轴孔</li>
+            <li>用螺丝固定</li>
+            <li>连接舵机线到PCB（J4接口）</li>
+            <h3>2.4 安装OLED屏幕</h3>
+            <li>将OLED屏幕嵌入前面板凹槽</li>
+            <li>排线从背面走线</li>
+            <li>连接I2C排线到PCB（J2接口）</li>
+            <h3>2.5 安装温度传感器</h3>
+            <li>将DS18B20探头穿过防水塞</li>
+            <li>从缸体内部穿入底座</li>
+            <li>连接传感器线到PCB（J3接口）</li>
+            <h3>2.6 合上底座上盖</h3>
+            <li>检查所有线束是否整理好</li>
+            <li>对准卡扣</li>
+            <li>均匀按压四周</li>
+            <li>用螺丝固定上盖</li>
+            <h2>三、缸体组装</h2>
+            <h3>3.1 清洁亚克力板</h3>
+            <p>用酒精棉片擦拭所有亚克力板，去除保护膜和灰尘。</p>
+            <h3>3.2 粘接缸体</h3>
+            <li><strong>底板粘接</strong></li>
+            <li>在底板边缘涂抹氯仿</li>
+            <li>对准侧板粘接面</li>
+            <li>压紧固定</li>
+            <li>等待30秒初固定</li>
+            <li><strong>侧板粘接</strong></li>
+            <li>依次粘接4块侧板</li>
+            <li>每块粘接后等待30秒</li>
+            <li>确保45°倒角对齐</li>
+            <li>粘接完成后静置24小时</li>
+            <p><strong>注意</strong>：氯仿有毒，佩戴口罩和手套，在通风环境下操作</p>
+            <h3>3.3 安装过滤盒</h3>
+            <li>将生化棉放入过滤盒</li>
+            <li>将过滤盒放入底座卡槽</li>
+            <li>确认可拆卸方向</li>
+            <h2>四、总装</h2>
+            <h3>4.1 缸体与底座配合</h3>
+            <li>检查密封圈是否安装到位</li>
+            <li>将缸体对准底座卡槽</li>
+            <li>均匀下压直至完全配合</li>
+            <li>检查四周缝隙是否均匀</li>
+            <h3>4.2 连接水管</h3>
+            <li>进水管：水泵 → 缸内</li>
+            <li>出水管：过滤盒 → 缸内</li>
+            <li>用快插接头固定</li>
+            <h3>4.3 安装LED灯条</h3>
+            <li>撕开LED背胶</li>
+            <li>沿缸体顶部粘贴</li>
+            <li>连接线束到PCB（J1接口）</li>
+            <h3>4.4 安装缸盖</h3>
+            <li>对准喂食口位置</li>
+            <li>合上缸盖</li>
+            <li>检查开合顺畅</li>
+            <h2>五、电气检查</h2>
+            <h3>5.1 通电前检查</h3>
+            <table>
+            <tr><th>检查项</th><th>方法</th><th>判定</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td></tr>
+            <tr><td>电源接口</td><td>目视检查</td><td>无虚焊</td></tr>
+            <tr><td>传感器接口</td><td>轻拉测试</td><td>无松动</td></tr>
+            <tr><td>继电器接口</td><td>目视检查</td><td>无短路</td></tr>
+            <tr><td>OLED排线</td><td>检查连接</td><td>无脱落</td></tr>
+            </table>
+            <h3>5.2 首次通电</h3>
+            <li>连接USB电源</li>
+            <li>观察OLED屏幕是否亮起</li>
+            <li>等待WiFi连接提示</li>
+            <li>用手机搜索WiFi热点</li>
+            <h2>六、注意事项</h2>
+            <h3>6.1 防水要求</h3>
+            <li>所有线缆穿孔处使用硅胶密封</li>
+            <li>底座上盖与缸体接触面使用密封圈</li>
+            <li>水泵安装后做24小时浸水测试</li>
+            <h3>6.2 静电防护</h3>
+            <li>焊接时佩戴防静电手环</li>
+            <li>PCB避免裸手触碰焊点</li>
+            <li>存放时使用防静电袋</li>
+            <h3>6.3 安全提示</h3>
+            <li>氯仿有毒，通风操作</li>
+            <li>加热棒使用时注意防烫</li>
+            <li>USB电源不超过5V</li>
+            <h2>七、常见问题</h2>
+            <table>
+            <tr><th>问题</th><th>原因</th><th>解决方法</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>OLED不亮</td><td>排线松动</td><td>重新插接排线</td></tr>
+            <tr><td>水泵不转</td><td>继电器故障</td><td>检查继电器接线</td></tr>
+            <tr><td>温度显示异常</td><td>传感器未连接</td><td>检查J3接口</td></tr>
+            <tr><td>WiFi连接失败</td><td>WiFi非2.4G</td><td>使用2.4G频段</td></tr>
+            </table>
+            <p>*文档结束*</p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

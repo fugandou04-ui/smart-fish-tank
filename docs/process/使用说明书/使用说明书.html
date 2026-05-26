@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸使用说明书</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸使用说明书</h1>
+            <p class="subtitle">SUB智能鱼缸使用说明书</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>****：V1.0</strong></span>
+                <span class="meta-item">更新：<strong>****：2026-</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本</strong>：V1.0</p>
+            <p><strong>日期</strong>：2026-05-21</p>
+            <p><strong>产品型号</strong>：SFT-001</p>
+            <h2>一、产品概览</h2>
+            <p>感谢您购买智能鱼缸！这款产品专为忙碌的养鱼爱好者设计，让您无需操心喂食、灯光等日常维护。</p>
+            <h3>快速开始</h3>
+            <li><strong>开箱检查</strong> — 确认所有配件齐全</li>
+            <li><strong>首次配网</strong> — 连接手机WiFi设置</li>
+            <li><strong>开始使用</strong> — 享受智能养鱼体验</li>
+            <h2>二、开箱检查</h2>
+            <p>请确认包装内包含以下物品：</p>
+            <table>
+            <tr><th>物品</th><th>数量</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>鱼缸本体</td><td>1</td></tr>
+            <tr><td>电源线（USB）</td><td>1</td></tr>
+            <tr><td>过滤棉</td><td>1</td></tr>
+            <tr><td>说明书</td><td>1</td></tr>
+            <tr><td>保修卡</td><td>1</td></tr>
+            </table>
+            <p>如有任何缺失，请联系客服。</p>
+            <h2>三、首次使用</h2>
+            <h3>3.1 放置鱼缸</h3>
+            <li>选择平稳的桌面位置</li>
+            <li>避免阳光直射</li>
+            <li>远离空调和暖气</li>
+            <li>确保电源插座方便使用</li>
+            <h3>3.2 连接电源</h3>
+            <li>将USB电源线连接到鱼缸底部USB接口</li>
+            <li>使用5V/2A手机充电头供电</li>
+            <li>等待OLED屏幕亮起</li>
+            <h3>3.3 手机配网</h3>
+            <li>首次启动后，鱼缸会创建热点</li>
+            <li>打开手机WiFi，搜索 <code>FishTank_AP</code></li>
+            <li>连接热点，密码 <code>12345678</code></li>
+            <li>打开浏览器，访问 <code>192.168.4.1</code></li>
+            <li>在设置页面输入您的WiFi信息</li>
+            <li>点击保存，设备自动重启</li>
+            <p><strong>注意</strong>：</p>
+            <li>WiFi必须是2.4GHz频段（不支持5G）</li>
+            <li>WiFi密码输入错误会导致连接失败</li>
+            <h3>3.4 查看设备IP</h3>
+            <p>正常连接后，OLED屏幕会显示IP地址，例如 <code>192.168.1.100</code></p>
+            <h2>四、控制界面</h2>
+            <h3>4.1 访问控制</h3>
+            <p>在同一局域网内，打开浏览器访问鱼缸IP地址即可。</p>
+            <p>例如：<code>http://192.168.1.100</code></p>
+            <h3>4.2 主界面功能</h3>
+            <table>
+            <tr><th>功能</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>状态显示</td><td>温度、水泵状态、灯光状态</td></tr>
+            <tr><td>水泵控制</td><td>开关水泵</td></tr>
+            <tr><td>灯光控制</td><td>调节颜色和亮度</td></tr>
+            <tr><td>喂食控制</td><td>手动喂食</td></tr>
+            <tr><td>定时设置</td><td>设置自动开关时间</td></tr>
+            </table>
+            <h2>五、功能说明</h2>
+            <h3>5.1 水泵控制</h3>
+            <li>点击"开关"按钮控制水泵</li>
+            <li>绿色表示运行中</li>
+            <li>水泵每2小时自动运行15分钟</li>
+            <h3>5.2 灯光控制</h3>
+            <li><strong>开关</strong>：点击开关灯</li>
+            <li><strong>颜色</strong>：点击选择预设颜色</li>
+            <li><strong>亮度</strong>：拖动滑块调整亮度</li>
+            <li><strong>定时</strong>：设置自动开关时间</li>
+            <h3>5.3 喂食控制</h3>
+            <li>点击"喂食"按钮立即喂食</li>
+            <li>支持小/中/大三档食量</li>
+            <li>建议每天喂食1-2次</li>
+            <h3>5.4 温度监测</h3>
+            <li>实时显示当前水温</li>
+            <li>建议温度范围：20-28°C</li>
+            <li>如需加热，请购买配套加热棒</li>
+            <h2>六、日常维护</h2>
+            <h3>6.1 换水</h3>
+            <p>每7天换水一次，换水步骤：</p>
+            <li>拔开换水接口的塞子</li>
+            <li>用容器接水</li>
+            <li>换水后重新加入新水</li>
+            <h3>6.2 清洗过滤棉</h3>
+            <p>每15天清洗一次过滤棉：</p>
+            <li>取出过滤盒</li>
+            <li>用清水冲洗过滤棉</li>
+            <li>晾干后重新安装</li>
+            <h3>6.3 清洁缸体</h3>
+            <p>用软布轻轻擦拭亚克力表面，避免使用酒精或化学溶剂。</p>
+            <h2>七、常见问题</h2>
+            <h3>WiFi连接失败</h3>
+            <li>确认WiFi是2.4GHz频段</li>
+            <li>检查WiFi密码是否正确</li>
+            <li>尝试重置：长按复位键10秒，重新配网</li>
+            <h3>OLED屏幕不亮</h3>
+            <li>检查USB电源是否连接</li>
+            <li>检查电源适配器是否正常工作</li>
+            <li>尝试更换USB线</li>
+            <h3>温度显示异常</h3>
+            <li>检查温度传感器是否浸入水中</li>
+            <li>等待30秒让传感器稳定</li>
+            <h3>水泵不转</h3>
+            <li>检查是否设置了自动模式</li>
+            <li>手动点击开关测试</li>
+            <li>检查水管是否堵塞</li>
+            <h2>八、规格参数</h2>
+            <table>
+            <tr><th>参数</th><th>数值</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>尺寸</td><td>15×15×15 cm</td></tr>
+            <tr><td>水容量</td><td>约2.5L</td></tr>
+            <tr><td>供电</td><td>USB 5V/2A</td></tr>
+            <tr><td>WiFi</td><td>2.4GHz</td></tr>
+            <tr><td>功耗</td><td>最大5W</td></tr>
+            </table>
+            <h2>九、安全提示</h2>
+            <li>请使用5V/2A电源适配器</li>
+            <li>避免让水进入底座电子仓</li>
+            <li>请勿在无人看管下长时间运行</li>
+            <li>如发现异常立即断电</li>
+            <h2>十、售后服务</h2>
+            <table>
+            <tr><th>服务</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>保修期</td><td>1年（人为损坏除外）</td></tr>
+            <tr><td>客服时间</td><td>周一至周五 9:00-18:00</td></tr>
+            <tr><td>联系方式</td><td>见保修卡</td></tr>
+            </table>
+            <p>*祝您养鱼愉快！*</p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面智能鱼缸 PCB 设计说明�?/title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文�?/p>
+            <h1>桌面智能鱼缸 PCB 设计说明�?/h1>
+            <p class="subtitle">SUB桌面智能鱼缸 PCB 设计说明�?/p>
+            <div class="meta-row">
+                <span class="meta-item">版本�?strong>初始</strong></span>
+                <span class="meta-item">更新�?strong>****: 2026</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本</strong>: V1.0</p>
+            <p><strong>日期</strong>: 2026-05-21</p>
+            <p><strong>设计�?/strong>: 嵌入式硬件工程师</p>
+            <h2>1. 产品概述</h2>
+            <li><strong>产品名称</strong>: 桌面智能鱼缸</li>
+            <li><strong>外形尺寸</strong>: 15×15×15cm</li>
+            <li><strong>适用对象</strong>: 小型鱼类/�?�?/li>
+            <li><strong>主控芯片</strong>: ESP32-C3 Mini（邮票孔贴片封装�?/li>
+            <li><strong>供电方式</strong>: USB 5V 输入，用户自备充电头</li>
+            <li><strong>通信方式</strong>: 本地局域网 Web 控制</li>
+            <h2>2. PCB 基本参数</h2>
+            <table>
+            <tr><th>参数</th><th>�?/th></tr>
+            <tr><td>------</td><td>-----</td></tr>
+            <tr><td>板子尺寸</td><td>50mm × 70mm（双面板�?/td></tr>
+            <tr><td>板厚</td><td>1.6mm</td></tr>
+            <tr><td>最小线�?/td><td>0.2mm（信号线�?/td></tr>
+            <tr><td>最小线�?/td><td>0.2mm</td></tr>
+            <tr><td>过孔直径</td><td>0.4mm（内径）/ 0.8mm（外径）</td></tr>
+            <tr><td>铺铜</td><td>地线铺铜，网格铺铜减少翘�?/td></tr>
+            <tr><td>安装�?/td><td>4�?M3 螺丝孔，分布在四�?/td></tr>
+            <tr><td>板边禁布�?/td><td>2mm</td></tr>
+            </table>
+            <h2>3. 引脚分配�?/h2>
+            <table>
+            <tr><th>GPIO</th><th>功能</th><th>接口类型</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>GPIO0</td><td>OLED SDA</td><td>I2C</td><td>弱电信号</td></tr>
+            <tr><td>GPIO1</td><td>OLED SCL</td><td>I2C</td><td>弱电信号</td></tr>
+            <tr><td>GPIO7</td><td>DS18B20 数据�?/td><td>单总线</td><td>需 4.7K 上拉电阻</td></tr>
+            <tr><td>GPIO3</td><td>水泵继电器控�?/td><td>低电平触�?/td><td>强电控制</td></tr>
+            <tr><td>GPIO4</td><td>舵机 PWM</td><td>PWM 输出</td><td>需 10K 下拉电阻</td></tr>
+            <tr><td>GPIO5</td><td>WS2812B 数据�?/td><td>单线协议</td><td>弱电信号</td></tr>
+            <tr><td>GPIO6</td><td>加热棒继电器（预留）</td><td>低电平触�?/td><td>强电控制</td></tr>
+            </table>
+            <h2>4. 元器件布局清单</h2>
+            <h3>4.1 主控区（板子中央偏左�?/h3>
+            <table>
+            <tr><th>元器�?/th><th>封装</th><th>数量</th><th>备注</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>ESP32-C3 Mini</td><td>邮票孔贴�?/td><td>1</td><td>居中放置</td></tr>
+            <tr><td>滤波电容 100nF</td><td>0805</td><td>4</td><td>VCC 退�?/td></tr>
+            <tr><td>复位电路</td><td>10K + 100nF</td><td>1</td><td>BOOT 模式</td></tr>
+            </table>
+            <h3>4.2 电源区（左下角）</h3>
+            <table>
+            <tr><th>元器�?/th><th>封装</th><th>数量</th><th>备注</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>USB-C 母座</td><td>SMD</td><td>1</td><td>5V 输入</td></tr>
+            <tr><td>TVS 二极�?/td><td>SMA</td><td>1</td><td>浪涌保护</td></tr>
+            <tr><td>保险�?1A</td><td>1206</td><td>1</td><td>过流保护</td></tr>
+            <tr><td>5V 滤波电容 22uF</td><td>0805</td><td>2</td><td>电源滤波</td></tr>
+            <tr><td>3.3V LDO</td><td>SOT223</td><td>1</td><td>AMS1117-3.3</td></tr>
+            </table>
+            <h3>4.3 传感�?显示区（左上角）</h3>
+            <table>
+            <tr><th>元器�?/th><th>封装</th><th>数量</th><th>备注</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>OLED 0.66" 4P 排针</td><td>1.27mm 间距</td><td>1</td><td>I2C 接口</td></tr>
+            <tr><td>DS18B20 3P 排针</td><td>2.54mm 间距</td><td>1</td><td>温度探头</td></tr>
+            <tr><td>4.7K 上拉电阻</td><td>0805</td><td>1</td><td>DS18B20 数据线上�?/td></tr>
+            </table>
+            <h3>4.4 执行器区（右侧）</h3>
+            <table>
+            <tr><th>元器�?/th><th>封装</th><th>数量</th><th>备注</th></tr>
+            <tr><td>--------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>水泵继电器模�?/td><td>5V 继电�?/td><td>1</td><td>低电平触�?/td></tr>
+            <tr><td>加热棒继电器接口</td><td>2P 端子</td><td>1</td><td>预留</td></tr>
+            <tr><td>舵机接口 3P</td><td>2.54mm 间距</td><td>1</td><td>PWM 控制</td></tr>
+            <tr><td>WS2812B 接口 3P</td><td>2.54mm 间距</td><td>1</td><td>LED 灯条</td></tr>
+            <tr><td>10K 下拉电阻</td><td>0805</td><td>1</td><td>舵机 PWM 防干�?/td></tr>
+            </table>
+            <h3>4.5 安装�?/h3>
+            <table>
+            <tr><th>位置</th><th>坐标（mm�?/th><th>孔径</th></tr>
+            <tr><td>------</td><td>------------</td><td>------</td></tr>
+            <tr><td>左上�?/td><td>(4, 4)</td><td>M3</td></tr>
+            <tr><td>右上�?/td><td>(46, 4)</td><td>M3</td></tr>
+            <tr><td>左下�?/td><td>(4, 66)</td><td>M3</td></tr>
+            <tr><td>右下�?/td><td>(46, 66)</td><td>M3</td></tr>
+            </table>
+            <h2>5. PCB 布局草图（俯视图�?/h2>
+            <pre><code>+----------------------------------------------------+
+|  �?                                               ○|
+|                                                    |
+|   +---------+     +---------------+                |
+|   | OLED    |     | ESP32-C3 Mini |                |
+|   | 4P      |     |   (邮票�?     |                |
+|   +---------+     +---------------+                |
+|                                                    |
+|   +---------+                                  +---+
+|   | DS18B20 |                                  |�?|
+|   |  3P    |                                  |�?|
+|   +---------+                                  |�?|
+|                                                  |�?|
+|                                                  +---+
+|                                                    |
+|   +---------+     +-------+                      +---+
+|   | 舵机    |     | LDO   |                      |�?|
+|   | 3P     |     | 3.3V  |                      |�?|
+|   +---------+     +-------+                      |�?|
+|                                                    |�?|
+|   +---------+                                  +---+电|
+|   |WS2812B  |                                  +-------+
+|   | 3P     |                                  | USB-C |
+|   +---------+                                  +-------+|
++----------------------------------------------------+
+|  �?                                               ○|
++----------------------------------------------------+
+
+图例�?
+�?= M3 安装�?
++---+ = 继电器模�?
++---+ = 接线端子
++---+ = 排针接口</code></pre>
+            <h2>6. 布线策略</h2>
+            <h3>6.1 走线宽度设计</h3>
+            <table>
+            <tr><th>线路类型</th><th>线宽</th><th>载流能力</th><th>用�?/th></tr>
+            <tr><td>----------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>5V 主电�?/td><td>0.5mm</td><td>~1A</td><td>USB 输入、电源主�?/td></tr>
+            <tr><td>3.3V 电源</td><td>0.3mm</td><td>~500mA</td><td>主控供电、传感器</td></tr>
+            <tr><td>地线</td><td>铺铜</td><td>-</td><td>铺铜连接�?GND</td></tr>
+            <tr><td>信号�?/td><td>0.2mm</td><td>-</td><td>GPIO、I2C、PWM</td></tr>
+            </table>
+            <h3>6.2 分区布局原则</h3>
+            <pre><code>+------------------------------------------+
+|              弱电信号�?                  |
+|   [OLED]  [DS18B20]  [WS2812B]           |
+|                                          |
+|            +----------+                  |
+|            | ESP32-C3 |                  |
+|            |   Mini   |                  |
+|            +----------+                  |
+|                                          |
+|   [舵机]                              [继电器]|
+|              强电控制�?                  |
++------------------------------------------+</code></pre>
+            <p><strong>分区说明</strong>:</p>
+            <li><strong>弱电�?/strong>（左上）：OLED、DS18B20、WS2812B —�?抗干扰要求高</li>
+            <li><strong>主控�?/strong>（中央）：ESP32-C3 Mini —�?信号交汇�?/li>
+            <li><strong>强电�?/strong>（右侧）：继电器、舵机接�?—�?继电器线圈会产生干扰</li>
+            <h3>6.3 关键布线要点</h3>
+            <h4>电源布线</h4>
+            <li>USB 5V �?保险�?�?TVS �?滤波电容 �?LDO</li>
+            <li>LDO 输出 3.3V �?主控及弱电元�?/li>
+            <li>5V �?3.3V 分别铺铜，大面积铺铜散热</li>
+            <li>每个 IC �?VCC 引脚放置 100nF 退耦电�?/li>
+            <h4>信号线布�?/h4>
+            <li>I2C（SDA/SCL）走线平行等距，避免跨越高速信�?/li>
+            <li>DS18B20 数据线预�?4.7K 上拉电阻位置（靠近主控端�?/li>
+            <li>WS2812B 数据线尽量短，必要时�?33R 串联电阻</li>
+            <li>舵机 PWM 线加 10K 下拉电阻，防止开机误动作</li>
+            <h4>继电器布�?/h4>
+            <li>继电器控制线（GPIO3、GPIO6）与信号线保�?3mm 以上间距</li>
+            <li>继电器输出端与主控区域物理隔�?/li>
+            <li>继电器线圈并联续流二极管�?N4007�?/li>
+            <h4>接地策略</h4>
+            <li>模拟地（DS18B20）和数字地通过单点连接</li>
+            <li>继电器地与主控地隔离，减少干�?/li>
+            <li>安装孔与地铺铜连接，作为屏蔽接地</li>
+            <h2>7. 接口定义</h2>
+            <table>
+            <tr><th>接口编号</th><th>接口名称</th><th>针数</th><th>间距</th><th>功能</th></tr>
+            <tr><td>----------</td><td>----------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>J1</td><td>OLED 接口</td><td>4P</td><td>1.27mm</td><td>I2C 显示�?/td></tr>
+            <tr><td>J2</td><td>DS18B20 接口</td><td>3P</td><td>2.54mm</td><td>温度传感�?/td></tr>
+            <tr><td>J3</td><td>水泵接口</td><td>2P</td><td>3.81mm</td><td>水泵继电器输�?/td></tr>
+            <tr><td>J4</td><td>舵机接口</td><td>3P</td><td>2.54mm</td><td>舵机 PWM 控制</td></tr>
+            <tr><td>J5</td><td>WS2812B 接口</td><td>3P</td><td>2.54mm</td><td>LED 灯条</td></tr>
+            <tr><td>J6</td><td>加热棒接�?/td><td>2P</td><td>3.81mm</td><td>加热棒继电器输出（预留）</td></tr>
+            <tr><td>J7</td><td>USB-C</td><td>6P</td><td>-</td><td>5V 电源输入</td></tr>
+            </table>
+            <h2>8. 注意事项</h2>
+            <h3>8.1 电气安全</h3>
+            <li>强电区域（继电器、水泵、加热棒）与弱电区域保持物理隔离</li>
+            <li>继电器输出端走线远离信号线，防止干扰</li>
+            <li>USB 输入端加 TVS 保护，防止静电损�?/li>
+            <h3>8.2 信号完整�?/h3>
+            <li>I2C 总线走线长度不超�?10cm</li>
+            <li>高速信号（WS2812B）避免直角走线，使用 45 度或圆弧过渡</li>
+            <li>敏感信号线（DS18B20）远离继电器和大电流走线</li>
+            <h3>8.3 PCB 可制造�?/h3>
+            <li>器件间距大于 0.3mm，方便贴�?/li>
+            <li>邮票孔边缘留 0.5mm 工艺�?/li>
+            <li>SMD 元件统一采用 0805 封装以上，方便手工焊接调�?/li>
+            <h3>8.4 热设�?/h3>
+            <li>LDO 并联 22uF 电容帮助散热</li>
+            <li>大电流走线铺铜加锡，增加载流能力</li>
+            <li>继电器模块发热较大，布局时注意周围通风</li>
+            <h2>9. 版本历史</h2>
+            <table>
+            <tr><th>版本</th><th>日期</th><th>修改内容</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>V1.0</td><td>2026-05-21</td><td>初始版本</td></tr>
+            </table>
+            <p><strong>文档结束</strong></p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面智能鱼缸电路设计说明�?/title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文�?/p>
+            <h1>桌面智能鱼缸电路设计说明�?/h1>
+            <p class="subtitle">SUB桌面智能鱼缸电路设计说明�?/p>
+            <div class="meta-row">
+                <span class="meta-item">版本�?strong>## 九、记�?/strong></span>
+                <span class="meta-item">更新�?strong>2026-05-22</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<h2>文档信息</h2>
+            <table>
+            <tr><th>项目</th><th>内容</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>产品名称</td><td>桌面智能鱼缸</td></tr>
+            <tr><td>尺寸规格</td><td>15×15×15cm</td></tr>
+            <tr><td>适用对象</td><td>小型鱼类/�?�?/td></tr>
+            <tr><td>版本</td><td>V1.1</td></tr>
+            <tr><td>日期</td><td>2026-05-21</td></tr>
+            </table>
+            <h2>一、产品概�?/h2>
+            <p>本产品为一款基�?ESP32-C3 Mini 的桌面智能鱼缸控制系统，通过本地局域网 Web 界面实现远程控制，具备水泵循环、LED 灯光、舵机喂食、温度监测、OLED 显示及加热棒控制等功能�?/p>
+            <h2>二、系统架�?/h2>
+            <pre><code>┌─────────────────────────────────────────────────────────────────�?
+�?                       电源系统                                  �?
+�? USB 5V ──�?AMS1117-3.3V ──�?ESP32-C3 Mini (3.3V供电)          �?
+�?    �?                                                        �?
+�?    └──�?负载供电 (5V)：水�?舵机/LED/继电�?                     �?
+└─────────────────────────────────────────────────────────────────�?
+
+┌─────────────────────────────────────────────────────────────────�?
+�?                       主控系统 ESP32-C3 Mini                     �?
+�? GPIO0 ── OLED SDA (I2C)                                        �?
+�? GPIO1 ── OLED SCL (I2C)                                         �?
+�? GPIO7 ── DS18B20 数据�?(4.7K上拉)                               �?
+�? GPIO3 ── 水泵继电�?(低电平触�?                                  �?
+�? GPIO4 ── 舵机PWM (SG90)                                         �?
+�? GPIO5 ── WS2812B数据�?                                         �?
+�? GPIO6 ── 预留加热棒继电器                                        �?
+└─────────────────────────────────────────────────────────────────�?
+
+┌─────────────────────────────────────────────────────────────────�?
+�?                       外设模块                                  �?
+�? 水泵控制 ──�?继电器模�?+ 续流二极�?                             �?
+�? LED照明 ──�?WS2812B灯条                                         �?
+�? 喂食系统 ──�?SG90 9g舵机                                        �?
+�? 温度监测 ──�?DS18B20防水探头                                    �?
+�? 显示系统 ──�?0.66�?OLED SSD1306                                �?
+�? 加热控制 ──�?预留继电器接�?                                     �?
+└─────────────────────────────────────────────────────────────────�?/code></pre>
+            <h2>三、电路原理图详细说明</h2>
+            <h3>3.1 电源模块</h3>
+            <h4>3.1.1 USB输入与保�?/h4>
+            <pre><code>USB 5V输入
+     �?
+     ├──�?TVS二极�?(SMBJ5.0A) ── 过压保护
+     �?
+     └──�?自恢复保险丝 (500mA) ── 过流保护
+              �?
+              └──�?主电源分�?/code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>USB接口（Type-C或Micro-B）输�?V供电</li>
+            <li>TVS二极�?SMBJ5.0A)提供ESD和浪涌保�?/li>
+            <li>自恢复保险丝(PPTC 500mA)防止短路损坏</li>
+            <h4>3.1.2 电源分配</h4>
+            <pre><code>USB 5V
+     �?
+     ├──�?VBUS ──�?负载总供�?(水泵/舵机/LED/继电�?
+     �?
+     └──�?AMS1117-3.3V LDO ──�?ESP32 3.3V供电
+              �?                   �?
+              �?                   └──�?外设3.3V (DS18B20�?
+              �?
+              └──�?输入滤波电容 C1 (10μF) + C2 (100nF)
+                   输出滤波电容 C3 (10μF) + C4 (100nF)</code></pre>
+            <p><strong>关键器件�?/strong></p>
+            <li>LDO芯片：AMS1117-3.3V（最大输出电�?A�?/li>
+            <li>输入电容：C1=10μF(电解)+C2=100nF(陶瓷)</li>
+            <li>输出电容：C3=10μF(电解)+C4=100nF(陶瓷)</li>
+            <li>输出电流需求：ESP32-C3峰值约500mA + 外设</li>
+            <p><strong>设计要点�?/strong></p>
+            <li>AMS1117需要足够散热，必要时加焊盘</li>
+            <li>输入输出电容尽量靠近芯片引脚放置</li>
+            <li>5V�?.3V地平面共�?/li>
+            <h3>3.2 主控模块 (ESP32-C3 Mini)</h3>
+            <h4>3.2.1 最小系统电�?/h4>
+            <pre><code>ESP32-C3 Mini
+├── VDD (3.3V) ◄── 来自AMS1117-3.3V
+├── GND ◄── 共地
+├── USB D+ ◄── USB数据�?(烧录/调试�?
+├── USB D- ◄── USB数据�?
+├── EN ◄── 10K上拉 + 100nF电容去�?
+└── GPIO0/1/2/3/4/5/6 ◄── 功能引脚</code></pre>
+            <p><strong>设计要点�?/strong></p>
+            <li>ESP32-C3 Mini为模块化设计，已内置晶振和flash</li>
+            <li>EN引脚上拉100K电阻�?.3V，确保复位正�?/li>
+            <li>USB D+/D-预留用于烧录（也可用于串口调试）</li>
+            <li>所有GPIO支持GPIO中断功能</li>
+            <h3>3.3 I2C显示模块 (OLED SSD1306)</h3>
+            <h4>3.3.1 电路连接</h4>
+            <pre><code>ESP32-C3          OLED模块 (0.66�?SSD1306)
+GPIO0 (SDA) ──────── SDA
+GPIO1 (SCL) ──────── SCL
+3.3V        ──────── VCC
+GND         ──────── GND</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>I2C地址�?x3C（默认）</li>
+            <li>I2C速率�?00KHz（快速模式）</li>
+            <li>无需外部上拉电阻（模块已内置�?/li>
+            <p><strong>设计要点�?/strong></p>
+            <li>SDA/SCL走线尽量短，减少寄生电容</li>
+            <li>建议在SDA/SCL线上串联33Ω电阻（可选，抗干扰）</li>
+            <li>OLED模块布线预留可插拔接�?/li>
+            <h3>3.4 温度监测模块 (DS18B20)</h3>
+            <h4>3.4.1 电路连接</h4>
+            <pre><code>ESP32-C3                    DS18B20防水探头
+GPIO7 ──── 4.7KΩ上拉 ────── DQ (数据�?
+3.3V    ─────────────────── VDD (供电)
+GND     ─────────────────── GND</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>采用寄生供电模式或正常供电模式（推荐正常供电�?/li>
+            <li>4.7KΩ上拉电阻必须接在GPIO7�?.3V之间</li>
+            <li>数据线DQ连接到GPIO7</li>
+            <p>> <strong>GPIO选型说明�?/strong> DS18B20使用GPIO7而非GPIO7，因为GPIO2是ESP32-C3的strapping引脚，上电时电平会影响启动模式（Boot选择）。使用GPIO7可避免潜在的启动风险，确保系统稳定启动�?/p>
+            <p><strong>设计要点�?/strong></p>
+            <li>上拉电阻位置尽量靠近主控板端</li>
+            <li>DS18B20的DQ线可延长�?米（建议使用屏蔽线）</li>
+            <li>防水探头线缆焊接处需做防水处理（热缩管）</li>
+            <li>建议在GPIO7增加100Ω串联电阻（保护IO口）</li>
+            <h3>3.5 水泵控制模块 (继电�?</h3>
+            <h4>3.5.1 电路连接</h4>
+            <pre><code>ESP32-C3                    继电器模�?(5V 低电平触�?
+GPIO3 ────────────────────── IN (控制信号)
+5V    ────────────────────── VCC (继电器线圈供�?
+GND   ────────────────────── GND
+                                    �?
+                                    ├─── COM ─── 电源输入
+                                    ├─── NO  ──�?水泵正极
+                                    └─── NC  ──�?(预留)
+
+水泵
+水泵正极 ◄─── NO (常开)
+水泵负极 ◄─── GND</code></pre>
+            <p><strong>续流保护电路�?/strong></p>
+            <pre><code>继电器线圈两�?
+     �?
+     ├──�?续流二极�?1N4007 (反向并联)
+     �?       �?
+     �?       └──�?阳极接GND，阴极接5V
+     �?
+     └──�?吸收电容 100nF (可�?</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>继电器为低电平触发：GPIO3输出低电平时继电器吸�?/li>
+            <li>续流二极�?N4007用于吸收继电器线圈关断时的反向电动势</li>
+            <li>水泵供电5V，最大电流约200mA</li>
+            <p><strong>滤波电容�?/strong></p>
+            <pre><code>5V总线 ────�?1000μF电解电容 ◄─── GND
+              (水泵供电滤波)</code></pre>
+            <p><strong>设计要点�?/strong></p>
+            <li>续流二极管必须反向并联在继电器线圈两�?/li>
+            <li>二极管方向：阳极接低电位，阴极接高电�?/li>
+            <li>水泵和舵机共用电容滤�?/li>
+            <li>继电器触点建议使用常开(NO)配置</li>
+            <h3>3.6 LED照明模块 (WS2812B)</h3>
+            <h4>3.6.1 电路连接</h4>
+            <pre><code>ESP32-C3          WS2812B灯带         WS2812B灯带
+GPIO5 ─────────── DI (数据输入) ──── DO (级联输出)
+5V    ──────────────── VCC ──────────── VCC
+GND   ──────────────── GND ──────────── GND</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>WS2812B为单线协议，级联控制</li>
+            <li>数据线DI接GPIO5，DO连接到下一级灯�?/li>
+            <li>每个灯珠工作电流�?0mA（全亮时�?/li>
+            <p><strong>设计要点�?/strong></p>
+            <li>灯带供电必须充足（每颗灯�?0mA�?/li>
+            <li>建议在灯带电源入口加1000μF滤波电容</li>
+            <li>数据线串联电�?20Ω~470Ω（保护IO�?/li>
+            <li>灯带长度建议不超�?0颗灯珠（5V供电限制�?/li>
+            <li>走线采用双绞线，减少信号干扰</li>
+            <h3>3.7 舵机喂食模块 (SG90 9g)</h3>
+            <h4>3.7.1 电路连接</h4>
+            <pre><code>ESP32-C3          舵机 (SG90 9g)
+GPIO4 ──────────── PWM控制�?(�?黄线)
+5V    ──────────── VCC (红线)
+GND   ──────────── GND (棕线)
+
+5V总线 ────�?1000μF电解电容 ◄─── GND
+              (舵机供电滤波)</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>SG90工作电压�?.8V~6V</li>
+            <li>PWM控制信号�?0Hz，脉�?ms~2ms</li>
+            <li>1ms (0°) / 1.5ms (90°) / 2ms (180°)</li>
+            <li>舵机堵转电流�?50mA</li>
+            <p><strong>设计要点�?/strong></p>
+            <li>舵机单独供电时需要充足电流储�?/li>
+            <li>PWM信号线长度尽量短�?30cm�?/li>
+            <li>舵机与主控共�?/li>
+            <li>可选：PWM线上串联100Ω电阻（保护GPIO�?/li>
+            <h3>3.8 加热棒控制接�?(预留)</h3>
+            <h4>3.8.1 电路连接</h4>
+            <pre><code>ESP32-C3                    光耦隔离模�?                   继电器模�?
+GPIO6 ──────�?220Ω ──�?PC817 IN ── OUT ──�?继电器IN     �?
+5V    ──────────────────── VCC                             �?
+GND   ──────────────────── GND ────────────────────────────�?
+                                                              �?
+                                                              ├─── COM ─── 电源输入 (AC)
+                                                              ├─── NO  ──�?加热�?
+                                                              └─── NC  ──�?(预留)
+
+加热棒接线端�?/code></pre>
+            <p>> <strong>安全警告�?/strong> 加热棒使用AC 220V供电，属于危险电压！必须使用光耦进行强弱电隔离，确保人身安全�?/p>
+            <p><strong>电路说明�?/strong></p>
+            <li><strong>光耦隔离（必须）：</strong> 使用PC817或其他光耦将ESP32的低压控制电路与220V强电侧完全隔�?/li>
+            <li>光耦输入端串联220Ω限流电阻（LED正向电流�?0mA�?/li>
+            <li>光耦输出端控制继电器模�?/li>
+            <li>继电器使用交流触点（AC 5A/250VAC以上�?/li>
+            <p><strong>推荐方案�?/strong></p>
+            <pre><code>方案一：光�?+ 继电器模块（推荐�?
+├── PC817 光耦隔�?
+├── 5V直流继电器模块（线圈5V，触点AC 10A�?
+└── 适用于标准配�?
+
+方案二：固态继电器SSR（可选）
+├── 直接由GPIO控制
+├── 无机械触点，寿命更长
+└── 需选型AC-SSR，控制电压匹�?
+
+方案三：光�?+ 功率开关芯片（高级�?
+├── 光耦隔�?+ 分立功率器件
+└── 适用于定制设�?/code></pre>
+            <p><strong>设计要点�?/strong></p>
+            <li>光耦输入与输出之间必须有足够的隔离电压（≥1500V�?/li>
+            <li>220V强电布线必须与低压电路保持足够间距（�?mm�?/li>
+            <li>AC侧必须串联保险丝�?A~2A�?/li>
+            <li>强电部分使用专用的安全认证接线端�?/li>
+            <li>建议增加TVS二极管（AC侧）做浪涌保�?/li>
+            <li>整体设计需符合电气安全标准</li>
+            <p><strong>强电安全检查清单：</strong></p>
+            <pre><code>�?光耦隔离确认（PC817或等效）
+�?隔离电压 �?1500V AC
+�?继电器触点额定电�?�?加热棒额定电�?�?
+�?AC侧串联保险丝
+�?强弱电物理隔离距�?�?3mm
+�?强电走线有明显标�?
+�?接地保护措施到位</code></pre>
+            <h3>3.9 串口调试接口</h3>
+            <h4>3.9.1 电路连接</h4>
+            <pre><code>ESP32-C3          4Pin排针 (串口调试)
+TX  ────────────── TX (发�?
+RX  ────────────── RX (接收)
+3.3V ───────────── 3.3V
+GND ────────────── GND</code></pre>
+            <p><strong>电路说明�?/strong></p>
+            <li>预留标准4Pin调试接口</li>
+            <li>用于固件烧录和日志输�?/li>
+            <li>可连接USB转TTL模块（FT232/CH340�?/li>
+            <p><strong>设计要点�?/strong></p>
+            <li>引脚顺序：TX/RX/3V3/GND</li>
+            <li>建议标注TX/RX（注意交叉连接）</li>
+            <li>可选增�?Ω电阻串联（可选调�?量产切换�?/li>
+            <h2>四、引脚分配表</h2>
+            <table>
+            <tr><th>ESP32-C3 引脚</th><th>功能</th><th>说明</th><th>电气特�?/th></tr>
+            <tr><td>--------------</td><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>GPIO0</td><td>OLED_SDA</td><td>I2C数据�?/td><td>开漏输出，需上拉</td></tr>
+            <tr><td>GPIO1</td><td>OLED_SCL</td><td>I2C时钟�?/td><td>开漏输出，需上拉</td></tr>
+            <tr><td>GPIO3</td><td>PUMP_RELAY</td><td>水泵继电器控�?/td><td>低电平触�?/td></tr>
+            <tr><td>GPIO4</td><td>SERVO_PWM</td><td>舵机PWM控制</td><td>输出PWM信号</td></tr>
+            <tr><td>GPIO5</td><td>WS2812B_DI</td><td>LED灯带数据</td><td>单线协议</td></tr>
+            <tr><td>GPIO6</td><td>HEATER_RELAY</td><td>加热棒继电器(预留)</td><td>低电平触�?/td></tr>
+            <tr><td>GPIO7</td><td>DS18B20_DQ</td><td>温度传感器数据线</td><td>需4.7K上拉（非Strapping引脚�?/td></tr>
+            <tr><td>3V3</td><td>VDD</td><td>主控电源</td><td>3.3V @ 500mA</td></tr>
+            <tr><td>5V</td><td>VBUS</td><td>负载电源</td><td>5V @ 2A+</td></tr>
+            <tr><td>GND</td><td>GND</td><td>系统�?/td><td>-</td></tr>
+            </table>
+            <h2>五、物料清�?(BOM)</h2>
+            <h3>5.1 主动器件</h3>
+            <table>
+            <tr><th>序号</th><th>器件名称</th><th>规格型号</th><th>数量</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>ESP32-C3 Mini</td><td>ESP32-C3-Mini-1</td><td>1</td><td>主控芯片</td></tr>
+            <tr><td>2</td><td>稳压芯片</td><td>AMS1117-3.3V</td><td>1</td><td>LDO稳压�?/td></tr>
+            <tr><td>3</td><td>DS18B20</td><td>DS18B20防水探头</td><td>1</td><td>温度传感�?/td></tr>
+            <tr><td>4</td><td>OLED显示�?/td><td>0.66�?SSD1306 I2C</td><td>1</td><td>显示模块</td></tr>
+            <tr><td>5</td><td>继电�?/td><td>5V 低电平触�?/td><td>2</td><td>水泵+加热�?/td></tr>
+            <tr><td>6</td><td>WS2812B灯条</td><td>5V RGB</td><td>1</td><td>LED照明</td></tr>
+            <tr><td>7</td><td>舵机</td><td>SG90 9g</td><td>1</td><td>喂食�?/td></tr>
+            </table>
+            <h3>5.2 被动器件</h3>
+            <table>
+            <tr><th>序号</th><th>器件名称</th><th>规格型号</th><th>数量</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>电解电容</td><td>1000μF/16V</td><td>2</td><td>水泵/舵机滤波</td></tr>
+            <tr><td>2</td><td>电解电容</td><td>10μF/16V</td><td>2</td><td>LDO输入/输出滤波</td></tr>
+            <tr><td>3</td><td>陶瓷电容</td><td>100nF</td><td>4</td><td>去耦电�?/td></tr>
+            <tr><td>4</td><td>上拉电阻</td><td>4.7KΩ 0805</td><td>1</td><td>DS18B20上拉</td></tr>
+            <tr><td>5</td><td>串联电阻</td><td>220Ω 0805</td><td>2</td><td>WS2812B数据线保�?/td></tr>
+            <tr><td>6</td><td>串联电阻</td><td>220Ω 0805</td><td>1</td><td>光耦输入限�?/td></tr>
+            <tr><td>7</td><td>限流电阻</td><td>100Ω 0805</td><td>2</td><td>GPIO保护(可�?</td></tr>
+            </table>
+            <h3>5.3 保护器件</h3>
+            <table>
+            <tr><th>序号</th><th>器件名称</th><th>规格型号</th><th>数量</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>TVS二极�?/td><td>SMBJ5.0A</td><td>1</td><td>USB过压保护</td></tr>
+            <tr><td>2</td><td>自恢复保险丝</td><td>500mA/6V</td><td>1</td><td>过流保护</td></tr>
+            <tr><td>3</td><td>续流二极�?/td><td>1N4007</td><td>2</td><td>继电器线圈保�?/td></tr>
+            <tr><td>4</td><td>光耦隔离器</td><td>PC817</td><td>1</td><td>加热棒AC220V隔离（必须）</td></tr>
+            <tr><td>5</td><td>AC保险�?/td><td>1A/250V</td><td>1</td><td>加热棒回路保�?/td></tr>
+            </table>
+            <h3>5.4 连接器件</h3>
+            <table>
+            <tr><th>序号</th><th>器件名称</th><th>规格型号</th><th>数量</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>------</td><td>------</td></tr>
+            <tr><td>1</td><td>USB接口</td><td>Type-C/Micro-B</td><td>1</td><td>电源输入</td></tr>
+            <tr><td>2</td><td>接线端子</td><td>2Pin 5.08mm</td><td>4</td><td>水泵/加热�?舵机/LED</td></tr>
+            <tr><td>3</td><td>接线端子</td><td>3Pin 5.08mm</td><td>2</td><td>DS18B20/预留</td></tr>
+            <tr><td>4</td><td>排针</td><td>1×4Pin 2.54mm</td><td>1</td><td>串口调试</td></tr>
+            <tr><td>5</td><td>接插�?/td><td>XH2.54 4Pin</td><td>1</td><td>OLED连接</td></tr>
+            </table>
+            <h3>5.5 完整BOM汇�?/h3>
+            <table>
+            <tr><th>分类</th><th>品种�?/th><th>物料总项�?/th></tr>
+            <tr><td>------</td><td>--------</td><td>-----------</td></tr>
+            <tr><td>主动器件</td><td>7</td><td>9</td></tr>
+            <tr><td>被动器件</td><td>6</td><td>11</td></tr>
+            <tr><td>保护器件</td><td>5</td><td>6</td></tr>
+            <tr><td>连接器件</td><td>5</td><td>9</td></tr>
+            <tr><td>**合计**</td><td>**23**</td><td>**35**</td></tr>
+            </table>
+            <h2>六、设计要点与注意事项</h2>
+            <h3>6.0 GPIO选型指南</h3>
+            <p>> <strong>ESP32-C3 GPIO使用注意事项</strong></p>
+            <table>
+            <tr><th>GPIO</th><th>特殊功能</th><th>风险说明</th><th>推荐用�?/th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>GPIO0</td><td>Strapping引脚</td><td>上电电平影响Boot模式</td><td>谨慎使用/避免使用</td></tr>
+            <tr><td>GPIO1</td><td>Strapping引脚</td><td>上电电平影响Flash电压</td><td>谨慎使用/避免使用</td></tr>
+            <tr><td>GPIO7</td><td>Strapping引脚</td><td>上电电平影响启动调试</td><td>**已用作DS18B20�?*</td></tr>
+            <tr><td>GPIO3</td><td>Strapping引脚</td><td>上电电平影响ROM日志</td><td>谨慎使用</td></tr>
+            <tr><td>GPIO4</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO5</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO6</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO7</td><td>普通GPIO</td><td>无特殊限�?/td><td>**推荐用于DS18B20�?*</td></tr>
+            <tr><td>GPIO8</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO9</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO18</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            <tr><td>GPIO19</td><td>普通GPIO</td><td>USB D-</td><td>USB功能</td></tr>
+            <tr><td>GPIO70</td><td>普通GPIO</td><td>USB D+</td><td>USB功能</td></tr>
+            <tr><td>GPIO71</td><td>普通GPIO</td><td>无特殊限�?/td><td>推荐使用</td></tr>
+            </table>
+            <p><strong>Strapping引脚说明�?/strong></p>
+            <li>ESP32-C3的GPIO0~GPIO3在芯片上电时作为Strapping引脚，读取内部熔丝状�?/li>
+            <li>这些引脚在启动瞬间的电平会影响芯片行�?/li>
+            <li><strong>推荐做法�?/strong> 上电后这些引脚可以正常使用，但应避免在上电时产生不确定电�?/li>
+            <li><strong>本设计选择GPIO7作为DS18B20数据�?/strong>，完全避免Strapping引脚风险</li>
+            <h3>6.1 电源设计要点</h3>
+            <li><strong>USB供电电流评估</strong></li>
+            <li>USB 2.0标准供电能力�?00mA</li>
+            <li>USB 3.0标准供电能力�?00mA</li>
+            <li>建议使用5V/2A充电头确保供电充�?/li>
+            <li><strong>负载电流预算</strong></li>
+            <table>
+            <tr><th>负载</th><th>工作电流</th><th>峰值电�?/th></tr>
+            <tr><td>------</td><td>---------</td><td>---------</td></tr>
+            <tr><td>ESP32-C3 Mini</td><td>70mA</td><td>500mA</td></tr>
+            <tr><td>WS2812B (10�?</td><td>600mA</td><td>-</td></tr>
+            <tr><td>水泵</td><td>200mA</td><td>300mA</td></tr>
+            <tr><td>舵机</td><td>100mA</td><td>250mA</td></tr>
+            <tr><td>继电器线�?/td><td>70mA</td><td>-</td></tr>
+            <tr><td>OLED</td><td>20mA</td><td>-</td></tr>
+            <tr><td>**合计**</td><td>**1060mA**</td><td>**1400mA**</td></tr>
+            </table>
+            <li><strong>建议</strong></li>
+            <li>正常工作时避免所有负载同时最大功率运�?/li>
+            <li>WS2812B限流：可通过程序控制亮度或减少灯珠数�?/li>
+            <li>可选增加USB限流保护芯片</li>
+            <h3>6.2 继电器设计注意事�?/h3>
+            <li><strong>继电器选型</strong></li>
+            <li>水泵�?V/10A DC继电�?/li>
+            <li>加热棒：5V/10A AC继电器（需交流触点�?/li>
+            <li><strong>续流二极管必须接</strong></li>
+            <li>位置：反向并联在继电器线圈两�?/li>
+            <li>方向：阳极接GND，阴极接VCC</li>
+            <li>作用：吸收线圈关断时的反向电动势</li>
+            <li><strong>防止误动�?/strong></li>
+            <li>GPIO初始化时设为高电平（防止继电器意外吸合）</li>
+            <li>使用低电平触发继电器模块</li>
+            <h3>6.3 布线注意事项</h3>
+            <li><strong>电源线布�?/strong></li>
+            <li>5V主电源线宽：建议0.5mm以上（电�?A�?/li>
+            <li>3.3V电源线宽：建�?.3mm以上</li>
+            <li>GND铺铜：保证足够的接地面积</li>
+            <li><strong>信号线布�?/strong></li>
+            <li>WS2812B数据线：串联220Ω电阻，位于主控端</li>
+            <li>DS18B20数据线：4.7KΩ上拉电阻位于主控�?/li>
+            <li>舵机PWM线：尽量短且远离电源�?/li>
+            <li><strong>强弱电隔�?/strong></li>
+            <li>220V加热棒部分与低压电路物理隔离</li>
+            <li>使用光耦隔离（可选，提高安全性）</li>
+            <h3>6.4 温度传感器注意事�?/h3>
+            <li><strong>DS18B20使用</strong></li>
+            <li>探头需放置于鱼缸水体中央位�?/li>
+            <li>线缆焊接处热缩管防水处理</li>
+            <li>避免放置于加热棒正上方（局部温度过高）</li>
+            <li><strong>温度精度</strong></li>
+            <li>DS18B20精度：�?.5°C (-10°C~85°C)</li>
+            <li>分辨率可设置�?/10/11/12�?/li>
+            <h3>6.5 OLED显示注意事项</h3>
+            <li><strong>I2C地址</strong></li>
+            <li>默认地址�?x3C</li>
+            <li>如需两个OLED：另一个地址0x3D</li>
+            <li><strong>显示内容规划</strong></li>
+            <li>温度显示</li>
+            <li>工作状态（水泵/LED/喂食�?/li>
+            <li>WiFi状�?/li>
+            <li>时间显示（可选）</li>
+            <h2>七、关键测试点</h2>
+            <h3>7.1 电源测试�?/h3>
+            <table>
+            <tr><th>测试�?/th><th>位置</th><th>正常�?/th><th>测试方法</th></tr>
+            <tr><td>--------</td><td>------</td><td>--------</td><td>----------</td></tr>
+            <tr><td>TP1</td><td>USB输入</td><td>5.0V±0.2V</td><td>万用表测USB引脚</td></tr>
+            <tr><td>TP2</td><td>AMS1117输入</td><td>5.0V±0.2V</td><td>测芯片输入引�?/td></tr>
+            <tr><td>TP3</td><td>AMS1117输出</td><td>3.3V±0.1V</td><td>测芯片输出引�?/td></tr>
+            <tr><td>TP4</td><td>ESP32 VDD</td><td>3.3V±0.1V</td><td>测主控电源引�?/td></tr>
+            </table>
+            <h3>7.2 信号测试�?/h3>
+            <table>
+            <tr><th>测试�?/th><th>位置</th><th>正常�?波形</th><th>测试方法</th></tr>
+            <tr><td>--------</td><td>------</td><td>------------</td><td>----------</td></tr>
+            <tr><td>TP5</td><td>GPIO5 (LED数据)</td><td>PWM波形 800KHz</td><td>示波器观�?/td></tr>
+            <tr><td>TP6</td><td>GPIO4 (舵机PWM)</td><td>50Hz PWM 1~2ms</td><td>示波器观�?/td></tr>
+            <tr><td>TP7</td><td>GPIO7 (DS18B20)</td><td>单总线波形</td><td>示波器观�?/td></tr>
+            <tr><td>TP8</td><td>GPIO0/1 (I2C)</td><td>I2C波形 400KHz</td><td>示波器观�?/td></tr>
+            </table>
+            <h3>7.3 功能测试流程</h3>
+            <h4>电源测试</h4>
+            <pre><code>1. 上电前检查：
+   �?焊接无短�?
+   �?极性正�?
+   �?无多余焊�?
+
+2. 电源测试�?
+   �?USB 5V正常
+   �?AMS1117输出3.3V
+   �?无异常发�?/code></pre>
+            <h4>主控测试</h4>
+            <pre><code>3. 主控测试�?
+   �?串口连接正常
+   �?固件烧录成功
+   �?启动日志正常输出</code></pre>
+            <h4>外设测试</h4>
+            <pre><code>4. OLED测试�?
+   �?I2C通信正常
+   �?屏幕显示清晰
+   �?无花屏现�?
+
+5. DS18B20测试�?
+   �?温度读取正常
+   �?数值合理（室温±5°C�?
+
+6. 继电器测试：
+   �?水泵继电器吸�?释放正常
+   �?续流二极管不发热
+
+7. WS2812B测试�?
+   �?灯珠全部点亮
+   �?颜色切换正常
+   �?无闪�?
+
+8. 舵机测试�?
+   �?角度控制正常
+   �?无异常噪�?
+   �?运行平滑</code></pre>
+            <h3>7.4 常见故障排查</h3>
+            <table>
+            <tr><th>故障现象</th><th>可能原因</th><th>解决方法</th></tr>
+            <tr><td>----------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>主控不启�?/td><td>电源问题/焊接问题</td><td>检�?.3V供电/重新焊接</td></tr>
+            <tr><td>OLED不显�?/td><td>I2C地址错误/接线错误</td><td>检查接�?A4/A5</td></tr>
+            <tr><td>温度读取失败</td><td>4.7K上拉缺失/接线错误</td><td>检查GPIO7上拉电阻</td></tr>
+            <tr><td>LED不亮</td><td>数据线串联电�?供电问题</td><td>检�?20Ω电阻/5V供电</td></tr>
+            <tr><td>继电器不动作</td><td>控制信号反了/供电不足</td><td>检查GPIO3/5V供电</td></tr>
+            <tr><td>舵机不转</td><td>PWM信号不对/供电不足</td><td>检查GPIO4 PWM/5V供电</td></tr>
+            </table>
+            <h2>八、原理图符号说明</h2>
+            <h3>8.1 接线端子定义</h3>
+            <pre><code>┌─────────────�?
+�? J1         �? J1: 2Pin 水泵接口
+�? ┌──┬──�?   �? PIN1: 5V
+�? �? �? �?   �? PIN2: GND
+�? └──┴──�?   �?
+└─────────────�?
+
+┌─────────────�?
+�? J2         �? J2: 4Pin LED接口
+�? ┌──┬──�?   �? PIN1: 5V
+�? �? �? �?   �? PIN2: DATA
+�? �? �? �?   �? PIN3: GND
+�? �? �? �?   �? PIN4: GND
+�? └──┴──�?   �?
+└─────────────�?
+
+┌─────────────�?
+�? J3         �? J3: 3Pin 舵机接口
+�? ┌──┬──�?   �? PIN1: 5V
+�? �? �? �?   �? PIN2: PWM
+�? �? �? �?   �? PIN3: GND
+�? └──┴──�?   �?
+└─────────────�?/code></pre>
+            <h3>8.2 符号说明</h3>
+            <table>
+            <tr><th>符号</th><th>含义</th></tr>
+            <tr><td>------</td><td>------</td></tr>
+            <tr><td>VBUS</td><td>USB总线电压 5V</td></tr>
+            <tr><td>VDD</td><td>主控供电电压 3.3V</td></tr>
+            <tr><td>GND</td><td>系统�?/td></tr>
+            <tr><td>PULL-UP</td><td>上拉电阻</td></tr>
+            <tr><td>R</td><td>限流/保护电阻</td></tr>
+            <tr><td>C</td><td>滤波/去耦电�?/td></tr>
+            <tr><td>D</td><td>二极�?/td></tr>
+            <tr><td>RELAY</td><td>继电�?/td></tr>
+            <tr><td>KΩ</td><td>千欧电阻</td></tr>
+            <tr><td>μF</td><td>微法电容</td></tr>
+            <tr><td>nF</td><td>纳法电容</td></tr>
+            </table>
+            <h2>九、版本记�?/h2>
+            <table>
+            <tr><th>版本</th><th>日期</th><th>修改内容</th><th>作�?/th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>V1.0</td><td>2026-05-21</td><td>初版发布</td><td>嵌入式硬件工程师</td></tr>
+            <tr><td>V1.1</td><td>2026-05-21</td><td>修正DS18B20引脚从GPIO2改为GPIO7（避免strapping引脚风险）；增加加热棒AC220V光耦隔离方案说明；更新BOM增加光耦和保险�?/td><td>嵌入式硬件工程师</td></tr>
+            </table>
+            <h2>十、参考资�?/h2>
+            <li>ESP32-C3 Mini 数据手册</li>
+            <li>AMS1117 数据手册</li>
+            <li>DS18B20 数据手册</li>
+            <li>WS2812B 数据手册</li>
+            <li>SG90 舵机数据手册</li>
+            <li>SSD1306 OLED 数据手册</li>
+            <li>ESP32-C3 硬件设计指南</li>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

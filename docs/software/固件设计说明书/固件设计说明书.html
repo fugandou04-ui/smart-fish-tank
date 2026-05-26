@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32智能鱼缸固件设计说明书</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>ESP32智能鱼缸固件设计说明书</h1>
+            <p class="subtitle">SUBESP32智能鱼缸固件设计说明书</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>- 固件升级时保留用户配置（兼容）</strong></span>
+                <span class="meta-item">更新：<strong>****：2026-</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本</strong>：v1.0</p>
+            <p><strong>日期</strong>：2026-05-21</p>
+            <p><strong>作者</strong>：嵌入式硬件工程师</p>
+            <h2>一、固件整体架构</h2>
+            <h3>1.1 系统架构概览</h3>
+            <pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                         ESP32-C3 Mini                           │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐   │
+│  │ Web服务器 │  │ 配 置 管  │  │ 定时任务  │  │ 传感器采集│   │
+│  │  Async    │  │ 理模块   │  │ 调度器   │  │ 循环任务  │   │
+│  │ WebServer │  │ Config   │  │ Scheduler│  │ SensorLoop│   │
+│  └─────┬─────┘  └─────┬─────┘  └─────┬─────┘  └─────┬─────┘   │
+│        └───────────────┼───────────────┼─────────────┘         │
+│                        ▼               ▼                         │
+│              ┌─────────────────────────────┐                    │
+│              │       系统核心抽象层         │                    │
+│              │  (设备控制 + 状态管理)       │                    │
+│              └─────────────────────────────┘                    │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐       │
+│  │ 水泵   │ │ LED   │ │ 舵机   │ │ DS18B20│ │ OLED  │       │
+│  │ 继电器 │ │WS2812B│ │ SG90   │ │ 温度   │ │ I2C   │       │
+│  │GPIO3   │ │GPIO5   │ │GPIO4   │ │GPIO2   │ │GPIO0/1│       │
+│  └────────┘ └────────┘ └────────┘ └────────┘ └────────┘       │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+            <h3>1.2 模块划分</h3>
+            <table>
+            <tr><th>模块名称</th><th>职责</th><th>对外接口</th></tr>
+            <tr><td>---------</td><td>------</td><td>---------</td></tr>
+            <tr><td>**WiFiManager**</td><td>WiFi连接管理，自动重连，AP/Station模式切换</td><td>init() / connect() / getStatus()</td></tr>
+            <tr><td>**WebServer**</td><td>HTTP服务器，处理API请求，提供Web界面</td><td>handleRoot() / handleAPI() / handleSet()</td></tr>
+            <tr><td>**DeviceControl**</td><td>各设备的统一抽象与控制接口</td><td>setPump() / setLED() / setServo() / getTemp()</td></tr>
+            <tr><td>**SensorManager**</td><td>温度采集与传感器数据管理</td><td>readTemp() / getAverage()</td></tr>
+            <tr><td>**Scheduler**</td><td>定时任务调度（喂食、开关灯）</td><td>addTask() / checkTasks() / runTask()</td></tr>
+            <tr><td>**ConfigManager**</td><td>配置存储与读取（Flash分区）</td><td>save() / load() / reset()</td></tr>
+            <tr><td>**OLEDDisplay**</td><td>OLED屏幕驱动与界面显示</td><td>displayStatus() / displayTemp()</td></tr>
+            </table>
+            <h3>1.3 目录结构</h3>
+            <pre><code>fish-tank-firmware/
+├── src/
+│   ├── main.cpp              # 入口文件
+│   ├── config.h              # 配置定义
+│   ├── devices/
+│   │   ├── Pump.h/cpp        # 水泵控制
+│   │   ├── LED.h/cpp         # LED控制
+│   │   ├── Servo.h/cpp       # 舵机控制
+│   │   └── Temperature.h/cpp# 温度传感器
+│   ├── services/
+│   │   ├── WebServer.h/cpp   # Web服务
+│   │   ├── Scheduler.h/cpp   # 定时任务
+│   │   └── ConfigManager.h/cpp# 配置管理
+│   └── display/
+│       └── OLEDDisplay.h/cpp  # OLED显示
+├── data/
+│   └── index.html            # Web界面文件（SPIFFS）
+├── platformio.ini            # 平台配置文件
+└── README.md</code></pre>
+            <h2>二、程序流程图</h2>
+            <h3>2.1 主程序流程</h3>
+            <pre><code>┌─────────────────────────────────────────────┐
+│                  系统启动                    │
+│              (Boot / Setup)                 │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│           硬件初始化阶段                     │
+│  - GPIO引脚初始化                            │
+│  - I2C总线初始化（OLED）                     │
+│  - OneWire总线初始化（DS18B20）              │
+│  - ADC初始化（如有）                         │
+│  - 定时器初始化                              │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│           存储加载阶段                       │
+│  - 从Flash加载用户配置                       │
+│  - 加载定时任务列表                          │
+│  - 恢复上次设备状态                          │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│           WiFi连接阶段                       │
+│  - 读取保存的SSID/Password                   │
+│  - 尝试连接WiFi                              │
+│  - 若失败，启动AP模式（192.168.4.1）         │
+│  - 连接成功后获取IP                          │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│           服务启动阶段                       │
+│  - 启动Web服务器（端口80）                   │
+│  - 注册API路由                               │
+│  - 启动定时任务调度器                        │
+│  - 启动传感器采集任务                        │
+│  - 启动OLED显示任务                          │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│              主循环 (Loop)                   │
+│  ┌─────────────────────────────────────┐    │
+│  │  1. WiFi心跳检测                    │    │
+│  │  2. 处理Web请求                     │    │
+│  │  3. 执行定时任务检查                 │    │
+│  │  4. 采集温度传感器数据              │    │
+│  │  5. 更新OLED显示                    │    │
+│  │  6. 非阻塞延时（yield）             │    │
+│  └─────────────────────────────────────┘    │
+└─────────────────┬───────────────────────────┘
+                  │
+                  └───→ 无限循环</code></pre>
+            <h3>2.2 Web请求处理流程</h3>
+            <pre><code>浏览器请求
+    │
+    ▼
+┌─────────────┐   GET /   ┌─────────────────┐
+│ HTTP请求解析 │─────────→│ 返回Web界面      │
+└─────────────┘           │ (index.html)    │
+    │                    └─────────────────┘
+    │
+    ▼
+┌─────────────┐  POST /api/xxx
+│ 路由匹配    │
+└──────┬──────┘
+       │
+  ┌────┴────┬────────┬────────┬────────┬────────┐
+  ▼         ▼        ▼        ▼        ▼        ▼
+ /api/pump /api/led /api/feed /api/time /api/config
+  │         │        │        │        │        │
+  ▼         ▼        ▼        ▼        ▼        ▼
+控制水泵   控制LED   触发喂食  设置时间  读取/保存
+响应JSON   响应JSON   响应JSON  响应JSON  响应JSON</code></pre>
+            <h3>2.3 定时任务调度流程</h3>
+            <pre><code>┌─────────────────────────────────────────┐
+│            定时任务调度器                 │
+├─────────────────────────────────────────┤
+│  任务列表（存储在Flash）                  │
+│  ┌─────────────┐  ┌─────────────┐       │
+│  │ 喂食任务    │  │ 灯光任务    │       │
+│  │ - 时间      │  │ - 时间      │       │
+│  │ - 动作      │  │ - 状态      │       │
+│  │ - 已启用    │  │ - 已启用    │       │
+│  └─────────────┘  └─────────────┘       │
+└─────────────┬───────────────────────────┘
+              │
+              ▼
+┌─────────────────────────────────────────┐
+│  每分钟检查一次                          │
+│  - 获取当前时间（RTC或NTP）              │
+│  - 遍历任务列表                         │
+│  - 匹配时间戳                           │
+│  - 执行对应动作                         │
+│  - 记录执行日志                         │
+└─────────────────────────────────────────┘</code></pre>
+            <h2>三、所需库及版本</h2>
+            <h3>3.1 核心框架</h3>
+            <table>
+            <tr><th>库名称</th><th>版本</th><th>用途</th><th>来源</th></tr>
+            <tr><td>-------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>**Arduino Core for ESP32**</td><td>≥2.0.0</td><td>ESP32基础框架</td><td>ESP32 Board Package</td></tr>
+            </table>
+            <h3>3.2 网络与Web</h3>
+            <table>
+            <tr><th>库名称</th><th>版本</th><th>用途</th><th>来源</th></tr>
+            <tr><td>-------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>**ESPAsyncWebServer**</td><td>≥1.2.0</td><td>异步Web服务器</td><td>esphomelib-core</td></tr>
+            <tr><td>**AsyncTCP**</td><td>≥1.1.4</td><td>ESP32异步TCP库</td><td>esphomelib-core</td></tr>
+            </table>
+            <h3>3.3 传感器与外设</h3>
+            <table>
+            <tr><th>库名称</th><th>版本</th><th>用途</th><th>来源</th></tr>
+            <tr><td>-------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>**OneWire**</td><td>≥2.3.7</td><td>OneWire总线通信</td><td>Paul Stoffregen</td></tr>
+            <tr><td>**DallasTemperature**</td><td>≥3.9.0</td><td>DS18B20温度读取</td><td>Miles Burton</td></tr>
+            <tr><td>**FastLED**</td><td>≥3.6.0</td><td>WS2812B LED控制</td><td>FastLED Team</td></tr>
+            <tr><td>**ESP32Servo**</td><td>≥0.12.0</td><td>SG90舵机PWM控制</td><td>John K. Bennett</td></tr>
+            <tr><td>**Adafruit_GFX**</td><td>≥1.11.0</td><td>OLED图形库</td><td>Adafruit</td></tr>
+            <tr><td>**Adafruit_SSD1306**</td><td>≥2.5.0</td><td>SSD1306 OLED驱动</td><td>Adafruit</td></tr>
+            <tr><td>**Wire**</td><td>内置</td><td>I2C通信</td><td>Arduino核心库</td></tr>
+            </table>
+            <h3>3.4 存储与配置</h3>
+            <table>
+            <tr><th>库名称</th><th>版本</th><th>用途</th><th>来源</th></tr>
+            <tr><td>-------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>**Preferences**</td><td>内置</td><td>Flash存储（ESP32内置）</td><td>ESP32核心库</td></tr>
+            <tr><td>**SPIFFS**</td><td>内置</td><td>文件系统存储</td><td>ESP32核心库</td></tr>
+            </table>
+            <h3>3.5 工具库</h3>
+            <table>
+            <tr><th>库名称</th><th>版本</th><th>用途</th><th>来源</th></tr>
+            <tr><td>-------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>**ArduinoJson**</td><td>≥6.21.0</td><td>JSON解析与生成</td><td>Benoit Blanchon</td></tr>
+            </table>
+            <h3>3.6 platformio.ini 依赖配置示例</h3>
+            <pre><code>[env:esp32-c3-mini]
+platform = espressif32
+board = esp32-c3-mini
+framework = arduino
+
+lib_deps =
+    esphome/ESPAsyncWebServer@^1.2.3
+    esphome/AsyncTCP-esp32@^1.2.2
+    OneWire@^2.3.7
+    DallasTemperature@^3.9.1
+    fastled/FastLED@^3.6.0
+    esphome/ESP32Servo@^0.12.1
+    adafruit/Adafruit GFX Library@^1.11.9
+    adafruit/Adafruit SSD1306@^2.5.9
+    bblanchon/ArduinoJson@^6.21.5</code></pre>
+            <h2>四、Web界面功能规划</h2>
+            <h3>4.1 页面结构</h3>
+            <pre><code>┌─────────────────────────────────────────────────┐
+│            🐟 智能鱼缸控制中心                   │
+├─────────────────────────────────────────────────┤
+│  [状态卡片]  [控制面板]  [定时设置]  [配置]     │
+└─────────────────────────────────────────────────┘</code></pre>
+            <h3>4.2 状态显示区</h3>
+            <table>
+            <tr><th>功能</th><th>描述</th><th>数据源</th></tr>
+            <tr><td>------</td><td>------</td><td>--------</td></tr>
+            <tr><td>当前温度</td><td>显示水温（带单位℃）</td><td>DS18B20</td></tr>
+            <tr><td>水泵状态</td><td>ON/OFF 指示灯</td><td>GPIO3状态</td></tr>
+            <tr><td>LED状态</td><td>颜色预览 + 亮度百分比</td><td>GPIO5/PWM</td></tr>
+            <tr><td>喂食状态</td><td>下次喂食时间</td><td>Scheduler</td></tr>
+            <tr><td>连接状态</td><td>WiFi IP / 连接失败</td><td>WiFiManager</td></tr>
+            <tr><td>运行时间</td><td>设备运行时长</td><td>system uptime</td></tr>
+            </table>
+            <h3>4.3 控制面板</h3>
+            <h4>4.3.1 水泵控制</h4>
+            <li><strong>开关按钮</strong>：一键开启/关闭</li>
+            <li><strong>状态指示</strong>：绿色=运行中，灰色=关闭</li>
+            <li><strong>自动模式</strong>：设置运行间隔（如每2小时运行15分钟）</li>
+            <h4>4.3.2 LED灯控制</h4>
+            <li><strong>颜色选择器</strong>：RGB色盘或预设颜色（白/蓝/红/绿/紫/暖黄）</li>
+            <li><strong>亮度滑块</strong>：0-100% 调节PWM占空比</li>
+            <li><strong>快速模式</strong>：日出模式（渐亮）/ 日落模式（渐暗）/ 彩虹模式</li>
+            <li><strong>定时开关</strong>：与定时任务联动</li>
+            <h4>4.3.3 喂食控制</h4>
+            <li><strong>立即喂食</strong>：手动触发舵机旋转</li>
+            <li><strong>食量设置</strong>：小/中/大 三档（对应舵机旋转角度）</li>
+            <li><strong>喂食日志</strong>：记录最近10次喂食时间</li>
+            <h3>4.4 定时设置</h3>
+            <table>
+            <tr><th>任务类型</th><th>可配置项</th></tr>
+            <tr><td>---------</td><td>---------</td></tr>
+            <tr><td>**喂食定时**</td><td>时间点（小时:分钟）、重复（每天/工作日/周末）、食量</td></tr>
+            <tr><td>**灯光定时**</td><td>开灯时间、关灯时间、亮度、颜色</td></tr>
+            <tr><td>**水泵定时**</td><td>运行时间段、间歇比例</td></tr>
+            </table>
+            <h3>4.5 设备配置</h3>
+            <li><strong>WiFi设置</strong>：选择网络/输入密码/测试连接</li>
+            <li><strong>显示设置</strong>：OLED屏幕亮度（0-255）、显示内容切换</li>
+            <li><strong>恢复出厂</strong>：清除所有配置</li>
+            <li><strong>固件信息</strong>：显示版本、运行时间、内存使用</li>
+            <h3>4.6 API接口设计</h3>
+            <table>
+            <tr><th>接口</th><th>方法</th><th>参数</th><th>返回</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>`/api/status`</td><td>GET</td><td>-</td><td>`{temp, pump, led, servo}`</td></tr>
+            <tr><td>`/api/pump`</td><td>POST</td><td>`{"action":"on/off"}`</td><td>`{"success":true}`</td></tr>
+            <tr><td>`/api/led`</td><td>POST</td><td>`{"color":"#RRGGBB", "brightness":80}`</td><td>`{"success":true}`</td></tr>
+            <tr><td>`/api/feed`</td><td>POST</td><td>`{"size":"medium"}`</td><td>`{"success":true, "message":"已喂食"}`</td></tr>
+            <tr><td>`/api/schedule`</td><td>GET</td><td>-</td><td>`{schedules:[...]}`</td></tr>
+            <tr><td>`/api/schedule`</td><td>POST</td><td>`{type, time, action}`</td><td>`{"success":true}`</td></tr>
+            <tr><td>`/api/config`</td><td>GET/POST</td><td>配置JSON</td><td>`{success:true}`</td></tr>
+            </table>
+            <h2>五、配置存储方案</h2>
+            <h3>5.1 存储介质选择</h3>
+            <table>
+            <tr><th>方案</th><th>优点</th><th>缺点</th><th>推荐度</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>--------</td></tr>
+            <tr><td>**Preferences（Flash）**</td><td>API简单，断电保存，寿命长</td><td>写入次数有限（约10万次）</td><td>★★★★★</td></tr>
+            <tr><td>**EEPROM模拟**</td><td>传统方案</td><td>ESP32无真实EEPROM，模拟慢</td><td>★★★</td></tr>
+            <tr><td>**SPIFFS**</td><td>可存储文件</td><td>写入慢，不适合频繁更新</td><td>★★★★</td></tr>
+            <tr><td>**SD卡**</td><td>大容量</td><td>增加硬件成本</td><td>★★</td></tr>
+            </table>
+            <p><strong>推荐方案</strong>：使用 ESP32 内置 Preferences 库</p>
+            <h3>5.2 存储结构设计</h3>
+            <pre><code>Flash分区规划:
+┌────────────────┬────────────────┬────────────────┐
+│    系统区       │    配置区      │    日志区      │
+│  (受保护)       │ (Preferences) │   (可选)      │
+└────────────────┴────────────────┴────────────────┘
+
+Preferences键值设计:
+┌─────────────────────────┬───────────────────────────────────┐
+│         键名             │            说明                    │
+├─────────────────────────┼───────────────────────────────────┤
+│ wifi.ssid               │ WiFi名称                          │
+│ wifi.password           │ WiFi密码（加密存储）               │
+│ pump.auto               │ 水泵自动模式 (0/1)                 │
+│ pump.interval           │ 水泵间隔（分钟）                   │
+│ pump.duration           │ 水泵运行时长（秒）                 │
+│ led.color               │ LED颜色 (#RRGGBB)                 │
+│ led.brightness          │ LED亮度 (0-255)                   │
+│ led.mode                │ LED模式 (static/rainbow/fade)     │
+│ schedule.feed_time      │ 喂食时间 HH:MM                    │
+│ schedule.feed_repeat    │ 喂食重复 daily/weekday/weekend     │
+│ schedule.feed_size      │ 食量 small/medium/large            │
+│ schedule.light_on       │ 开灯时间 HH:MM                    │
+│ schedule.light_off      │ 关灯时间 HH:MM                    │
+│ schedule.light_brightness│ 开灯亮度                          │
+│ display.brightness      │ OLED亮度 (0-255)                  │
+│ device.name             │ 设备名称                          │
+│ system.version          │ 固件版本号                        │
+└─────────────────────────┴───────────────────────────────────┘</code></pre>
+            <h3>5.3 读写策略</h3>
+            <li><strong>启动时</strong>：从Flash加载完整配置到内存结构体</li>
+            <li><strong>运行时</strong>：优先读写内存，异步写入Flash</li>
+            <li><strong>写入时机</strong>：</li>
+            <li>用户操作触发设置时写入</li>
+            <li>定时任务修改配置时写入</li>
+            <li>避免频繁写入（如温度每秒上报不写入Flash）</li>
+            <li><strong>数据校验</strong>：</li>
+            <li>存储CRC校验码</li>
+            <li>启动时校验完整性，损坏则使用默认值</li>
+            <h3>5.4 安全考虑</h3>
+            <li>WiFi密码使用Base64简单编码存储（非明文）</li>
+            <li>提供恢复出厂设置功能（清除所有配置）</li>
+            <li>固件版本升级时保留用户配置（版本兼容）</li>
+            <h2>六、扩展功能预留</h2>
+            <table>
+            <tr><th>功能</th><th>说明</th><th>实现难度</th></tr>
+            <tr><td>------</td><td>------</td><td>---------</td></tr>
+            <tr><td>**OTA升级**</td><td>Web界面上传固件升级</td><td>中等</td></tr>
+            <tr><td>**MQTT对接**</td><td>接入Home Assistant等平台</td><td>中等</td></tr>
+            <tr><td>**水质监测**</td><td>增加pH值、浑浊度传感器</td><td>需硬件</td></tr>
+            <tr><td>**摄像头**</td><td>远程查看鱼缸画面</td><td>需硬件</td></tr>
+            <tr><td>**声控**</td><td>接入Alexa/小爱同学</td><td>简单</td></tr>
+            </table>
+            <h2>七、注意事项与风险点</h2>
+            <li><strong>GPIO复用</strong>：GPIO0/1用于I2C，需确保OLED地址不冲突（通常0x3C）</li>
+            <li><strong>PWM限制</strong>：ESP32-C3有4个PWM通道，注意舵机和LED引脚分配</li>
+            <li><strong>温度采样间隔</strong>：DS18B20建议采样间隔≥1秒</li>
+            <li><strong>WiFi重连</strong>：实现看门狗，防止WiFi断开后死机</li>
+            <li><strong>Flash写入</strong>：避免在中断中写入Flash</li>
+            <p>*文档结束*</p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

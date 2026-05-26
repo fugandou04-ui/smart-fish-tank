@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能鱼缸PCB布局详细说明</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>智能鱼缸PCB布局详细说明</h1>
+            <p class="subtitle">SUB智能鱼缸PCB布局详细说明</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>初始，完成基本布局</strong></span>
+                <span class="meta-item">更新：<strong>> ：2026-05</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p>> 版本：v1.0</p>
+            <p>> 日期：2026-05-21</p>
+            <p>> PCB尺寸：50mm × 70mm（双面板）</p>
+            <h2>一、整体布局规划</h2>
+            <h3>1.1 区域划分原则</h3>
+            <pre><code>+--------------------------------------------------+
+|  [安装孔]           [安装孔]                     |
+|    ●                   ●                         |
+|                                                   |
+|  +-----------+                    +-----------+  |
+|  | 电源区    |    +-----------+   | 显示区    |  |
+|  | USB +    |    | ESP32-C3  |   | OLED 0.66"|  |
+|  | AMS1117  |    | 主控区     |   | I2C      |  |
+|  +-----------+    +-----------+   +-----------+  |
+|                                                   |
+|  +-------------+    +-----------+                |
+|  | 传感器区    |    | 执行器区   |   [安装孔]   |
+|  | DS18B20   |    | 继电器×2   |     ●         |
+|  | 接口       |    | 舵机+LED  |               |
+|  +-------------+    +-----------+               |
+|                                                   |
+|  [安装孔]                            [安装孔]   |
+|    ●                                    ●        |
++--------------------------------------------------+</code></pre>
+            <h3>1.2 布局区域说明</h3>
+            <table>
+            <tr><th>区域</th><th>位置</th><th>面积</th><th>说明</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>电源区</td><td>左上角</td><td>12×15mm</td><td>USB输入、AMS1117-3.3降压</td></tr>
+            <tr><td>主控区</td><td>中央</td><td>15×20mm</td><td>ESP32-C3邮票孔贴片</td></tr>
+            <tr><td>显示区</td><td>右上</td><td>14×8mm</td><td>OLED 0.66寸接口</td></tr>
+            <tr><td>传感器区</td><td>左下</td><td>10×8mm</td><td>DS18B20单总线接口</td></tr>
+            <tr><td>执行器区</td><td>右下</td><td>18×15mm</td><td>继电器×2、舵机、LED</td></tr>
+            </table>
+            <h2>二、详细布局设计</h2>
+            <h3>2.1 电源区设计</h3>
+            <p><strong>位置</strong>：左上区域 (X: 5-17mm, Y: 8-23mm)</p>
+            <table>
+            <tr><th>元器件</th><th>封装</th><th>X坐标</th><th>Y坐标</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>-------</td><td>-------</td><td>------</td></tr>
+            <tr><td>USB Type-C</td><td>SMD 6Pin</td><td>6</td><td>10</td><td>5V输入</td></tr>
+            <tr><td>AMS1117-3.3</td><td>SOT-223</td><td>12</td><td>18</td><td>3.3V稳压</td></tr>
+            <tr><td>输入电容 10μF</td><td>0805</td><td>8</td><td>14</td><td>输入滤波</td></tr>
+            <tr><td>输出电容 22μF</td><td>0805</td><td>14</td><td>22</td><td>输出滤波</td></tr>
+            <tr><td>LED电源指示</td><td>0603</td><td>16</td><td>10</td><td>3.3V指示</td></tr>
+            </table>
+            <p><strong>布线要点</strong>：</p>
+            <li>USB 5V走线宽度：0.5mm（承载电流约500mA）</li>
+            <li>铺铜区域需打过孔散热</li>
+            <li>AMS1117输入输出电容尽量靠近引脚</li>
+            <h3>2.2 主控区设计</h3>
+            <p><strong>位置</strong>：板中央 (X: 18-33mm, Y: 15-35mm)</p>
+            <table>
+            <tr><th>元器件</th><th>封装</th><th>X坐标</th><th>Y坐标</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>-------</td><td>-------</td><td>------</td></tr>
+            <tr><td>ESP32-C3 Mini</td><td>邮票孔SMD</td><td>25</td><td>25</td><td>核心控制</td></tr>
+            <tr><td>滤波电容 0.1μF×4</td><td>0402</td><td>21,29,21,29</td><td>18,18,32,32</td><td>电源滤波</td></tr>
+            <tr><td>BOOT/RST按键</td><td>3×4轻触</td><td>20</td><td>20</td><td>烧录模式</td></tr>
+            <tr><td>EN下拉电阻 10K</td><td>0402</td><td>30</td><td>30</td><td>使能控制</td></tr>
+            </table>
+            <p><strong>邮票孔布局</strong>（ESP32-C3 Mini标准引脚间距）：</p>
+            <pre><code>  引脚间距：2.54mm（100mil）网格
+  核心区域：18mm × 22mm
+  邮票孔直径：1.0mm（内）/ 1.4mm（外焊盘）</code></pre>
+            <h3>2.3 显示区设计</h3>
+            <p><strong>位置</strong>：右上区域 (X: 35-49mm, Y: 8-16mm)</p>
+            <table>
+            <tr><th>元器件</th><th>封装</th><th>X坐标</th><th>Y坐标</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>-------</td><td>-------</td><td>------</td></tr>
+            <tr><td>OLED接口</td><td>1.25mm 4Pin</td><td>42</td><td>12</td><td>I2C通信</td></tr>
+            <tr><td>上拉电阻 4.7K×2</td><td>0402</td><td>47</td><td>10,14</td><td>I2C上拉</td></tr>
+            </table>
+            <p><strong>引脚定义</strong>：</p>
+            <table>
+            <tr><th>PCB引脚</th><th>功能</th><th>连接到ESP32</th></tr>
+            <tr><td>---------</td><td>------</td><td>-------------</td></tr>
+            <tr><td>1</td><td>VCC</td><td>3V3</td></tr>
+            <tr><td>2</td><td>GND</td><td>GND</td></tr>
+            <tr><td>3</td><td>SDA</td><td>GPIO0</td></tr>
+            <tr><td>4</td><td>SCL</td><td>GPIO1</td></tr>
+            </table>
+            <h3>2.4 传感器区设计</h3>
+            <p><strong>位置</strong>：左下区域 (X: 5-15mm, Y: 40-48mm)</p>
+            <table>
+            <tr><th>元器件</th><th>封装</th><th>X坐标</th><th>Y坐标</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>-------</td><td>-------</td><td>------</td></tr>
+            <tr><td>DS18B20接口</td><td>1.25mm 3Pin</td><td>8</td><td>44</td><td>单总线温度</td></tr>
+            <tr><td>防静电TVS</td><td>SOT-23</td><td>12</td><td>46</td><td>浪涌保护</td></tr>
+            <tr><td>上拉电阻 4.7K</td><td>0402</td><td>5</td><td>44</td><td>数据线上拉</td></tr>
+            </table>
+            <p><strong>接口定义</strong>：</p>
+            <table>
+            <tr><th>PCB引脚</th><th>功能</th></tr>
+            <tr><td>---------</td><td>------</td></tr>
+            <tr><td>1</td><td>VCC (3.3V)</td></tr>
+            <tr><td>2</td><td>DATA (GPIO7)</td></tr>
+            <tr><td>3</td><td>GND</td></tr>
+            </table>
+            <h3>2.5 执行器区设计</h3>
+            <p><strong>位置</strong>：右下区域 (X: 20-48mm, Y: 38-55mm)</p>
+            <table>
+            <tr><th>元器件</th><th>封装</th><th>X坐标</th><th>Y坐标</th><th>说明</th></tr>
+            <tr><td>--------</td><td>------</td><td>-------</td><td>-------</td><td>------</td></tr>
+            <tr><td>继电器1（水泵）</td><td>SRD-5VDC</td><td>24</td><td>48</td><td>GPIO3控制</td></tr>
+            <tr><td>继电器2（加热）</td><td>SRD-5VDC</td><td>38</td><td>48</td><td>GPIO6控制</td></tr>
+            <tr><td>二极管1N4007×2</td><td>DO-41</td><td>21,35</td><td>52</td><td>继电器续流</td></tr>
+            <tr><td>舵机接口</td><td>1.25mm 3Pin</td><td>46</td><td>42</td><td>GPIO4 PWM</td></tr>
+            <tr><td>LED接口</td><td>2Pin 2.0mm</td><td>46</td><td>50</td><td>GPIO5 WS2812B</td></tr>
+            </table>
+            <p><strong>继电器驱动电路</strong>：</p>
+            <pre><code>GPIO → 限流电阻(1K) → NPN三极管(S8050) → 继电器线圈
+              ↓
+         续流二极管1N4007</code></pre>
+            <p><strong>接口定义</strong>：</p>
+            <table>
+            <tr><th>接口</th><th>引脚1</th><th>引脚2</th><th>引脚3</th></tr>
+            <tr><td>------</td><td>-------</td><td>-------</td><td>-------</td></tr>
+            <tr><td>水泵继电器</td><td>VCC(5V)</td><td>NO(公共)</td><td>COM(负载)</td></tr>
+            <tr><td>加热继电器</td><td>VCC(5V)</td><td>NO(公共)</td><td>COM(负载)</td></tr>
+            <tr><td>舵机接口</td><td>VCC(5V)</td><td>Signal(GPIO4)</td><td>GND</td></tr>
+            <tr><td>LED接口</td><td>DOUT(GPIO5)</td><td>GND</td><td>-</td></tr>
+            </table>
+            <h2>三、元器件坐标清单</h2>
+            <h3>3.1 完整坐标列表</h3>
+            <pre><code>元器件编号        封装          X(mm)   Y(mm)   角度    层
+USB-C            USBC-6Pin     6.0     10.0     0      Top
+C_USB_IN         0805           8.0     14.0     0      Top
+U_REG            SOT-223       12.0    18.0     0      Top
+C_REG_OUT        0805          14.0    22.0     0      Top
+LED_PWR          0603          16.0    10.0     0      Top
+R_LED_PWR        0402          18.0    10.0     0      Top
+
+U_MCU            ESP32-C3-MINI 25.0    25.0     0      Top
+C_MCU_1          0402          21.0    18.0     0      Top
+C_MCU_2          0402          29.0    18.0     0      Top
+C_MCU_3          0402          21.0    32.0     0      Top
+C_MCU_4          0402          29.0    32.0     0      Top
+SW_BOOT          3x4           20.0    20.0     0      Top
+SW_RST           3x4           20.0    30.0     0      Top
+R_EN             0402          30.0    30.0     0      Top
+
+J_OLED           1.25mm-4P     42.0    12.0    90     Top
+R_SDA            0402          47.0    10.0     0      Top
+R_SCL            0402          47.0    14.0     0      Top
+
+J_DS18B20        1.25mm-3P     8.0     44.0     0      Top
+D_ESD            SOT-23        12.0    46.0     0      Top
+R_DS18B20        0402          5.0     44.0     0      Top
+
+RLY_WATER        SRD-5VDC      24.0    48.0     0      Top
+RLY_HEAT         SRD-5VDC      38.0    48.0     0      Top
+D_FLYBACK_1      DO-41         21.0    52.0     90     Top
+D_FLYBACK_2      DO-41         35.0    52.0     90     Top
+Q_TR_1           SOT-23        21.0    46.0     0      Top
+Q_TR_2           SOT-23        35.0    46.0     0      Top
+R_DRIVE_1        1K             24.0    44.0     0      Top
+R_DRIVE_2        1K             38.0    44.0     0      Top
+J_SERVO          1.25mm-3P     46.0    42.0     0      Top
+J_LED            2.0mm-2P       46.0    50.0     0      Top
+
+H1               M3孔          4.0     4.0      -      Mechanical
+H2               M3孔          46.0    4.0      -      Mechanical
+H3               M3孔          4.0     66.0     -      Mechanical
+H4               M3孔          46.0    66.0     -      Mechanical</code></pre>
+            <h3>3.2 安装孔详细参数</h3>
+            <table>
+            <tr><th>孔位</th><th>X坐标</th><th>Y坐标</th><th>孔径</th><th>焊盘直径</th><th>说明</th></tr>
+            <tr><td>------</td><td>-------</td><td>-------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>H1</td><td>4.0mm</td><td>4.0mm</td><td>3.2mm</td><td>5.0mm</td><td>左上，电气隔离</td></tr>
+            <tr><td>H2</td><td>46.0mm</td><td>4.0mm</td><td>3.2mm</td><td>5.0mm</td><td>右上，电气隔离</td></tr>
+            <tr><td>H3</td><td>4.0mm</td><td>66.0mm</td><td>3.2mm</td><td>5.0mm</td><td>左下，电气隔离</td></tr>
+            <tr><td>H4</td><td>46.0mm</td><td>66.0mm</td><td>3.2mm</td><td>5.0mm</td><td>右下，电气隔离</td></tr>
+            </table>
+            <h2>四、布线设计规范</h2>
+            <h3>4.1 线宽与电流关系</h3>
+            <table>
+            <tr><th>信号类型</th><th>线宽</th><th>层</th><th>载流能力</th><th>用途</th></tr>
+            <tr><td>----------</td><td>------</td><td>-----</td><td>----------</td><td>------</td></tr>
+            <tr><td>5V电源</td><td>0.5mm</td><td>Top/Bottom</td><td>~800mA</td><td>USB输入、继电器</td></tr>
+            <tr><td>3.3V电源</td><td>0.3mm</td><td>Top/Bottom</td><td>~500mA</td><td>MCU、传感器</td></tr>
+            <tr><td>GND铺铜</td><td>铺铜</td><td>Top/Bottom</td><td>-</td><td>完整地平面</td></tr>
+            <tr><td>信号线</td><td>0.2mm</td><td>Top/Bottom</td><td>-</td><td>GPIO、控制</td></tr>
+            </table>
+            <h3>4.2 走线规则</h3>
+            <p><strong>差分信号（I2C）</strong>：</p>
+            <li>SDA/SCL走线平行，间距0.3mm</li>
+            <li>串联电阻靠近主控端</li>
+            <li>避免与高频信号平行</li>
+            <p><strong>继电器驱动</strong>：</p>
+            <li>线圈驱动线宽0.3mm</li>
+            <li>续流二极管紧贴继电器引脚</li>
+            <li>强弱电间距≥2mm</li>
+            <p><strong>敏感信号（DS18B20）</strong>：</p>
+            <li>单总线走线尽量短</li>
+            <li>远离电源干扰源</li>
+            <li>上拉电阻靠近传感器端</li>
+            <h3>4.3 铺铜策略</h3>
+            <pre><code>Top层铺铜区域：
+┌─────────────────────────────────────────────────────────┐
+│  ═══════════════ 5V 主走线 (0.5mm) ═══════════════     │
+│                                                         │
+│  ┌─────────┐      ┌─────────┐      ┌─────────┐         │
+│  │  GND    │      │  GND    │      │  GND    │         │
+│  │  铺铜   │      │  铺铜   │      │  铺铜   │         │
+│  └─────────┘      └─────────┘      └─────────┘         │
+│                                                         │
+│  ═══════════════ GND 主走线 (0.3mm) ═══════════════     │
+└─────────────────────────────────────────────────────────┘
+
+Bottom层铺铜：完整GND平面</code></pre>
+            <h3>4.4 过孔规格</h3>
+            <table>
+            <tr><th>类型</th><th>内径</th><th>外径</th><th>用途</th></tr>
+            <tr><td>------</td><td>------</td><td>------</td><td>------</td></tr>
+            <tr><td>电源过孔</td><td>0.4mm</td><td>0.8mm</td><td>5V/3.3V主回路</td></tr>
+            <tr><td>信号过孔</td><td>0.3mm</td><td>0.6mm</td><td>信号换层</td></tr>
+            <tr><td>散热过孔</td><td>0.5mm</td><td>1.0mm</td><td>AMS1117散热</td></tr>
+            </table>
+            <h2>五、嘉立创SMT支持格式导入指南</h2>
+            <h3>5.1 立创EDA专业版导出流程</h3>
+            <p><strong>步骤1：导出嘉立创SMT格式</strong></p>
+            <pre><code>文件 → 导出 → 制版文件 → 选择以下选项：
+├──gerber文件（RS-274X格式）
+├──坐标文件（CSV格式）
+├──物料清单（BOM，CSV格式）
+└──SMT贴片文件（CSV格式）</code></pre>
+            <p><strong>步骤2：Gerber文件配置</strong></p>
+            <pre><code>单位：mm
+精度：4:4
+导出路径：./gerber/
+包含层：
+├── L1.Cu (顶层铜)
+├── L2.Cu (底层铜)
+├── F.Silk (顶层丝印)
+├── B.Silk (底层丝印)
+├── F.Mask (顶层阻焊)
+├── B.Mask (底层阻焊)
+├── F.Paste (顶层钢网)
+├── B.Paste (底层钢网)
+└── P.Drl (钻孔)</code></pre>
+            <h3>5.2 BOM清单模板</h3>
+            <pre><code>Comment,Designator,Footprint,Quantity
+ESP32-C3-MINI,MCU1,ESP32-C3-MINI-SMD,1
+AMS1117-3.3,U_REG,SOT-223,1
+10uF/16V,C1,C0805,1
+22uF/16V,C2,C0805,1
+0.1uF/16V,C3;C4;C5;C6,C0402,4
+USB Type-C,J_USB,USBC-6Pin-SMD,1
+3.3V LED,D1,LED-0603,1
+10K Ohm,R1;R_EN,R0402,2
+4.7K Ohm,R2;R3;R4,R0402,3
+1K Ohm,R5;R6,R0805,2
+1N4007,D2;D3,DO-41,2
+S8050,Q1;Q2,SOT-23,2
+SRD-5VDC,RLY1;RLY2,Relay-SRD-SMD,2
+1.25mm 3Pin,J1;J3,J1.25-3P,2
+1.25mm 4Pin,J2,J1.25-4P,1
+2.0mm 2Pin,J4,J2.0-2P,1</code></pre>
+            <h3>5.3 SMT坐标文件格式</h3>
+            <pre><code>Designator,Mid X,Mid Y,Layer,Rotation
+C1,8.000,14.000,T,0.0
+C2,14.000,22.000,T,0.0
+C3,21.000,18.000,T,0.0
+C4,29.000,18.000,T,0.0
+C5,21.000,32.000,T,0.0
+C6,29.000,32.000,T,0.0
+D1,16.000,10.000,T,0.0
+J_USB,6.000,10.000,T,0.0
+J1,42.000,12.000,T,90.0
+J2,8.000,44.000,T,0.0
+J3,46.000,42.000,T,0.0
+J4,46.000,50.000,T,0.0
+MCU1,25.000,25.000,T,0.0
+Q1,21.000,46.000,T,0.0
+Q2,35.000,46.000,T,0.0
+R1,18.000,10.000,T,0.0
+R2,47.000,10.000,T,0.0
+R3,47.000,14.000,T,0.0
+R4,5.000,44.000,T,0.0
+R5,24.000,44.000,T,0.0
+R6,38.000,44.000,T,0.0
+RLY1,24.000,48.000,T,0.0
+RLY2,38.000,48.000,T,0.0
+U_REG,12.000,18.000,T,0.0</code></pre>
+            <h3>5.4 嘉立创SMT下单流程</h3>
+            <li><strong>访问嘉立创官网</strong> → 进入SMT下单页面</li>
+            <li><strong>上传Gerber文件</strong> → 自动解析PCB信息</li>
+            <li><strong>上传BOM文件</strong> → 系统匹配元器件</li>
+            <li><strong>确认物料</strong> → 选择原厂原牌/替代料</li>
+            <li><strong>上传坐标文件</strong> → 确认元器件位置</li>
+            <li><strong>审核PCBA</strong> → 3D预览确认</li>
+            <li><strong>提交订单</strong> → 等待生产</li>
+            <h3>5.5 特殊元器件说明</h3>
+            <table>
+            <tr><th>元器件</th><th>处理方式</th><th>注意事项</th></tr>
+            <tr><td>--------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>ESP32-C3 Mini</td><td>需要 Gerber 手动定位</td><td>提供精确坐标文件</td></tr>
+            <tr><td>USB Type-C</td><td>标准SMD</td><td>确保焊盘开窗</td></tr>
+            <tr><td>继电器</td><td>SMD带引脚</td><td>引脚需要上锡</td></tr>
+            <tr><td>安装孔</td><td>NPTH（非金属化）</td><td>避开铺铜</td></tr>
+            </table>
+            <h2>六、电气安全注意事项</h2>
+            <h3>6.1 强弱电隔离</h3>
+            <li>5V/3.3V走线与继电器端子保持≥2mm间距</li>
+            <li>继电器输出端（强电）走底层，避开顶层敏感信号</li>
+            <li>隔离槽宽度≥1mm</li>
+            <h3>6.2 防护措施</h3>
+            <li>DS18B20接口增加TVS二极管防护</li>
+            <li>USB输入增加自恢复保险丝（500mA）</li>
+            <li>继电器线圈并联续流二极管</li>
+            <h3>6.3 散热设计</h3>
+            <li>AMS1117背部铺铜并打过孔散热</li>
+            <li>继电器区域保持通风</li>
+            <li>大电流走线加宽或铺铜</li>
+            <h2>七、版本历史</h2>
+            <table>
+            <tr><th>版本</th><th>日期</th><th>修改内容</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td></tr>
+            <tr><td>v1.0</td><td>2026-05-21</td><td>初始版本，完成基本布局</td></tr>
+            </table>
+            <p>*本文档由嵌入式硬件工程师生成，适用于嘉立创SMT贴片生产*</p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>

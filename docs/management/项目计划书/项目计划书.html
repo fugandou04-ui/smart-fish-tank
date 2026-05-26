@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面智能鱼缸项目计划书</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
+            color: #1d1d1f;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            padding: 90px 0 60px;
+            background: #f5f5f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.0625;
+            letter-spacing: -0.015em;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d2d2d7;
+        }
+        .meta-item {
+            font-size: 14px;
+            color: #86868b;
+        }
+        .meta-item strong { color: #1d1d1f; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-content a {
+            padding: 16px 0;
+            font-size: 12px;
+            color: #1d1d1f;
+            text-decoration: none;
+            white-space: nowrap;
+            opacity: 0.8;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-content a:hover { opacity: 1; }
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 22px 100px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        h3 { font-size: 21px; font-weight: 600; margin: 40px 0 14px; }
+        h4 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #d2d2d7; padding: 12px 14px; text-align: left; }
+        th { background: #f5f5f7; font-weight: 600; }
+        tr:nth-child(even) { background: #fbfbfd; }
+        code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 13px;
+            background: #f5f5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        blockquote {
+            border-left: 4px solid #0071e3;
+            padding: 16px 20px;
+            margin: 20px 0;
+            background: #f5f5f7;
+            border-radius: 0 12px 12px 0;
+        }
+        a { color: #0071e3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #d2d2d7; margin: 40px 0; }
+        strong { font-weight: 600; }
+        footer {
+            padding: 30px 22px;
+            border-top: 1px solid #d2d2d7;
+            text-align: center;
+            font-size: 12px;
+            color: #86868b;
+        }
+        footer a { color: #0071e3; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 17px; }
+            .meta-row { flex-wrap: wrap; gap: 16px; }
+            h2 { font-size: 24px; }
+            h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">技术文档</p>
+            <h1>桌面智能鱼缸项目计划书</h1>
+            <p class="subtitle">SUB桌面智能鱼缸项目计划书</p>
+            <div class="meta-row">
+                <span class="meta-item">版本：<strong>所有设备固件相同</strong></span>
+                <span class="meta-item">更新：<strong>结束</strong></span>
+                <span class="meta-item">SFT-001</span>
+            </div>
+        </div>
+    </section>
+    <nav>
+        <div class="nav-content">
+            <a href="#top">概述</a>
+        </div>
+    </nav>
+    <main>
+<p><strong>版本：</strong> V1.0</p>
+            <p><strong>日期：</strong> 2026-05-21</p>
+            <p><strong>项目经理：</strong> 项目管理 Agent</p>
+            <p><strong>项目目标：</strong> 开发一款成本100元以内的桌面智能鱼缸，支持过滤、照明、喂食、温度监测、OLED显示、局域网Web控制及加热棒预留接口。</p>
+            <h2>1. 项目里程碑计划</h2>
+            <table>
+            <tr><th>阶段</th><th>里程碑</th><th>开始日期</th><th>结束日期</th><th>周期</th><th>负责人</th><th>产出物</th></tr>
+            <tr><td>------</td><td>--------</td><td>----------</td><td>----------</td><td>------</td><td>--------</td><td>--------</td></tr>
+            <tr><td>**第一阶段：原理验证**</td><td>M1.1 需求确认与方案设计</td><td>D1</td><td>D7</td><td>7天</td><td>项目经理</td><td>需求文档、原理图</td></tr>
+            <tr><td>M1.2 原型制作与验证</td><td>D8</td><td>D25</td><td>18天</td><td>结构工程师 + 硬件工程师</td><td>功能原型</td></tr>
+            <tr><td>M1.3 第一阶段评审</td><td>D26</td><td>D28</td><td>3天</td><td>全员</td><td>评审报告、改进清单</td></tr>
+            <tr><td>**第二阶段：小批量制作**</td><td>M2.1 结构优化与3D打印</td><td>D29</td><td>D45</td><td>17天</td><td>结构工程师</td><td>优化后的3D模型</td></tr>
+            <tr><td>M2.2 PCB打样与测试</td><td>D46</td><td>D60</td><td>15天</td><td>硬件工程师</td><td>成品PCB 3套</td></tr>
+            <tr><td>M2.3 小批量组装与测试</td><td>D61</td><td>D75</td><td>15天</td><td>全员</td><td>5套完整样机</td></tr>
+            <tr><td>M2.4 第二阶段评审</td><td>D76</td><td>D78</td><td>3天</td><td>全员</td><td>评审报告、BOM定稿</td></tr>
+            <tr><td>**第三阶段：量产准备**</td><td>M3.1 开模评估与计划</td><td>D79</td><td>D90</td><td>12天</td><td>结构工程师 + 项目经理</td><td>开模方案、成本核算</td></tr>
+            <tr><td>M3.2 生产文档定稿</td><td>D91</td><td>D100</td><td>10天</td><td>全员</td><td>生产指导书、测试规范</td></tr>
+            <tr><td>M3.3 量产验证（首批20套）</td><td>D101</td><td>D115</td><td>15天</td><td>生产</td><td>20套量产样机</td></tr>
+            <tr><td>M3.4 项目结项</td><td>D116</td><td>D120</td><td>5天</td><td>全员</td><td>项目总结报告</td></tr>
+            </table>
+            <p><strong>总工期：</strong> 约120天（4个月）</p>
+            <h2>2. 各里程碑详细任务清单</h2>
+            <h3>【第一阶段：原理验证】</h3>
+            <h4>M1.1 需求确认与方案设计（Day 1-7）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T1.1.1</td><td>产品需求细化与确认</td><td>PM</td><td>1天</td><td>输出需求规格说明书</td></tr>
+            <tr><td>T1.1.2</td><td>硬件方案设计（ESP32-C3选型）</td><td>硬件</td><td>2天</td><td>原理图设计</td></tr>
+            <tr><td>T1.1.3</td><td>结构方案设计（亚克力缸+3D打印）</td><td>结构</td><td>2天</td><td>初步结构设计</td></tr>
+            <tr><td>T1.1.4</td><td>软件功能规划</td><td>软件</td><td>1天</td><td>功能列表、优先级</td></tr>
+            <tr><td>T1.1.5</td><td>成本预算初步评估</td><td>PM</td><td>1天</td><td>BOM成本核算</td></tr>
+            </table>
+            <h4>M1.2 原型制作与验证（Day 8-25）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T1.2.1</td><td>硬件原理图评审与定稿</td><td>硬件</td><td>1天</td></tr>
+            <tr><td>T1.2.2</td><td>PCB layout设计</td><td>硬件</td><td>3天</td><td>2层板，USB-C供电</td></tr>
+            <tr><td>T1.2.3</td><td>PCB打样（嘉立创/捷配）</td><td>硬件</td><td>5天</td><td>1套PCB</td></tr>
+            <tr><td>T1.2.4</td><td>元器件采购</td><td>硬件</td><td>3天</td><td>淘宝/立创商城</td></tr>
+            <tr><td>T1.2.5</td><td>PCB焊接与调试</td><td>硬件</td><td>2天</td></tr>
+            <tr><td>T1.2.6</td><td>3D结构件打印</td><td>结构</td><td>2天</td><td>PLA材料</td></tr>
+            <tr><td>T1.2.7</td><td>亚克力缸切割</td><td>结构</td><td>1天</td><td>激光切割</td></tr>
+            <tr><td>T1.2.8</td><td>机械组装</td><td>结构</td><td>1天</td></tr>
+            <tr><td>T1.2.9</td><td>嵌入式软件开发</td><td>软件</td><td>5天</td><td>WiFi、Web服务器、传感器驱动</td></tr>
+            <tr><td>T1.2.10</td><td>过滤系统搭建</td><td>结构</td><td>1天</td><td>水泵、滤材测试</td></tr>
+            <tr><td>T1.2.11</td><td>功能联调</td><td>软件</td><td>2天</td></tr>
+            </table>
+            <h4>M1.3 第一阶段评审（Day 26-28）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T1.3.1</td><td>功能测试与记录</td><td>测试</td><td>1天</td><td>测试报告</td></tr>
+            <tr><td>T1.3.2</td><td>设计评审会议</td><td>全员</td><td>0.5天</td></tr>
+            <tr><td>T1.3.3</td><td>问题汇总与改进计划</td><td>PM</td><td>0.5天</td><td>改进清单输出</td></tr>
+            </table>
+            <h3>【第二阶段：小批量制作】</h3>
+            <h4>M2.1 结构优化与3D打印（Day 29-45）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T2.1.1</td><td>基于原型反馈优化结构</td><td>结构</td><td>3天</td><td>强度、人体工学改进</td></tr>
+            <tr><td>T2.1.2</td><td>优化后的3D打印（5套）</td><td>结构</td><td>4天</td><td>每套约8个零件</td></tr>
+            <tr><td>T2.1.3</td><td>亚克力缸批量切割方案</td><td>结构</td><td>1天</td></tr>
+            <tr><td>T2.1.4</td><td>结构件尺寸检验</td><td>结构</td><td>1天</td><td>卡尺、万能表</td></tr>
+            <tr><td>T2.1.5</td><td>结构件装配测试</td><td>结构</td><td>2天</td><td>组装工时验证</td></tr>
+            </table>
+            <h4>M2.2 PCB打样与测试（Day 46-60）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T2.2.1</td><td>PCB布局优化（基于第一阶段问题）</td><td>硬件</td><td>3天</td><td>尺寸、布线优化</td></tr>
+            <tr><td>T2.2.2</td><td>PCB打样（3套）</td><td>硬件</td><td>5天</td><td>含SMT打样</td></tr>
+            <tr><td>T2.2.3</td><td>PCB焊接（3套）</td><td>硬件</td><td>2天</td></tr>
+            <tr><td>T2.2.4</td><td>硬件功能测试</td><td>硬件</td><td>3天</td><td>电源、传感器、通讯</td></tr>
+            <tr><td>T2.2.5</td><td>老化测试（48小时）</td><td>硬件</td><td>2天</td><td>稳定性验证</td></tr>
+            </table>
+            <h4>M2.3 小批量组装与测试（Day 61-75）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T2.3.1</td><td>物料备料（5套）</td><td>PM</td><td>2天</td><td>BOM物料采购</td></tr>
+            <tr><td>T2.3.2</td><td>结构件装配（5套）</td><td>结构</td><td>2天</td></tr>
+            <tr><td>T2.3.3</td><td>PCB装配（5套）</td><td>硬件</td><td>2天</td></tr>
+            <tr><td>T2.3.4</td><td>软件烧录（5套）</td><td>软件</td><td>0.5天</td></tr>
+            <tr><td>T2.3.5</td><td>系统联调测试</td><td>软件</td><td>2天</td></tr>
+            <tr><td>T2.3.6</td><td>长时间运行测试（72小时）</td><td>测试</td><td>4天</td><td>含过滤、温控测试</td></tr>
+            <tr><td>T2.3.7</td><td>外观检验与记录</td><td>测试</td><td>0.5天</td></tr>
+            </table>
+            <h4>M2.4 第二阶段评审（Day 76-78）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T2.4.1</td><td>测试报告汇总</td><td>测试</td><td>1天</td></tr>
+            <tr><td>T2.4.2</td><td>设计评审会议</td><td>全员</td><td>0.5天</td></tr>
+            <tr><td>T2.4.3</td><td>BOM定稿</td><td>硬件</td><td>0.5天</td><td>物料清单最终版</td></tr>
+            <tr><td>T2.4.4</td><td>成本核算更新</td><td>PM</td><td>0.5天</td><td>实际成本 vs 预算</td></tr>
+            </table>
+            <h3>【第三阶段：量产准备】</h3>
+            <h4>M3.1 开模评估与计划（Day 79-90）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T3.1.1</td><td>3D打印件开模评估</td><td>结构</td><td>3天</td><td>哪些件需要开模</td></tr>
+            <tr><td>T3.1.2</td><td>开模费用询价（3家）</td><td>PM</td><td>2天</td></tr>
+            <tr><td>T3.1.3</td><td>开模方案确定与下单</td><td>结构</td><td>5天</td></tr>
+            <tr><td>T3.1.4</td><td>模具试产与验收</td><td>结构</td><td>2天</td></tr>
+            </table>
+            <h4>M3.2 生产文档定稿（Day 91-100）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T3.2.1</td><td>生产指导书编写</td><td>结构</td><td>2天</td><td>装配流程</td></tr>
+            <tr><td>T3.2.2</td><td>测试规范编写</td><td>测试</td><td>2天</td><td>检验标准</td></tr>
+            <tr><td>T3.2.3</td><td>BOM整理与标注</td><td>硬件</td><td>2天</td><td>供应商、料号</td></tr>
+            <tr><td>T3.2.4</td><td>包装方案设计</td><td>结构</td><td>2天</td></tr>
+            <tr><td>T3.2.5</td><td>说明书编写</td><td>软件</td><td>2天</td><td>用户手册</td></tr>
+            </table>
+            <h4>M3.3 量产验证（Day 101-115）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T3.3.1</td><td>物料采购（首批20套）</td><td>PM</td><td>5天</td></tr>
+            <tr><td>T3.3.2</td><td>注塑件生产</td><td>结构</td><td>3天</td></tr>
+            <tr><td>T3.3.3</td><td>PCB生产（20套）</td><td>硬件</td><td>3天</td></tr>
+            <tr><td>T3.3.4</td><td>装配产线试运行</td><td>生产</td><td>2天</td></tr>
+            <tr><td>T3.3.5</td><td>首批20套组装</td><td>生产</td><td>2天</td></tr>
+            <tr><td>T3.3.6</td><td>全检与老化测试</td><td>测试</td><td>2天</td></tr>
+            <tr><td>T3.3.7</td><td>包装发货</td><td>生产</td><td>1天</td></tr>
+            </table>
+            <h4>M3.4 项目结项（Day 116-120）</h4>
+            <table>
+            <tr><th>任务编号</th><th>任务名称</th><th>责任人</th><th>预计工时</th><th>备注</th></tr>
+            <tr><td>----------</td><td>----------</td><td>--------</td><td>----------</td><td>------</td></tr>
+            <tr><td>T3.4.1</td><td>项目总结报告</td><td>PM</td><td>2天</td></tr>
+            <tr><td>T3.4.2</td><td>经验教训整理</td><td>全员</td><td>1天</td></tr>
+            <tr><td>T3.4.3</td><td>项目文档归档</td><td>PM</td><td>1天</td></tr>
+            <tr><td>T3.4.4</td><td>结项评审会议</td><td>全员</td><td>1天</td></tr>
+            </table>
+            <h2>3. 关键风险清单</h2>
+            <table>
+            <tr><th>序号</th><th>风险描述</th><th>发生概率</th><th>影响程度</th><th>风险等级</th><th>应对方案</th></tr>
+            <tr><td>------</td><td>----------</td><td>----------</td><td>----------</td><td>----------</td><td>----------</td></tr>
+            <tr><td>R1</td><td>**舵机喂食器卡死** - 舵机堵转、齿轮磨损</td><td>中</td><td>高</td><td>**高**</td><td>① 选用带堵转保护的舵机<br>② 降低喂食频率预设值<br>③ 增加过流检测与自动复位<br>④ 机械结构增加限位块</td></tr>
+            <tr><td>R2</td><td>**过滤效果不佳导致水质变差**</td><td>中</td><td>高</td><td>**高**</td><td>① 选用流量合适的水泵（建议3L/min）<br>② 合理设计滤材空间与流道<br>③ 预留滤材更换提示功能<br>④ 首阶段增加水质测试验证</td></tr>
+            <tr><td>R3</td><td>**ESP32 WiFi连接不稳定**</td><td>低</td><td>中</td><td>**中**</td><td>① 选用AP+STA双模式，Web优先本地<br>② 增加WiFi自动重连机制<br>③ 添加配置缓存，断网后本地可控<br>④ 考虑增加物理控制按键</td></tr>
+            <tr><td>R4</td><td>**3D打印结构强度不足**</td><td>中</td><td>中</td><td>**中**</td><td>① 优化打印参数（100%填充、壁厚增加）<br>② 改用PETG/ASA材料提高韧性<br>③ 关键受力部位加厚设计<br>④ 开模阶段前进行破坏性测试</td></tr>
+            <tr><td>R5</td><td>**成本超预算（100元）**</td><td>中</td><td>高</td><td>**高**</td><td>① 关键器件（ESP32-C3、OLED）优先低成本方案<br>② 采用模块化设计，PCBA与结构分离采购<br>③ 批量采购争取折扣<br>④ 预留10%缓冲预算应对涨价</td></tr>
+            </table>
+            <h2>4. 质量检查清单</h2>
+            <h3>第一阶段：原理验证</h3>
+            <table>
+            <tr><th>检查项</th><th>检查内容</th><th>检验方法</th><th>判定标准</th><th>责任人</th></tr>
+            <tr><td>--------</td><td>----------</td><td>----------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>Q1.1</td><td>原理图正确性</td><td>设计评审</td><td>无短路、无开路、器件选型合理</td><td>硬件</td></tr>
+            <tr><td>Q1.2</td><td>PCB可制造性</td><td>DR检查</td><td>满足嘉立创工艺规范</td><td>硬件</td></tr>
+            <tr><td>Q1.3</td><td>结构3D模型</td><td>装配检查</td><td>无干涉、尺寸符合公差</td><td>结构</td></tr>
+            <tr><td>Q1.4</td><td>电源功能</td><td>测试</td><td>5V输出稳定，纹波<100mV</td><td>硬件</td></tr>
+            <tr><td>Q1.5</td><td>传感器功能</td><td>测试</td><td>DS18B20读数准确±0.5°C</td><td>软件</td></tr>
+            <tr><td>Q1.6</td><td>WiFi连接</td><td>测试</td><td>连接成功率>95%</td><td>软件</td></tr>
+            <tr><td>Q1.7</td><td>Web控制响应</td><td>测试</td><td>页面加载<2s，响应<500ms</td><td>软件</td></tr>
+            <tr><td>Q1.8</td><td>LED调光功能</td><td>测试</td><td>亮度0-100%可调，无闪烁</td><td>软件</td></tr>
+            <tr><td>Q1.9</td><td>舵机控制</td><td>测试</td><td>角度准确，可定时触发</td><td>软件</td></tr>
+            <tr><td>Q1.10</td><td>过滤系统</td><td>测试</td><td>水流循环正常，噪音<50dB</td><td>结构</td></tr>
+            <tr><td>Q1.11</td><td>整体外观</td><td>目检</td><td>无明显瑕疵、装配到位</td><td>测试</td></tr>
+            <tr><td>Q1.12</td><td>长时间运行</td><td>72h测试</td><td>无死机、无异常</td><td>测试</td></tr>
+            </table>
+            <h3>第二阶段：小批量制作</h3>
+            <table>
+            <tr><th>检查项</th><th>检查内容</th><th>检验方法</th><th>判定标准</th><th>责任人</th></tr>
+            <tr><td>--------</td><td>----------</td><td>----------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>Q2.1</td><td>物料一致性</td><td>来料检验</td><td>BOM物料型号、规格一致</td><td>采购</td></tr>
+            <tr><td>Q2.2</td><td>PCB焊接质量</td><td>AOI/目检</td><td>无虚焊、无连锡</td><td>生产</td></tr>
+            <tr><td>Q2.3</td><td>结构件尺寸</td><td>抽检5%</td><td>公差±0.5mm</td><td>QC</td></tr>
+            <tr><td>Q2.4</td><td>装配工艺</td><td>全检</td><td>符合装配指导书</td><td>QC</td></tr>
+            <tr><td>Q2.5</td><td>软件版本一致性</td><td>检查</td><td>所有设备固件版本相同</td><td>软件</td></tr>
+            <tr><td>Q2.6</td><td>功能测试</td><td>全检</td><td>通过Q1全部测试项</td><td>QC</td></tr>
+            <tr><td>Q2.7</td><td>老化测试</td><td>48h测试</td><td>通过，无批次性问题</td><td>测试</td></tr>
+            <tr><td>Q2.8</td><td>外观检验</td><td>全检</td><td>无划痕、无色差</td><td>QC</td></tr>
+            <tr><td>Q2.9</td><td>包装检验</td><td>抽检</td><td>包装完整、配件齐全</td><td>生产</td></tr>
+            </table>
+            <h3>第三阶段：量产验证</h3>
+            <table>
+            <tr><th>检查项</th><th>检查内容</th><th>检验方法</th><th>判定标准</th><th>责任人</th></tr>
+            <tr><td>--------</td><td>----------</td><td>----------</td><td>----------</td><td>--------</td></tr>
+            <tr><td>Q3.1</td><td>模具件首件检验</td><td>全检</td><td>尺寸、外观符合标准</td><td>QC</td></tr>
+            <tr><td>Q3.2</td><td>PCB来料检验</td><td>抽检10%</td><td>焊盘、元件完好</td><td>QC</td></tr>
+            <tr><td>Q3.3</td><td>组装线节拍</td><td>时间测量</td><td>单套<30分钟</td><td>生产</td></tr>
+            <tr><td>Q3.4</td><td>成品功能测试</td><td>全检</td><td>通过全部功能测试</td><td>QC</td></tr>
+            <tr><td>Q3.5</td><td>老化测试</td><td>抽检5%</td><td>48h无异常</td><td>测试</td></tr>
+            <tr><td>Q3.6</td><td>出货检验</td><td>全检</td><td>外观、配件、文档齐全</td><td>QC</td></tr>
+            <tr><td>Q3.7</td><td>客户验收测试</td><td>试用</td><td>用户反馈满意</td><td>PM</td></tr>
+            </table>
+            <h2>5. 成本预算明细表</h2>
+            <h3>5.1 硬件BOM成本（单套）</h3>
+            <table>
+            <tr><th>序号</th><th>物料名称</th><th>规格/型号</th><th>数量</th><th>单价(元)</th><th>小计(元)</th><th>供应商</th><th>备注</th></tr>
+            <tr><td>------</td><td>----------</td><td>-----------</td><td>------</td><td>----------</td><td>----------</td><td>--------</td><td>------</td></tr>
+            <tr><td>**主控与通讯**</td></tr>
+            <tr><td>1</td><td>ESP32-C3 Mini</td><td>ESP32-C3-MINI-1</td><td>1</td><td>6.00</td><td>6.00</td><td>乐鑫/淘宝</td><td>4MB Flash</td></tr>
+            <tr><td>2</td><td>USB-C母座</td><td>6P贴片</td><td>1</td><td>0.50</td><td>0.50</td><td>淘宝</td></tr>
+            <tr><td>**显示**</td></tr>
+            <tr><td>3</td><td>OLED显示屏</td><td>0.96寸 I2C SSD1306</td><td>1</td><td>4.00</td><td>4.00</td><td>淘宝</td><td>128x64</td></tr>
+            <tr><td>**传感器**</td></tr>
+            <tr><td>4</td><td>DS18B20</td><td>TO-92封装+防水线</td><td>1</td><td>3.00</td><td>3.00</td><td>淘宝</td><td>温度监测</td></tr>
+            <tr><td>5</td><td>水位传感器</td><td>浮球式/电容式</td><td>1</td><td>2.00</td><td>2.00</td><td>淘宝</td><td>低水位报警</td></tr>
+            <tr><td>**执行器**</td></tr>
+            <tr><td>6</td><td>水泵</td><td>5V 120mA DC水泵</td><td>1</td><td>5.00</td><td>5.00</td><td>淘宝</td><td>过滤循环</td></tr>
+            <tr><td>7</td><td>舵机</td><td>SG90 9g舵机</td><td>1</td><td>3.00</td><td>3.00</td><td>淘宝</td><td>喂食控制</td></tr>
+            <tr><td>8</td><td>LED灯珠</td><td>5V WS2812B 灯带</td><td>1段(12颗)</td><td>4.00</td><td>4.00</td><td>淘宝</td><td>照明</td></tr>
+            <tr><td>**结构件**</td></tr>
+            <tr><td>9</td><td>亚克力缸</td><td>15x15x15cm 5mm厚</td><td>1套</td><td>12.00</td><td>12.00</td><td>激光切割</td><td>需要定制</td></tr>
+            <tr><td>10</td><td>3D打印件</td><td>底座、盖板、支架等</td><td>约8件</td><td>8.00</td><td>8.00</td><td>自打印</td><td>PLA材料</td></tr>
+            <tr><td>**PCB**</td></tr>
+            <tr><td>11</td><td>PCB板</td><td>双层 5x7cm</td><td>1</td><td>5.00</td><td>5.00</td><td>嘉立创</td><td>含SMT</td></tr>
+            <tr><td>12</td><td>阻容元件</td><td>电阻、电容、晶振等</td><td>若干</td><td>3.00</td><td>3.00</td><td>立创商城</td></tr>
+            <tr><td>13</td><td>连接件</td><td>JST PH座子、杜邦线</td><td>若干</td><td>2.00</td><td>2.00</td><td>淘宝</td></tr>
+            <tr><td>**其他**</td></tr>
+            <tr><td>14</td><td>加热棒接口</td><td>预留</td><td>1</td><td>0.00</td><td>0.00</td><td>端子预留</td></tr>
+            <tr><td>15</td><td>包装</td><td>彩盒+内托</td><td>1</td><td>3.00</td><td>3.00</td></tr>
+            <tr><td>**总计**</td><td>**60.50**</td><td>单套成本</td></tr>
+            </table>
+            <h3>5.2 一次性投入成本</h3>
+            <table>
+            <tr><th>序号</th><th>项目</th><th>单价(元)</th><th>数量</th><th>小计(元)</th><th>备注</th></tr>
+            <tr><td>------</td><td>------</td><td>----------</td><td>------</td><td>----------</td><td>------</td></tr>
+            <tr><td>1</td><td>PCB首次打样</td><td>50.00</td><td>5</td><td>250.00</td><td>嘉立创</td></tr>
+            <tr><td>2</td><td>开模费（底座）</td><td>3000.00</td><td>1</td><td>3000.00</td><td>塑料注塑</td></tr>
+            <tr><td>3</td><td>开模费（盖板）</td><td>2000.00</td><td>1</td><td>2000.00</td></tr>
+            <tr><td>4</td><td>模具运输</td><td>200.00</td><td>1</td><td>200.00</td></tr>
+            <tr><td>5</td><td>工装夹具</td><td>300.00</td><td>1</td><td>300.00</td><td>装配辅助</td></tr>
+            <tr><td>6</td><td>测试设备</td><td>500.00</td><td>1</td><td>500.00</td><td>万用表等</td></tr>
+            <tr><td>**一次性投入合计**</td><td>**6250.00**</td></tr>
+            </table>
+            <h3>5.3 量产阶段成本预估（20套）</h3>
+            <table>
+            <tr><th>项目</th><th>单套成本(元)</th><th>20套合计(元)</th><th>说明</th></tr>
+            <tr><td>------</td><td>--------------</td><td>--------------</td><td>------</td></tr>
+            <tr><td>物料成本</td><td>60.50</td><td>1210.00</td><td>散件采购</td></tr>
+            <tr><td>注塑件成本</td><td>8.00</td><td>160.00</td><td>替代3D打印</td></tr>
+            <tr><td>PCB制板</td><td>4.00</td><td>80.00</td><td>批量折扣</td></tr>
+            <tr><td>组装人工</td><td>15.00</td><td>300.00</td><td>约30min/套</td></tr>
+            <tr><td>包装</td><td>3.00</td><td>60.00</td></tr>
+            <tr><td>测试</td><td>5.00</td><td>100.00</td></tr>
+            <tr><td>**20套总成本**</td><td>**1910.00**</td><td>平均95.5元/套</td></tr>
+            <tr><td>加上模具分摊（200套）</td><td>31.25/套</td><td>模具6250÷200</td></tr>
+            <tr><td>**盈亏平衡成本**</td><td>**91.75**</td><td><100元目标达成</td></tr>
+            </table>
+            <h3>5.4 预算总结</h3>
+            <table>
+            <tr><th>项目</th><th>金额(元)</th><th>占比</th><th>说明</th></tr>
+            <tr><td>------</td><td>----------</td><td>------</td><td>------</td></tr>
+            <tr><td>单套BOM成本</td><td>60.50</td><td>60.5%</td></tr>
+            <tr><td>组装与测试</td><td>20.00</td><td>20%</td></tr>
+            <tr><td>包装与物流</td><td>5.00</td><td>5%</td></tr>
+            <tr><td>预留（不可预见）</td><td>9.50</td><td>9.5%</td></tr>
+            <tr><td>利润空间</td><td>5.00</td><td>5%</td><td>销售定价约105元</td></tr>
+            <tr><td>**单套目标成本**</td><td>**100.00**</td><td>100%</td><td>✓</td></tr>
+            </table>
+            <h2>6. 项目管理机制</h2>
+            <h3>6.1 沟通机制</h3>
+            <li><strong>每日站会</strong>：每日工作开始前，团队成员同步进展与问题</li>
+            <li><strong>周例会</strong>：每周五下午，项目经理主持，评审本周成果与下周计划</li>
+            <li><strong>里程碑评审</strong>：每个里程碑结束时召开评审会议，输出评审报告</li>
+            <h3>6.2 变更管理</h3>
+            <li>任何需求变更需通过项目经理评估影响后方可实施</li>
+            <li>紧急变更需在24小时内知会所有相关方</li>
+            <h3>6.3 问题追踪</h3>
+            <li>使用看板管理任务状态：待办 → 进行中 → 待验收 → 已完成</li>
+            <li>重大问题立即升级，不得拖延</li>
+            <h2>7. 附录</h2>
+            <h3>7.1 关键技术指标</h3>
+            <table>
+            <tr><th>指标</th><th>目标值</th><th>备注</th></tr>
+            <tr><td>------</td><td>--------</td><td>------</td></tr>
+            <tr><td>工作电压</td><td>5V USB供电</td></tr>
+            <tr><td>工作电流</td><td><800mA（满载）</td><td>含水泵、LED、舵机</td></tr>
+            <tr><td>WiFi标准</td><td>802.11 b/g/n</td><td>2.4GHz</td></tr>
+            <tr><td>温度监测范围</td><td>0-50°C</td><td>精度±0.5°C</td></tr>
+            <tr><td>OLED分辨率</td><td>128x64</td></tr>
+            <tr><td>水泵流量</td><td>>1.5L/min</td><td>满足过滤需求</td></tr>
+            <tr><td>舵机角度精度</td><td>±5°</td></tr>
+            <tr><td>LED亮度</td><td>0-100%可调</td></tr>
+            <tr><td>产品尺寸</td><td>15x15x15cm</td></tr>
+            <tr><td>工作温度</td><td>0-40°C</td></tr>
+            <tr><td>储存温度</td><td>-20-60°C</td></tr>
+            </table>
+            <h3>7.2 文档清单</h3>
+            <table>
+            <tr><th>文档名称</th><th>版本</th><th>负责人</th><th>状态</th></tr>
+            <tr><td>----------</td><td>------</td><td>--------</td><td>------</td></tr>
+            <tr><td>需求规格说明书</td><td>V1.0</td><td>项目经理</td><td>待输出</td></tr>
+            <tr><td>硬件原理图</td><td>V1.0</td><td>硬件工程师</td><td>待输出</td></tr>
+            <tr><td>PCB布局图</td><td>V1.0</td><td>硬件工程师</td><td>待输出</td></tr>
+            <tr><td>结构3D模型</td><td>V1.0</td><td>结构工程师</td><td>待输出</td></tr>
+            <tr><td>软件需求文档</td><td>V1.0</td><td>软件工程师</td><td>待输出</td></tr>
+            <tr><td>测试报告</td><td>V1.0</td><td>测试工程师</td><td>待输出</td></tr>
+            <tr><td>用户手册</td><td>V1.0</td><td>软件工程师</td><td>待输出</td></tr>
+            <tr><td>生产指导书</td><td>V1.0</td><td>结构工程师</td><td>待输出</td></tr>
+            <tr><td>项目总结报告</td><td>V1.0</td><td>项目经理</td><td>待输出</td></tr>
+            </table>
+            <p><strong>文档结束</strong></p>
+    </main>
+    <footer>
+        <p>SFT-001 智能鱼缸 · <a href="../../index.html">返回文档中心</a></p>
+    </footer>
+</body>
+</html>
