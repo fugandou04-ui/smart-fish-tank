@@ -26,3 +26,11 @@ build/
 
 # OS cache
 $RECYCLE.BIN/
+
+# Matrix 文生图临时输出
+matrix-media-*.png
+temp_*.json
+
+# Mavis plan engine 工作目录
+.mavis/
+decision.json
