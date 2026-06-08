@@ -21,8 +21,8 @@
 | 舵机PWM | GPIO4 | SG90控制 |
 | LED数据 | GPIO5 | WS2812B |
 | 温度传感器 | GPIO7 | DS18B20 |
-| OLED SCL | GPIO0 | I2C时钟 |
-| OLED SDA | GPIO1 | I2C数据 |
+| OLED SCL | GPIO1 | I2C时钟（与 PCB 一致） |
+| OLED SDA | GPIO0 | I2C数据（与 PCB 一致） |
 
 ## 文件结构
 
@@ -224,9 +224,15 @@ src/firmware/
 
 ## 扩展功能
 
-### OTA升级
+### OTA升级（计划中，v1.1 暂未实现）
 
-固件支持OTA无线升级，可通过Web界面或Arduino IDE远程更新。
+v1.0 固件**未实现** OTA 无线升级功能，**当前必须通过 USB 串口手动烧录**。
+计划在 v1.1 版本引入 `ArduinoOTA` 库实现：
+- Arduino IDE 网络端口远程上传
+- Web 界面触发 OTA 更新（需新增 `/api/ota` 端点）
+- 配网成功后即可无线更新
+
+升级前请保留 USB-TTL 串口烧录线，按住 BOOT 按钮进入下载模式烧录。
 
 ### 自定义灯光效果
 

@@ -35,29 +35,31 @@
 | ESP32-C3 Mini | 1 | 主控芯片 |
 | OLED 0.66" | 1 | I2C 接口 |
 | DS18B20 | 1 | 防水温度探头 |
-| WS2812B LED | 12颗 | 灯带 |
+| WS2812B LED | 5颗 | 灯带（150mm 缸盖）|
 | SG90 舵机 | 1 | 喂食控制 |
 | 5V 水泵 | 1 | 带继电器 |
-| 5V 继电器 | 2 | 水泵+预留 |
+| 5V 继电器 | 1 | 水泵控制（加热棒接口已外移）|
 
 ### GPIO 分配
 
 | GPIO | 功能 |
 |------|------|
-| GPIO0 | OLED SCL (I2C) |
-| GPIO1 | OLED SDA (I2C) |
+| GPIO0 | OLED SDA (I2C) |
+| GPIO1 | OLED SCL (I2C) |
 | GPIO3 | 水泵继电器 |
 | GPIO4 | 舵机 PWM |
 | GPIO5 | WS2812B 数据 |
 | GPIO7 | DS18B20 单总线 |
 
+> OLED: SDA=GPIO0, SCL=GPIO1（按硬件布线）
+
 ### 固件烧录
 
 1. 安装 [Arduino IDE](https://www.arduino.cc/en/software)
 2. 添加 ESP32 开发板：`https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-3. 安装依赖库：AsyncTCP, ESP Async WebServer, FastLED, ESP32Servo, OneWire, DallasTemperature, SSD1306
+3. 安装依赖库：AsyncTCP、ESPAsyncWebServer、FastLED、ESP32Servo、OneWire、DallasTemperature、Adafruit_SSD1306、Adafruit_GFX、Wire（Arduino 内置）、ArduinoJson、Preferences
 4. 打开 `src/firmware/main.ino`
-5. 选择开发板：`ESP32C3 Dev Module`
+5. 选择开发板：`ESP32C3 Dev Module`（如用 PlatformIO 则在 `platformio.ini` 中使用 `esp32-c3-mini` 名称）
 6. 编译上传
 
 ### Web 控制
@@ -68,7 +70,10 @@
 
 ## 预算
 
-原型阶段总成本约 **92.2 元**
+原型阶段总成本约 **92.2 元（实物采购成本，原型阶段）**
+
+> 详细口径说明见《元器件采购清单》§成本（`docs/hardware/元器件采购清单/元器件采购清单.md` §十）
+> 其他口径：单套目标成本 100.00 元（设计目标）/ 量产 20 套盈亏平衡 91.75 元/套（含模具分摊）/ 预算余量建议 120 元（含运费+备损）
 
 详见 `docs/hardware/元器件采购清单/元器件采购清单.md`
 
@@ -98,3 +103,11 @@ https://github.com/fugandou04-ui/smart-fish-tank
 ## 许可证
 
 MIT License
+
+---
+
+## 修订记录
+
+**v1.1 成本口径标注 2026-06-06**：在"## 预算"段为 92.2 元增加"实物采购成本，原型阶段"口径说明，并补充引用《元器件采购清单》§十 的详细口径表，明确 92.2/100/91.75/120 各数字含义。
+
+操作人：项目经理 agent-460cdc236e70

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面智能鱼缸三视图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: #4fc3f7;
+        }
+        .drawing-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .view-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .view-box {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #0f3460;
+        }
+        .view-title {
+            text-align: center;
+            font-size: 18px;
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+        .dimension-text {
+            font-size: 12px;
+            fill: #4fc3f7;
+        }
+        .title-text {
+            font-size: 14px;
+            fill: #fff;
+            font-weight: bold;
+        }
+        .info-box {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #0f3460;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        .info-box h2 {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+        .info-label {
+            color: #aaa;
+        }
+        .info-value {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>桌面智能鱼缸 — 三视图</h1>
+    
+    <div class="drawing-container">
+        <!-- 正视图 + 侧视图 -->
+        <div class="view-row">
+            <!-- 正视图 (Front View) -->
+            <div class="view-box">
+                <div class="view-title">正视图 (Front View)</div>
+                <svg width="300" height="350" viewBox="0 0 300 350">
+                    <!-- Tank body -->
+                    <rect x="75" y="50" width="150" height="150" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Tank lid -->
+                    <rect x="73" y="45" width="154" height="8" fill="#4fc3f7" opacity="0.3" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Base -->
+                    <rect x="70" y="200" width="160" height="48" fill="#4fc3f7" opacity="0.3" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Base top cover -->
+                    <rect x="70" y="196" width="160" height="5" fill="#4fc3f7" opacity="0.5" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- OLED display -->
+                    <rect x="100" y="210" width="63" height="22" fill="#0f3460" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Servo cable slot -->
+                    <rect x="170" y="210" width="8" height="3" fill="#0f3460" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Water pump indicator -->
+                    <circle cx="185" cy="230" r="8" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Filter box indicator -->
+                    <rect x="90" y="215" width="30" height="25" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,3"/>
+                    
+                    <!-- LED strip on top -->
+                    <rect x="75" y="47" width="150" height="4" fill="#ffd700" opacity="0.5"/>
+                    
+                    <!-- Dimensions - Front View -->
+                    <line x1="75" y1="30" x2="225" y2="30" stroke="#888" stroke-width="1"/>
+                    <line x1="75" y1="27" x2="75" y2="33" stroke="#888" stroke-width="1"/>
+                    <line x1="225" y1="27" x2="225" y2="33" stroke="#888" stroke-width="1"/>
+                    <text x="150" y="25" class="dimension-text" text-anchor="middle">150mm</text>
+                    
+                    <line x1="60" y1="50" x2="60" y2="200" stroke="#888" stroke-width="1"/>
+                    <line x1="57" y1="50" x2="63" y2="50" stroke="#888" stroke-width="1"/>
+                    <line x1="57" y1="200" x2="63" y2="200" stroke="#888" stroke-width="1"/>
+                    <text x="55" y="125" class="dimension-text" text-anchor="middle" transform="rotate(-90, 55, 125)">150mm</text>
+                    
+                    <line x1="60" y1="200" x2="60" y2="248" stroke="#888" stroke-width="1"/>
+                    <text x="55" y="228" class="dimension-text" text-anchor="middle" transform="rotate(-90, 55, 228)">48mm</text>
+                    
+                    <!-- Overall height -->
+                    <line x1="250" y1="45" x2="250" y2="248" stroke="#888" stroke-width="1"/>
+                    <line x1="247" y1="45" x2="253" y2="45" stroke="#888" stroke-width="1"/>
+                    <line x1="247" y1="248" x2="253" y2="248" stroke="#888" stroke-width="1"/>
+                    <text x="265" y="150" class="dimension-text" text-anchor="middle" transform="rotate(-90, 265, 150)">203mm</text>
+                    
+                    <!-- Base width -->
+                    <line x1="70" y1="265" x2="230" y2="265" stroke="#888" stroke-width="1"/>
+                    <line x1="70" y1="262" x2="70" y2="268" stroke="#888" stroke-width="1"/>
+                    <line x1="230" y1="262" x2="230" y2="268" stroke="#888" stroke-width="1"/>
+                    <text x="150" y="280" class="dimension-text" text-anchor="middle">160mm</text>
+                    
+                    <!-- Title -->
+                    <text x="150" y="320" class="title-text" text-anchor="middle">前视图</text>
+                </svg>
+            </div>
+            
+            <!-- 侧视图 (Side View) -->
+            <div class="view-box">
+                <div class="view-title">侧视图 (Side View)</div>
+                <svg width="300" height="350" viewBox="0 0 300 350">
+                    <!-- Tank body (side view - shorter visible height) -->
+                    <rect x="90" y="50" width="120" height="145" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Tank lid (visible part) -->
+                    <rect x="88" y="45" width="124" height="8" fill="#4fc3f7" opacity="0.3" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Base -->
+                    <rect x="85" y="195" width="130" height="48" fill="#4fc3f7" opacity="0.3" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Base top cover -->
+                    <rect x="85" y="191" width="130" height="5" fill="#4fc3f7" opacity="0.5" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Water pump circle -->
+                    <circle cx="175" cy="220" r="10" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Filter box (side view) -->
+                    <rect x="100" y="205" width="40" height="28" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,3"/>
+                    
+                    <!-- Water pipe holes -->
+                    <circle cx="85" cy="210" r="3" fill="#4fc3f7" opacity="0.5"/>
+                    <circle cx="85" cy="230" r="3" fill="#4fc3f7" opacity="0.5"/>
+                    
+                    <!-- Feeding hole -->
+                    <circle cx="150" cy="49" r="25" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,3"/>
+                    
+                    <!-- LED strip indicator -->
+                    <rect x="90" y="47" width="120" height="3" fill="#ffd700" opacity="0.5"/>
+                    
+                    <!-- Ventilation holes -->
+                    <circle cx="180" cy="49" r="2" fill="#4fc3f7"/>
+                    <circle cx="188" cy="49" r="2" fill="#4fc3f7"/>
+                    <circle cx="196" cy="49" r="2" fill="#4fc3f7"/>
+                    <circle cx="204" cy="49" r="2" fill="#4fc3f7"/>
+                    
+                    <!-- Dimensions - Side View -->
+                    <line x1="90" y1="30" x2="210" y2="30" stroke="#888" stroke-width="1"/>
+                    <line x1="90" y1="27" x2="90" y2="33" stroke="#888" stroke-width="1"/>
+                    <line x1="210" y1="27" x2="210" y2="33" stroke="#888" stroke-width="1"/>
+                    <text x="150" y="25" class="dimension-text" text-anchor="middle">120mm</text>
+                    
+                    <line x1="75" y1="50" x2="75" y2="195" stroke="#888" stroke-width="1"/>
+                    <text x="70" y="122" class="dimension-text" text-anchor="middle" transform="rotate(-90, 70, 122)">145mm</text>
+                    
+                    <line x1="75" y1="195" x2="75" y2="243" stroke="#888" stroke-width="1"/>
+                    <text x="70" y="223" class="dimension-text" text-anchor="middle" transform="rotate(-90, 70, 223)">48mm</text>
+                    
+                    <line x1="240" y1="45" x2="240" y2="243" stroke="#888" stroke-width="1"/>
+                    <line x1="237" y1="45" x2="243" y2="45" stroke="#888" stroke-width="1"/>
+                    <line x1="237" y1="243" x2="243" y2="243" stroke="#888" stroke-width="1"/>
+                    <text x="255" y="148" class="dimension-text" text-anchor="middle" transform="rotate(-90, 255, 148)">198mm</text>
+                    
+                    <!-- Title -->
+                    <text x="150" y="320" class="title-text" text-anchor="middle">侧视图</text>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- 俯视图 -->
+        <div class="view-row">
+            <div class="view-box" style="flex: 1; max-width: 600px;">
+                <div class="view-title">俯视图 (Top View)</div>
+                <svg width="400" height="400" viewBox="0 0 400 400">
+                    <!-- Base outline -->
+                    <rect x="50" y="50" width="300" height="300" fill="#4fc3f7" opacity="0.1" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Tank body outline -->
+                    <rect x="75" y="75" width="250" height="250" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- Tank lid with feeding hole -->
+                    <circle cx="200" cy="200" r="30" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+                    
+                    <!-- LED strip slot -->
+                    <rect x="75" y="70" width="250" height="10" fill="#ffd700" opacity="0.5" stroke="#ffd700" stroke-width="1"/>
+                    
+                    <!-- Ventilation holes -->
+                    <circle cx="280" cy="75" r="2" fill="#4fc3f7"/>
+                    <circle cx="288" cy="75" r="2" fill="#4fc3f7"/>
+                    <circle cx="296" cy="75" r="2" fill="#4fc3f7"/>
+                    <circle cx="304" cy="75" r="2" fill="#4fc3f7"/>
+                    <circle cx="312" cy="75" r="2" fill="#4fc3f7"/>
+                    
+                    <!-- Base mounting holes -->
+                    <circle cx="58" cy="58" r="3" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    <circle cx="342" cy="58" r="3" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    <circle cx="58" cy="342" r="3" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    <circle cx="342" cy="342" r="3" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- OLED position indicator -->
+                    <rect x="120" y="310" width="63" height="22" fill="#0f3460" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Water pump position -->
+                    <circle cx="280" cy="300" r="12" fill="none" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Filter box outline -->
+                    <rect x="100" y="300" width="60" height="40" fill="none" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3,3"/>
+                    
+                    <!-- Water pipe holes -->
+                    <circle cx="50" cy="100" r="4" fill="#4fc3f7" opacity="0.5"/>
+                    <circle cx="50" cy="300" r="4" fill="#4fc3f7" opacity="0.5"/>
+                    
+                    <!-- Servo cable slot -->
+                    <rect x="310" y="310" width="8" height="3" fill="#0f3460" stroke="#4fc3f7" stroke-width="1"/>
+                    
+                    <!-- Dimensions - Top View -->
+                    <line x1="50" y1="370" x2="350" y2="370" stroke="#888" stroke-width="1"/>
+                    <line x1="50" y1="367" x2="50" y2="373" stroke="#888" stroke-width="1"/>
+                    <line x1="350" y1="367" x2="350" y2="373" stroke="#888" stroke-width="1"/>
+                    <text x="200" y="390" class="dimension-text" text-anchor="middle">300mm</text>
+                    
+                    <line x1="30" y1="50" x2="30" y2="350" stroke="#888" stroke-width="1"/>
+                    <line x1="27" y1="50" x2="33" y2="50" stroke="#888" stroke-width="1"/>
+                    <line x1="27" y1="350" x2="33" y2="350" stroke="#888" stroke-width="1"/>
+                    <text x="25" y="200" class="dimension-text" text-anchor="middle" transform="rotate(-90, 25, 200)">300mm</text>
+                    
+                    <!-- Tank body dimensions -->
+                    <line x1="75" y1="335" x2="325" y2="335" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="200" y="350" class="dimension-text" text-anchor="middle">250mm</text>
+                    
+                    <!-- Feeding hole dimension -->
+                    <line x1="170" y1="200" x2="230" y2="200" stroke="#888" stroke-width="1"/>
+                    <text x="200" y="195" class="dimension-text" text-anchor="middle">Ø60mm</text>
+                    
+                    <!-- Title -->
+                    <text x="200" y="30" class="title-text" text-anchor="middle">俯视图</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 尺寸规格 -->
+    <div class="info-box">
+        <h2>主要尺寸规格</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">缸体外尺寸</span>
+                <span class="info-value">150 × 150 × 150 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">总高度</span>
+                <span class="info-value">≤ 203 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">底座面积</span>
+                <span class="info-value">160 × 160 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">底座高度</span>
+                <span class="info-value">48 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">亚克力壁厚</span>
+                <span class="info-value">2 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">水容量</span>
+                <span class="info-value">约 2.5 L</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">底座内部腔体</span>
+                <span class="info-value">130 × 130 × 40 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">过滤盒空间</span>
+                <span class="info-value">80 × 40 × 30 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">喂食口直径</span>
+                <span class="info-value">Ø60 mm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">PCB定位孔</span>
+                <span class="info-value">Ø3 mm (4处)</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 图例 -->
+    <div class="info-box">
+        <h2>图例说明</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">━</span>
+                <span class="info-value">缸体轮廓（亚克力）</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">▓▓▓</span>
+                <span class="info-value">底座外壳（ABS）</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">┅</span>
+                <span class="info-value">底座上盖</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">▓▓▓</span>
+                <span class="info-value">LED灯条</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">┅┅┅</span>
+                <span class="info-value">虚线：内部组件</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">◯</span>
+                <span class="info-value">水泵位置</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">▢</span>
+                <span class="info-value">OLED显示屏</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">▢</span>
+                <span class="info-value">过滤盒</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

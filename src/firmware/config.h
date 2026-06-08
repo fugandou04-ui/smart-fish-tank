@@ -17,8 +17,8 @@
 #define PIN_SERVO_PWM      4   // 舵机PWM控制 (SG90)
 #define PIN_LED_DATA       5   // WS2812B数据引脚
 #define PIN_ONEWIRE        7   // DS18B20单总线
-#define PIN_OLED_SCL       0   // OLED I2C时钟
-#define PIN_OLED_SDA       1   // OLED I2C数据
+#define PIN_OLED_SCL       1   // OLED I2C时钟 (SCL=GPIO1, 与 PCB 设计一致)
+#define PIN_OLED_SDA       0   // OLED I2C数据 (SDA=GPIO0, 与 PCB 设计一致)
 
 // ============================================
 // 硬件配置
@@ -54,7 +54,6 @@
 // Web服务器配置
 // ============================================
 #define WEB_SERVER_PORT     80
-#define OTA_ENABLED          true
 
 // ============================================
 // NTP时间服务器
@@ -132,9 +131,6 @@ extern Preferences g_preferences;
 // ============================================
 void loadConfig();
 void saveConfig();
-void savePumpState(bool state);
-void saveLedState(bool state);
-void saveLedConfig(uint8_t brightness, uint32_t color);
 void saveScheduleConfig();
 void resetConfig();
 

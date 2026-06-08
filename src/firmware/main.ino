@@ -239,7 +239,15 @@ void initWebServer() {
         } else if (request->hasParam("brightness")) {
             g_systemState.ledBrightness = request->getParam("brightness")->value().toInt();
             if (request->hasParam("color")) {
-                g_systemState.ledColor = strtoul(request->getParam("color")->value().c_str(), NULL, 16);
+                // JS color.toString(16) drops leading zeros, e.g. 0x00FF00 -> "ff00".
+                // strtoul on "ff00" returns 0xFF00, shifting green into red (yellow).
+                // Pad to 6 hex digits so the value is interpreted as 24-bit RGB
+                // (RRGGBB) right-aligned, matching the storage format.
+                String colorParam = request->getParam("color")->value();
+                while (colorParam.length() < 6) {
+                    colorParam = "0" + colorParam;
+                }
+                g_systemState.ledColor = strtoul(colorParam.c_str(), NULL, 16);
             }
             controlLed(g_systemState.ledOn, g_systemState.ledBrightness, g_systemState.ledColor);
             saveConfig();
@@ -532,7 +540,16 @@ String getStatusJSON() {
     json += "\"pump\":" + String(g_systemState.pumpOn ? "true" : "false") + ",";
     json += "\"led\":" + String(g_systemState.ledOn ? "true" : "false") + ",";
     json += "\"brightness\":" + String(g_systemState.ledBrightness) + ",";
-    json += "\"color\":\"" + String(g_systemState.ledColor, HEX) + "\",";
+    json += "\"color\":\"";
+    {
+        // Arduino String(int, HEX) does not zero-pad, which makes colors like
+        // 0x00FF00 serialize as "ff00" and shift channels (green -> yellow).
+        // %06X keeps the full 6-digit RRGGBB representation.
+        char colorHex[8];
+        snprintf(colorHex, sizeof(colorHex), "%06X", (unsigned int)g_systemState.ledColor);
+        json += colorHex;
+    }
+    json += "\",";
     json += "\"ip\":\"" + WiFi.localIP().toString() + "\",";
     json += "\"ssid\":\"" + WiFi.SSID() + "\",";
     json += "\"rssi\":" + String(WiFi.RSSI()) + ",";
